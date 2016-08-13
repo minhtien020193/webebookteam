@@ -4,9 +4,12 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Ebook</title>
+	<title>Tuy Hoa Website</title>
 </head>
 <body>
-aaaa
+
+	<form action="test">
+		<input type="submit" name="submit">
+	</form>
 </body>
 </html>
