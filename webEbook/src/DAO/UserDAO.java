@@ -5,6 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mysql.jdbc.PreparedStatement;
@@ -26,7 +29,7 @@ public class UserDAO {
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			pstmt = (PreparedStatement) con.prepareStatement("select * from thtb_users WHERE username=? AND password=?");
+			pstmt = (PreparedStatement) con.prepareStatement("select * from eb_users WHERE userName=? AND password=?");
 			pstmt.setString(1, username); 
 			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
@@ -52,6 +55,71 @@ public class UserDAO {
 			}// end finally try
 		}
 		logger.info("Done...");
+		return false;
+	}
+	
+	public boolean registerAccount(UserDTO user)
+	{
+		// hash password
+		user.setPassword(hash256(user.getPassword()));
+		
+		// add create date
+		
+		// create a sql date object so we can use it in our INSERT statement
+	      Calendar calendar = Calendar.getInstance();
+	      java.sql.Date createDate = new java.sql.Date(calendar.getTime().getTime());
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("register begins...");
+
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			
+			// the mysql insert statement
+		    String query = "insert into eb_users (userName, password, firstName, midName, "
+		    		     + "lastName, address, email, phone, roleId, del_Flg, createDate) "
+		                 + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt.setString(1, user.getUserName()); 
+			pstmt.setString(2, user.getPassword());
+			
+			pstmt.setString(3, user.getFirstName());
+			pstmt.setString(4, user.getMidName());
+			pstmt.setString(5, user.getLastName());
+			pstmt.setString(6, user.getAddress());
+			pstmt.setString(7, user.getEmail());
+			pstmt.setString(8, user.getPhone());
+			
+			pstmt.setInt(9, user.getRoleId());
+			pstmt.setBoolean(10,false);
+			pstmt.setDate(11, createDate);
+			
+			boolean check = pstmt.execute();
+			if (check) {
+				return true;
+			}
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				
+			} catch (SQLException se) {
+			}// do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}// end finally try
+		}
+		logger.info("Done...");
+		
+		
 		return false;
 	}
 	
