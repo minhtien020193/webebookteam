@@ -4,8 +4,12 @@
    "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="ebook" extends="struts-default">
-		<action name="test" class="Action.Struts2.UserAction" method="test">
-			<result name="success">/test.jsp</result>
+		<action name="home" class="Action.Struts2.PostAction" method="execute">
+			<result name="success">/home.jsp</result>
+		</action>
+		
+		<action name="detailPost" class="Action.Struts2.PostAction" method="detailPost">
+			<result name="success">/home.jsp</result>
 		</action>
 		<action name="loginAction" class="Action.Struts2.UserAction" method="login">
 			<result name="success">/test.jsp</result>
