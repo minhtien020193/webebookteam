@@ -525,3 +525,11 @@ footer .bottom {
     width: 100%;
     margin: 10px 0;
 }
+.product-review-content .item .infomation .link span {
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+.ebook-product .margin-comment{
+	margin-bottom: 10px;
+}
