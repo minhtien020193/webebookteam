@@ -13,6 +13,17 @@ $(document).ready(
 						}
 					});
 
+			$("#listEbookDetail").click(
+					function() {
+						if ($("#nav-menu").attr('style') === undefined) {
+							$("header.wrap-header .header-navigation>ul").css(
+									"display", "block");
+						} else {
+							$("header.wrap-header .header-navigation>ul")
+									.removeAttr("style");
+						}
+					});
+
 			// slideshow
 			$("#slideshow > div:gt(0)").hide();
 
