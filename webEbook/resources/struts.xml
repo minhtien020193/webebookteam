@@ -6,7 +6,6 @@
 	<package name="ebook" extends="struts-default">
 		<action name="test" class="Action.Struts2.UserAction" method="test">
 			<result name="success">/test.jsp</result>
-			<!-- <result name="fail">/fail.jsp</result> -->
 		</action>
 		
 	</package>
