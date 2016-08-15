@@ -26,7 +26,7 @@
 				</p>
 				<div class="clearfix"></div>
 			</div>
-			<div class="col-md-5 col-lg-5 header-search-wrap">
+			<div class="col-md-6 col-lg-6 header-search-wrap">
 				<form id="search_form" action="search" method="get"
 					class="header-search">
 					<div class="input-group">
@@ -42,9 +42,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-md-4 col-lg-4 visible-lg-block visible-md-block">
-				<a href="#" title="Kiểm tra" class="order-tracking-shortcut">Kiểm
-					tra </a>
+			<div class="col-md-3col-lg-3 visible-lg-block visible-md-block">
 				<div class="header-user">
 					<div class="user-name">
 						<div class="user-name-link">

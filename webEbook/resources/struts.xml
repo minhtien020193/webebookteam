@@ -9,7 +9,9 @@
 		</action>
 		
 		<action name="detailPost" class="Action.Struts2.PostAction" method="detailPost">
-			<result name="success">/home.jsp</result>
+			<result name="success">/detail.jsp</result>
+			<result name="noId">/test.jsp</result>
+			<result name="noData">/test.jsp</result>
 		</action>
 		
 	</package>

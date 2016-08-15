@@ -392,7 +392,8 @@ footer .bottom {
 
 .ebook-product .wrap .image-box {
 	margin-bottom: 15px;
-	text-align: left;
+	margin-top: 20px;
+	text-align: center;
 	font-size: 0;
 	position: relative;
 }
