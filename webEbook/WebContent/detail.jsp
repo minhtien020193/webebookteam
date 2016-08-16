@@ -212,8 +212,9 @@
 				<div class="row box-product-lifestyle">
 					<ul>
 						<s:iterator status="chap" value="listChapters">
-							<li>Chương <s:property value="#chap.count" />:
-							<a href="./chapterDetail?chapterId=<s:property value ="chapterId"/>">  <s:property value ="chapterName"/>
+							<li>Chương <s:property value="#chap.count" />: <a
+								href="./chapterDetail?chapterId=<s:property value ="chapterId"/>">
+									<s:property value="chapterName" />
 							</a>
 							</li>
 
@@ -235,15 +236,18 @@
 					<div class="review-list">
 						<div class="row margin-comment">
 							<div class="col-md-12">
-								<div class="col-md-11">
-									<input type="text" name="content" id="content"
-										data-product="162970" class="form-control" value=""
-										placeholder="Hãy cho chúng tôi biết cảm nghĩ của bạn!">
-								</div>
-								<div class="col-md-1">
-									<button type="button" class="btn btn-primary btn-add-question">Gửi
-										nhận xét</button>
-								</div>
+								<form action="postCommentPost" method="post">
+									<div class="col-md-11">
+										<input type="hidden" name="postId" value="<s:property value="postDTO.postId"/>"/>
+										<input type="text" name="content" id="content"
+											data-product="162970" class="form-control" value=""
+											placeholder="Hãy cho chúng tôi biết cảm nghĩ của bạn!">
+									</div>
+									<div class="col-md-1">
+										<button type="submit" class="btn btn-primary btn-add-question">Gửi
+											nhận xét</button>
+									</div>
+								</form>
 							</div>
 						</div>
 
@@ -257,8 +261,13 @@
 												src="https://graph.facebook.com/637828336316980/picture?width=50"
 												width="65" height="65"></a>
 										</p>
-										<p class="name" itemprop="author">Huyen Chan</p>
-										<p class="days">Đã đăng từ 8 tháng trước</p>
+										<p class="name" itemprop="author">
+											<s:property value="userComment.get(#stat.count -1)" />
+										</p>
+										<p class="days">
+											Đã đăng từ ngày:
+											<s:property value="createDate" />
+										</p>
 									</div>
 									<div class="col-md-10">
 										<div class="description js-description">
@@ -266,9 +275,8 @@
 													value="comment" /></span>
 										</div>
 										<div class="link">
-											<span class="text-success"><strong>5 người đã
-													cảm ơn nhận xét này</strong></span> <span>Nhận xét này hữu ích với
-												bạn?</span>
+											<span class="text-success"></span> <span>Nhận xét này
+												hữu ích với bạn?</span>
 											<button class="btn btn-primary">
 												<span class="glyphicon glyphicon-thumbs-up"></span> <span>Cảm
 													ơn</span>

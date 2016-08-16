@@ -1,10 +1,10 @@
 package Action.Struts2;
-
+import java.util.ArrayList;
 import java.util.List;
-
 import DAO.ChapterDAO;
 import DAO.CommentDAO;
 import DAO.PostDAO;
+import DAO.UserDAO;
 import DTO.ChapterDTO;
 import DTO.CommentDTO;
 import DTO.PostDTO;
@@ -16,6 +16,7 @@ public class PostAction {
 	List<CommentDTO> listComments;
 	List<ChapterDTO> listChapters;
 	boolean priceEmpty = true;
+	List<String> userComment;
 
 	public String execute() throws Exception {
 		PostDAO post = new PostDAO();
@@ -32,16 +33,22 @@ public class PostAction {
 		if (postDTO == null) {
 			return "noData";
 		}
-		if(postDTO.getPrice() == 0){
+		if (postDTO.getPrice() == 0) {
 			priceEmpty = false;
 		}
-		
+
 		CommentDAO comment = new CommentDAO();
 		listComments = comment.getListCommentByPostId(postId);
 		
+		userComment = new ArrayList<String>();
+		UserDAO user = new UserDAO();
+		for (CommentDTO commentDTO : listComments) {
+			userComment.add(user.getUserNameById(commentDTO.getUserId()));
+		}
+		
 		ChapterDAO chapter = new ChapterDAO();
 		listChapters = chapter.getListChapterByPostId(postId);
-		
+
 		return "success";
 	}
 
@@ -93,5 +100,14 @@ public class PostAction {
 	public void setPriceEmpty(boolean priceEmpty) {
 		this.priceEmpty = priceEmpty;
 	}
+
+	public List<String> getUserComment() {
+		return userComment;
+	}
+
+	public void setUserComment(List<String> userComment) {
+		this.userComment = userComment;
+	}
+	
 
 }

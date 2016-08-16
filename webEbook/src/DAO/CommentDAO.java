@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 import DBUtilities.DBConnect;
@@ -37,7 +38,7 @@ public class CommentDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 			for (Integer commentId : lstCommentId) {
-				
+
 				String query = "SELECT * FROM eb_comments WHERE commentId ='" + commentId + "' AND typeComment = 0";
 				stmt = (Statement) con.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
@@ -115,5 +116,94 @@ public class CommentDAO {
 		}
 		logger.info("Done...");
 		return lstCommentId;
+	}
+
+	// insert comment table
+	public int postCommentPost(int postId, String content, int userId) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		int commentId = 0;
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "INSERT INTO eb_comments(userId, comment, typeComment, voteComment, del_flg, createDate) VALUES (?, ?, ?, ?, ?, ?)";
+			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, userId);
+			pstmt.setString(2, content);
+			pstmt.setBoolean(3, false);
+			pstmt.setBoolean(4, false);
+			pstmt.setBoolean(5, false);
+			pstmt.setDate(6, currentDate);
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+					if (generatedKeys.next()) {
+						commentId = (int) generatedKeys.getInt(1);
+					} else {
+						return commentId;
+					}
+				}
+				return commentId;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return commentId;
+	}
+
+	// insert post comment table
+	public boolean insertPostComment(int postId, int commentId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "INSERT INTO eb_postComment(postId, commentId) VALUES (?, ?)";
+			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, postId);
+			pstmt.setInt(2, commentId);
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return false;
 	}
 }

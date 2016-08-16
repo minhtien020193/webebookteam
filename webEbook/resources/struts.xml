@@ -14,5 +14,11 @@
 			<result name="noData">/test.jsp</result>
 		</action>
 		
+		<action name="postCommentPost" class="Action.Struts2.CommentAction" method="postCommentPost">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="noId">/test.jsp</result>
+			<result name="noData">/test.jsp</result>
+		</action>
+		
 	</package>
 </struts>

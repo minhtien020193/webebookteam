@@ -89,6 +89,40 @@ public class UserDAO {
 		return userId;
 	}
 	
+	public String getUserNameById(int userId){
+		String username = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			pstmt = (PreparedStatement) con.prepareStatement("select * from eb_users WHERE userId =?");
+			pstmt.setInt(1, userId); 
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				username = rs.getString("username");
+			}
+			return username;
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException se) {
+			}// do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}// end finally try
+		}
+		logger.info("Done...");
+		return null;
+	}
+	
 	public static String hash256(String data){
         MessageDigest md = null;
         logger.info("Logging begins...");
