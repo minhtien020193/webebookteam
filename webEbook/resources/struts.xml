@@ -20,5 +20,16 @@
 			<result name="noData">/test.jsp</result>
 		</action>
 		
+		<action name="postCommentChapter" class="Action.Struts2.CommentAction" method="postCommentChapter">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="noId">/test.jsp</result>
+			<result name="noData">/test.jsp</result>
+		</action>
+		
+		<action name="chapterDetail" class="Action.Struts2.ChapterAction" method="detailChapter">
+			<result name="success">/detailChapter.jsp</result>
+			<result name="noData">/test.jsp</result>
+		</action>
+		
 	</package>
 </struts>

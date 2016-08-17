@@ -29,7 +29,7 @@ public class PostAction {
 			return "noId";
 		}
 		PostDAO post = new PostDAO();
-		postDTO = post.findPost(postId);
+		postDTO = post.findPostDTO(postId);
 		if (postDTO == null) {
 			return "noData";
 		}

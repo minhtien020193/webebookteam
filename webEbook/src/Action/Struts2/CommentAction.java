@@ -16,33 +16,56 @@ import DAO.CommentDAO;
 public class CommentAction {
 	int postId;
 	String content;
-	
-	
+	int chapterId;
+
 	public String execute() throws Exception {
 		return "success";
 	}
-	//getter setter
-	public String postCommentPost(){
-		
-		if(("").equals(content)){
+
+	public String postCommentPost() {
+
+		if (("").equals(content)) {
 			return "noComment";
 		}
 		CommentDAO comment = new CommentDAO();
-		int commentId = comment.postCommentPost(postId, content, 2);
-		if(commentId == 0){
+		//type comment = false -> comment post
+		int commentId = comment.postCommentPost(content, 2, false);
+		if (commentId == 0) {
 			return "fail";
 		}
-		boolean insertPostComment  = comment.insertPostComment(postId, commentId);
-		if(insertPostComment){
+		boolean insertPostComment = comment.insertPostComment(postId, commentId);
+		if (insertPostComment) {
 			Map<String, Object> session = ActionContext.getContext().getSession();
-			String lastAction = "detailPost?postId="+postId;
+			String lastAction = "detailPost?postId=" + postId;
 			session.put("lastAction", lastAction);
 			return "success";
 		}
 		return "fail";
-		
+
 	}
 
+	public String postCommentChapter() {
+		if (("").equals(content)) {
+			return "noComment";
+		}
+		CommentDAO comment = new CommentDAO();
+		//type comment = true -> comment chapter
+		int commentId = comment.postCommentPost(content, 2, true);
+		if (commentId == 0) {
+			return "fail";
+		}
+		boolean insertPostComment = comment.insertChapterComment(chapterId, commentId);
+		if (insertPostComment) {
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			String lastAction = "chapterDetail?chapterId=" + chapterId;
+			session.put("lastAction", lastAction);
+			return "success";
+		}
+		return "fail";
+
+	}
+
+	// getter setter
 	public int getPostId() {
 		return postId;
 	}
@@ -58,4 +81,13 @@ public class CommentAction {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public int getChapterId() {
+		return chapterId;
+	}
+
+	public void setChapterId(int chapterId) {
+		this.chapterId = chapterId;
+	}
+
 }

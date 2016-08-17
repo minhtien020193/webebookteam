@@ -68,7 +68,7 @@ public class PostDAO {
 		return lstPost;
 	}
 	
-	public PostDTO findPost(int postId){
+	public PostDTO findPostDTO(int postId){
 		Connection con = null;
 		Statement stmt = null;
 		logger.info("Logging begins...");
@@ -118,4 +118,36 @@ public class PostDAO {
 		}
 		return null;
 	}
+	
+	public int getPostIdbyChapterId(int chapterId){
+		Connection con = null;
+		Statement stmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "SELECT * FROM eb_postChapter WHERE chapterId ='" + chapterId  + "'";
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				return rs.getInt("postId");
+	        }
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se) {
+			}// do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}// end finally try
+		}
+		return 0;
+	}
+
 }

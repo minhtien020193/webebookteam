@@ -15,7 +15,6 @@ import com.mysql.jdbc.Statement;
 
 import DBUtilities.DBConnect;
 import DTO.ChapterDTO;
-import DTO.CommentDTO;
 
 /**
  * @author mac
@@ -151,4 +150,47 @@ public class ChapterDAO {
 		logger.info("Done...");
 		return lstCommentId;
 	}
+	
+	
+	public ChapterDTO getChapterDTObyChapterId(int chapterId){
+		Connection con = null;
+		Statement stmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "SELECT * FROM eb_chapters WHERE chapterId ='" + chapterId  + "' AND del_flg = 0";
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				ChapterDTO chapter = new ChapterDTO();
+				chapter.setChapterId(rs.getInt("chapterId"));
+				chapter.setChapterName(rs.getString("chapterName"));
+				chapter.setContents(rs.getString("contents"));
+				chapter.setDescription(rs.getString("description"));
+				chapter.setDel_flg(rs.getBoolean("del_flg"));
+				chapter.setCreateDate(rs.getDate("createDate"));
+				chapter.setUpdateDate(rs.getDate("updateDate"));
+				chapter.setDeleteDate(rs.getDate("deleteDate"));
+				
+				return chapter;
+	        }
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se) {
+			}// do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}// end finally try
+		}
+		return null;
+	}
+
 }
