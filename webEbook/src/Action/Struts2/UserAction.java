@@ -13,5 +13,9 @@ public class UserAction {
 	public String execute() throws Exception {
 		return "success";
 	}
+	public String test() {
+		return "success";
+	}
+	
 
 }
