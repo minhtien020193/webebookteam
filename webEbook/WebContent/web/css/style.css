@@ -548,3 +548,26 @@ footer .bottom {
 	line-height: 20px;
 	display: inline-block;
 }
+.ebook-product #search_form{
+	margin-top: 15px;
+}
+
+.ebook-home #search_form{
+	margin-top: 15px;
+}
+.noEbook{
+	text-align: center;
+	min-height: 200px;
+	margin-top: 200px;
+}
+.list-ebook{
+	margin: 20px;
+}
+.list-ebook-image{
+	width: 50px;
+	height: 60px;
+}
+#createPost .row{
+	margin: 20px;
+}
+
