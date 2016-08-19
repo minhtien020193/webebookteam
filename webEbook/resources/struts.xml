@@ -15,6 +15,9 @@
 			<result name="success">/test.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
+		<action name="logoutAction" class="Action.Struts2.UserAction" method="logout">
+			<result name="success">/test.jsp</result>
+		</action>
 		<action name="registerAction" class="Action.Struts2.UserAction" method="register">
 			<result name="success">/test.jsp</result>
 			<result name="fail">/error.jsp</result>

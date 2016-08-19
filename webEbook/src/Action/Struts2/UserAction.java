@@ -1,18 +1,22 @@
 package Action.Struts2;
 
-import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
+
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 
 import DAO.UserDAO;
 import DTO.UserDTO;
 
-public class UserAction {
+@SuppressWarnings("serial")
+public class UserAction extends ActionSupport implements SessionAware{
 	
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 	
+	private Map<String, Object> sessionMap;
 	private String username;
 	private String password;
 	private String firstName;
@@ -37,15 +41,26 @@ public class UserAction {
 		UserDTO userDto = new UserDTO();
 		userDto.setUserName(username);
 		userDto.setPassword(password);
-		
+		System.out.println(" cuc cuc " + username + password);
 		UserDAO userDao = new UserDAO();
 		
-		if (userDao.authenticateUser(userDto))
+		userDto = userDao.authenticateUser(userDto);
+		if (userDto != null)
 		{
+			//Map<String, Object> session = ActionContext.getContext().getSession();
+			sessionMap.put("LOGINED", userDto);
 			return SUCCESS;
 		}
 		
 		return FAIL;
+	}
+	
+	public String logout()
+	{
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		session.remove("LOGINED");
+		
+		return SUCCESS;
 	}
 	
 	public String register()
@@ -72,7 +87,11 @@ public class UserAction {
 		
 	}
 	
-	
+	@Override
+    public void setSession(Map<String, Object> sessionMap) {
+        this.sessionMap = sessionMap;
+    }
+     
 	
 	public String getUsername() {
 		return username;

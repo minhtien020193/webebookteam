@@ -20,10 +20,12 @@ import DTO.UserDTO;
 public class UserDAO {
 	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
 	
-	public boolean authenticateUser(UserDTO user) {
+	public UserDTO authenticateUser(UserDTO user) {
 		String username = user.getUserName();
 		String password = hash256(user.getPassword());
-
+		
+		UserDTO result = null;
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		logger.info("Logging begins...");
@@ -33,9 +35,16 @@ public class UserDAO {
 			pstmt.setString(1, username); 
 			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
-			boolean check = rs.next();
-			if (check) {
-				return true;
+			if (rs.next()) {
+				
+				result = new UserDTO();
+				
+				result.setUserName(rs.getString("userName"));
+				result.setFirstName(rs.getString("firstName"));
+				result.setMidName(rs.getString("midName"));
+				result.setLastName(rs.getString("lastName"));
+
+				return result;
 			}
 		} catch (SQLException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
@@ -55,7 +64,7 @@ public class UserDAO {
 			}// end finally try
 		}
 		logger.info("Done...");
-		return false;
+		return result;
 	}
 	
 	public boolean registerAccount(UserDTO user)
