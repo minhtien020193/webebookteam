@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 import DBUtilities.DBConnect;
 import DTO.PostDTO;
@@ -67,16 +69,16 @@ public class PostDAO {
 		logger.info("Done...");
 		return lstPost;
 	}
-	
-	public PostDTO findPostDTO(int postId){
+
+	public PostDTO findPostDTO(int postId) {
 		Connection con = null;
 		Statement stmt = null;
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
-			
-			String query = "SELECT * FROM eb_posts WHERE postId ='" + postId  + "'";
+
+			String query = "SELECT * FROM eb_posts WHERE postId ='" + postId + "'";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -99,7 +101,7 @@ public class PostDAO {
 				post.setDeleteDate(rs.getDate("deleteDate"));
 
 				return post;
-	        }
+			}
 		} catch (SQLException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
 		} finally {
@@ -108,29 +110,29 @@ public class PostDAO {
 				if (stmt != null)
 					stmt.close();
 			} catch (SQLException se) {
-			}// do nothing
+			} // do nothing
 			try {
 				if (con != null)
 					con.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
-			}// end finally try
+			} // end finally try
 		}
 		return null;
 	}
-	
-	public int getPostIdbyChapterId(int chapterId){
+
+	public int getPostIdbyChapterId(int chapterId) {
 		Connection con = null;
 		Statement stmt = null;
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "SELECT * FROM eb_postChapter WHERE chapterId ='" + chapterId  + "'";
+			String query = "SELECT * FROM eb_postChapter WHERE chapterId ='" + chapterId + "'";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				return rs.getInt("postId");
-	        }
+			}
 		} catch (SQLException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
 		} finally {
@@ -139,18 +141,18 @@ public class PostDAO {
 				if (stmt != null)
 					stmt.close();
 			} catch (SQLException se) {
-			}// do nothing
+			} // do nothing
 			try {
 				if (con != null)
 					con.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
-			}// end finally try
+			} // end finally try
 		}
 		return 0;
 	}
 
-	public ArrayList<PostDTO> getListPostbyUserId(int userId){
+	public ArrayList<PostDTO> getListPostbyUserId(int userId) {
 		ArrayList<PostDTO> lstPostByUserId = new ArrayList<PostDTO>();
 		Connection con = null;
 		Statement stmt = null;
@@ -159,7 +161,7 @@ public class PostDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_posts WHERE userId ='" + userId  + "'";
+			String query = "SELECT * FROM eb_posts WHERE userId ='" + userId + "'";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -203,5 +205,105 @@ public class PostDAO {
 		}
 		logger.info("Done...");
 		return lstPostByUserId;
+	}
+
+	public boolean insertPost(PostDTO post) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "INSERT INTO eb_posts(userId, postStatus, postName, contents, description, countChapter, authorName, image, saleoff, price, linkDownload, postType, del_flg, createDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt.setInt(1, post.getUserId());
+			pstmt.setBoolean(2, post.isPostStatus());
+			pstmt.setString(3, post.getPostName());
+			pstmt.setString(4, post.getContents());
+			pstmt.setString(5, post.getDescription());
+			pstmt.setInt(6, post.getCountChapter());
+			pstmt.setString(7, post.getAuthorName());
+			pstmt.setString(8, post.getImage());
+			pstmt.setInt(9, post.getSaleoff());
+			pstmt.setDouble(10, post.getPrice());
+			pstmt.setString(11, post.getLinkDownload());
+			pstmt.setBoolean(12, post.isPostType());
+			pstmt.setBoolean(13, post.isDel_flg());
+			pstmt.setDate(14, currentDate);
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return false;
+	}
+	
+	
+	public boolean updatePostDTO(PostDTO post) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "UPDATE eb_posts SET postName=?, contents=?, description=?, countChapter=?, authorName=?, image=?, price=?, linkDownload=?, updateDate=? "
+					+ " WHERE postId ='" + post.getPostId() + "'";
+			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt.setString(1, post.getPostName());
+			pstmt.setString(2, post.getContents());
+			pstmt.setString(3, post.getDescription());
+			pstmt.setInt(4, post.getCountChapter());
+			pstmt.setString(5, post.getAuthorName());
+			pstmt.setString(6, post.getImage());
+			pstmt.setDouble(7, post.getPrice());
+			pstmt.setString(8, post.getLinkDownload());
+			pstmt.setDate(9, currentDate);
+			
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return false;
 	}
 }

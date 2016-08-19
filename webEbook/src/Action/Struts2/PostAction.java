@@ -1,7 +1,12 @@
 package Action.Struts2;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+
 import DAO.ChapterDAO;
 import DAO.CommentDAO;
 import DAO.PostDAO;
@@ -20,22 +25,25 @@ public class PostAction {
 	List<String> userComment;
 	boolean noData = false;
 	String postName;
-	File fileUpload;
+	File ebook;
 	File image;
 	String description;
 	String author;
 	int countChapter;
 	String price;
 	String content;
-	
+	private String ebookFileName;
+	private String imageFileName;
+	private String ebookContentType;
+	private String imageContentType;
 
 	public String execute() throws Exception {
 		PostDAO post = new PostDAO();
 		listPost = post.getListPost();
 		return "success";
 	}
-	
-	public String sendCreatePost(){
+
+	public String sendCreatePost() {
 		return "success";
 	}
 
@@ -54,37 +62,112 @@ public class PostAction {
 
 		CommentDAO comment = new CommentDAO();
 		listComments = comment.getListCommentByPostId(postId);
-		
+
 		userComment = new ArrayList<String>();
 		UserDAO user = new UserDAO();
 		for (CommentDTO commentDTO : listComments) {
 			userComment.add(user.getUserNameById(commentDTO.getUserId()));
 		}
-		
+
 		ChapterDAO chapter = new ChapterDAO();
 		listChapters = chapter.getListChapterByPostId(postId);
 
 		return "success";
 	}
-	
-	public String createPost(){
-		postDTO.setAuthorName(author);
-		postDTO.setContents(content);
-		postDTO.setCountChapter(countChapter);
-		
+
+	public String createPost() {
+		// uploadFile();
 		int userId = 1;
-		return "success";
+		PostDTO post = new PostDTO();
+		post.setAuthorName(author);
+		post.setContents(content);
+		post.setCountChapter(countChapter);
+		post.setPostName(postName);
+		post.setDescription(description);
+		post.setImage(ebookFileName);
+		post.setPrice(Double.parseDouble(price));
+		post.setPostType(true);
+		post.setUserId(userId);
+		post.setSaleoff(0);
+		post.setImage("image");
+		post.setLinkDownload("linkdownload");
+		post.setPostStatus(false);
+		post.setDel_flg(false);
+		
+		PostDAO postDAO = new PostDAO();
+		boolean check = postDAO.insertPost(post);
+		if (check) {
+			return "success";
+		}
+
+		return "fail";
 	}
-	
-	public String listPost(){
+
+	public String listPost() {
 		int userId = 1;
 		PostDAO post = new PostDAO();
 		listPost = post.getListPostbyUserId(userId);
-		if(listPost.isEmpty()){
+		if (listPost.isEmpty()) {
 			noData = true;
 		}
 		return "success";
 	}
+	
+	public String sendUpdatePost() {
+		PostDAO post = new PostDAO();
+		postDTO = post.findPostDTO(postId);
+		if(postDTO == null){
+			return "fail";
+		}
+		return "success";
+	}
+	
+	public String updatePost() {
+		int userId = 1;
+		PostDTO post = new PostDTO();
+		post.setPostId(postId);
+		post.setAuthorName(author);
+		post.setContents(content);
+		post.setCountChapter(countChapter);
+		post.setPostName(postName);
+		post.setDescription(description);
+		post.setImage(ebookFileName);
+		post.setPrice(Double.parseDouble(price));
+		post.setPostType(true);
+		post.setUserId(userId);
+		post.setSaleoff(0);
+		post.setImage("image");
+		post.setLinkDownload("linkdownload");
+		post.setPostStatus(false);
+		post.setDel_flg(false);
+		
+		PostDAO postDAO = new PostDAO();
+		boolean check = postDAO.updatePostDTO(post);
+		if (check) {
+			return "success";
+		}
+
+		return "fail";
+	}
+
+	// private String uploadFile(){
+	// /* Copy file to a safe location */
+	// String destPath = "../ebookFolder";
+	//
+	// try{
+	// System.out.println("Src File name: " + ebook);
+	// System.out.println("Dst File name: " + ebookFileName);
+	//
+	// File destFile = new File(destPath, ebookFileName);
+	// FileUtils.copyFile(ebook, destFile);
+	//
+	// }catch(IOException e){
+	// e.printStackTrace();
+	// return "noUpload";
+	// }
+	//
+	// return "aa";
+	// }
 
 	// getter setter
 	public List<PostDTO> getListPost() {
@@ -159,12 +242,12 @@ public class PostAction {
 		this.postName = postName;
 	}
 
-	public File getFileUpload() {
-		return fileUpload;
+	public File getEbook() {
+		return ebook;
 	}
 
-	public void setFileUpload(File fileUpload) {
-		this.fileUpload = fileUpload;
+	public void setEbook(File ebook) {
+		this.ebook = ebook;
 	}
 
 	public File getImage() {
@@ -214,6 +297,37 @@ public class PostAction {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
+	public String getEbookFileName() {
+		return ebookFileName;
+	}
+
+	public void setEbookFileName(String ebookFileName) {
+		this.ebookFileName = ebookFileName;
+	}
+
+	public String getImageFileName() {
+		return imageFileName;
+	}
+
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
+	}
+
+	public String getEbookContentType() {
+		return ebookContentType;
+	}
+
+	public void setEbookContentType(String ebookContentType) {
+		this.ebookContentType = ebookContentType;
+	}
+
+	public String getImageContentType() {
+		return imageContentType;
+	}
+
+	public void setImageContentType(String imageContentType) {
+		this.imageContentType = imageContentType;
+	}
 
 }

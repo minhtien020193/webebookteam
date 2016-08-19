@@ -117,8 +117,8 @@
 
 	<div class="wrap">
 		<div class="container">
-			<div class="col-sm-12" id="createPost">
-				<form action="createPost" method="post">
+			<div class="col-sm-12" id="createPost"> 
+				<form action="createPost" method="post" enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-sm-2">Tên tác phẩm</div>
 						<div class="col-sm-4">
@@ -129,7 +129,7 @@
 					<div class="row">
 						<div class="col-sm-2">File upload</div>
 						<div class="col-sm-4">
-							<input type="file" name="fileUpload" />
+							<input type="file" name="ebook" />
 						</div>
 					</div>
 					<div class="row">

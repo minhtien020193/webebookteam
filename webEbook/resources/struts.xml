@@ -22,8 +22,17 @@
 		<action name="createPost" class="Action.Struts2.PostAction"
 			method="createPost">
 			<result name="success" type="redirectAction">listPost</result>
-			<result name="noId">/test.jsp</result>
-			<result name="noData">/test.jsp</result>
+			<result name="fail">/test.jsp</result>
+		</action>
+		
+		<action name="sendUpdatePost" class="Action.Struts2.PostAction" method="sendUpdatePost">
+			<result name="success">/updatePost.jsp</result>
+		</action>
+		
+		<action name="updatePost" class="Action.Struts2.PostAction"
+			method="updatePost">
+			<result name="success" type="redirectAction">listPost</result>
+			<result name="fail">/test.jsp</result>
 		</action>
 
 		<action name="listPost" class="Action.Struts2.PostAction"
