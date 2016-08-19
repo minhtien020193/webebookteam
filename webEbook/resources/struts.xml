@@ -7,10 +7,50 @@
 		<action name="home" class="Action.Struts2.PostAction" method="execute">
 			<result name="success">/home.jsp</result>
 		</action>
-		
-		<action name="detailPost" class="Action.Struts2.PostAction" method="detailPost">
-			<result name="success">/home.jsp</result>
+
+		<action name="detailPost" class="Action.Struts2.PostAction"
+			method="detailPost">
+			<result name="success">/detail.jsp</result>
+			<result name="noId">/test.jsp</result>
+			<result name="noData">/test.jsp</result>
 		</action>
+
+		<action name="sendCreatePost" class="Action.Struts2.PostAction">
+			<result name="success">/createPost.jsp</result>
+		</action>
+
+		<action name="createPost" class="Action.Struts2.PostAction"
+			method="createPost">
+			<result name="success" type="redirectAction">listPost</result>
+			<result name="noId">/test.jsp</result>
+			<result name="noData">/test.jsp</result>
+		</action>
+
+		<action name="listPost" class="Action.Struts2.PostAction"
+			method="listPost">
+			<result name="success">/listPost.jsp</result>
+		</action>
+
+		<action name="postCommentPost" class="Action.Struts2.CommentAction"
+			method="postCommentPost">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="noId">/test.jsp</result>
+			<result name="noData">/test.jsp</result>
+		</action>
+
+		<action name="postCommentChapter" class="Action.Struts2.CommentAction"
+			method="postCommentChapter">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="noId">/test.jsp</result>
+			<result name="noData">/test.jsp</result>
+		</action>
+
+		<action name="chapterDetail" class="Action.Struts2.ChapterAction"
+			method="detailChapter">
+			<result name="success">/detailChapter.jsp</result>
+			<result name="noData">/test.jsp</result>
+		</action>
+
 		<action name="loginAction" class="Action.Struts2.UserAction" method="login">
 			<result name="success">/test.jsp</result>
 			<result name="fail">/error.jsp</result>
