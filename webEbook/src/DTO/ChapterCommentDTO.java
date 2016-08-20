@@ -11,6 +11,7 @@ public class ChapterCommentDTO {
 	private int chapterCommentId;
 	private int chapterId;
 	private int commentId;
+	private boolean del_flg;
 	/**
 	 * 
 	 */
@@ -22,11 +23,12 @@ public class ChapterCommentDTO {
 	 * @param chapterId
 	 * @param commentId
 	 */
-	public ChapterCommentDTO(int chapterCommentId, int chapterId, int commentId) {
+	public ChapterCommentDTO(int chapterCommentId, int chapterId, int commentId, boolean del_flg) {
 		super();
 		this.chapterCommentId = chapterCommentId;
 		this.chapterId = chapterId;
 		this.commentId = commentId;
+		this.del_flg = del_flg;
 	}
 	/**
 	 * @return the chapterCommentId
@@ -64,5 +66,12 @@ public class ChapterCommentDTO {
 	public void setCommentId(int commentId) {
 		this.commentId = commentId;
 	}
+	public boolean isDel_flg() {
+		return del_flg;
+	}
+	public void setDel_flg(boolean del_flg) {
+		this.del_flg = del_flg;
+	}
+	
 	
 }

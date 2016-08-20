@@ -24,13 +24,20 @@
 			<result name="success" type="redirectAction">listPost</result>
 			<result name="fail">/test.jsp</result>
 		</action>
-		
-		<action name="sendUpdatePost" class="Action.Struts2.PostAction" method="sendUpdatePost">
+
+		<action name="sendUpdatePost" class="Action.Struts2.PostAction"
+			method="sendUpdatePost">
 			<result name="success">/updatePost.jsp</result>
 		</action>
-		
+
 		<action name="updatePost" class="Action.Struts2.PostAction"
 			method="updatePost">
+			<result name="success" type="redirectAction">listPost</result>
+			<result name="fail">/test.jsp</result>
+		</action>
+
+		<action name="deletePost" class="Action.Struts2.PostAction"
+			method="deletePost">
 			<result name="success" type="redirectAction">listPost</result>
 			<result name="fail">/test.jsp</result>
 		</action>
@@ -58,6 +65,31 @@
 			method="detailChapter">
 			<result name="success">/detailChapter.jsp</result>
 			<result name="noData">/test.jsp</result>
+		</action>
+		
+		<action name="sendAddChapter" class="Action.Struts2.ChapterAction"
+			method="sendAddChapter">
+			<result name="success">/addChapter.jsp</result>
+			<result name="noPostId">/test.jsp</result>
+		</action>
+		
+		<action name="sendUpdateChapter" class="Action.Struts2.ChapterAction"
+			method="sendUpdateChapter">
+			<result name="success">/updateChapter.jsp</result>
+			<result name="noPostId">/test.jsp</result>
+		</action>
+		
+		<action name="addChapter" class="Action.Struts2.ChapterAction"
+			method="addChapter">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="noPostChapter">/test.jsp</result>
+			<result name="fail">/test.jsp</result>
+		</action>
+		
+		<action name="updateChapter" class="Action.Struts2.ChapterAction"
+			method="updateChapter">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="fail">/test.jsp</result>
 		</action>
 
 	</package>

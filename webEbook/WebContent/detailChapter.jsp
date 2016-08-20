@@ -166,12 +166,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12"><s:property value="chapterDTO.contents" /></div>
+			<div class="wrap">
+				<div class="container">
+					<div class="product-content-box">
+						<div class="row box-product-lifestyle">
+							<h3 class="product-table-title">Nội dung:</h3>
+						</div>
+						<div class="row box-product-lifestyle">
+							<s:property value="chapterDTO.contents" />
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
 
 	<!-- comment -->
 	<div class="wrap">

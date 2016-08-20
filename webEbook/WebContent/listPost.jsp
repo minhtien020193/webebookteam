@@ -117,8 +117,11 @@
 	<div class="wrap">
 		<div class="container" style="min-height: 400px;">
 			<s:if test="noData">
-				<div class="noEbook">Bạn chưa có ebook hoặc truyện nào.<br/><a href="sendCreatePost">Hãy đăng bài</a></div>
-				
+				<div class="noEbook">
+					Bạn chưa có ebook hoặc truyện nào.<br /> <a href="sendCreatePost">Hãy
+						đăng bài</a>
+				</div>
+
 			</s:if>
 			<s:else>
 				<div class="row list-ebook">
@@ -149,12 +152,32 @@
 						<div class="col-sm-2">
 							<s:property value="createDate" />
 						</div>
-						<div class="col-sm-2">
+						<div class="col-sm-1">
 							<a href="sendUpdatePost?postId=<s:property value="postId" />">Chỉnh
 								sửa</a>
 						</div>
+						<div class="col-sm-1">
+							<a href="#"
+								data-href="deletePost?postId=<s:property value="postId"/>"
+								data-toggle="modal" data-target="#confirm-delete">Xoá</a>
+						</div>
 					</div>
 				</s:iterator>
+
+				<div class="modal fade" id="confirm-delete" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">Xác nhận xoá bài viết</div>
+							<div class="modal-body">Bạn có chắc xoá bài viết này không?</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Huỷ xoá </button>
+								<a class="btn btn-danger btn-ok">Xoá</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</s:else>
 		</div>
 	</div>
@@ -173,5 +196,13 @@
 		</div>
 	</div>
 	</footer>
+	<script>
+		$('#confirm-delete').on(
+				'show.bs.modal',
+				function(e) {
+					$(this).find('.btn-ok').attr('href',
+							$(e.relatedTarget).data('href'));
+				});
+	</script>
 </body>
 </html>

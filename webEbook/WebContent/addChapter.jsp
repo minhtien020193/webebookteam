@@ -14,7 +14,7 @@
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
 
-<title>Update Ebook</title>
+<title>Detail Chapter</title>
 </head>
 <body class="ebook-product">
 	<header class="wrap-header affix-top">
@@ -108,7 +108,9 @@
 				<div class="col-md-12">
 					<ol class="breadcrumb">
 						<li><a href="./">Trang chủ</a></li>
-						<li>Chỉnh sửa bài viết</li>
+						<li><a
+							href="./sendUpdatePost?postId=<s:property value="postDTO.postId" />">Chỉnh sửa bài viết</a></li>
+						<li>Thêm chương mới</li>
 					</ol>
 				</div>
 			</div>
@@ -117,107 +119,97 @@
 
 	<div class="wrap">
 		<div class="container">
-			<div class="col-sm-12" id="createPost">
-				<div class="row box-product-lifestyle">
-					<h3 class="product-table-title">Chỉnh sửa nội dung bài viết:</h3>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row box-product-lifestyle col-sm-12 title-box">
+						<h3 class="product-table-title">Nội dung bài viết:</h3>
+					</div>
+					<div class="col-md-5">
+						<div class="image-box">
+							<img src="<s:property value="postDTO.image" />" />
+						</div>
+					</div>
+					<div class="col-md-7">
+						<div class="item-brand">
+							<h6>Tác giả</h6>
+							<p class="author">
+								<a target="_blank" href="#"><s:property
+										value="postDTO.authorName" /></a>
+							</p>
+						</div>
+						<div class="item-brand">
+							<h6>Tên tác phẩm:</h6>
+							<p class="author">
+								<s:property value="postDTO.postName" />
+							</p>
+						</div>
+						<div class="item-brand">
+							<h6>Ngày đăng :</h6>
+							<p class="author">
+								<s:property value="chapterDTO.createDate" />
+							</p>
+						</div>
+						<div class="item-brand">
+							<h6>Ngày chỉnh sửa :</h6>
+							<p class="author">
+								<s:property value="chapterDTO.updateDate" />
+							</p>
+						</div>
+						<div class="item-brand">
+							<h6>Mô tả :</h6>
+							<p class="author">
+								<s:property value="chapterDTO.description" />
+							</p>
+						</div>
+					</div>
 				</div>
-				<form action="updatePost" method="post"
-					enctype="multipart/form-data">
-					<div class="row">
-						<div class="col-sm-2">Tên tác phẩm</div>
-						<div class="col-sm-4">
-							<input name="postId" type="hidden"
-								value="<s:property value="postDTO.postId"/>" /> <input
-								name="postName" type="text"
-								value="<s:property value="postDTO.postName"/>" />
-						</div>
-
-					</div>
-					<div class="row">
-						<div class="col-sm-2">File upload</div>
-						<div class="col-sm-4">
-							<input type="file" name="ebook" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">Ảnh bìa</div>
-						<div class="col-sm-4">
-							<div class="col-sm-6">
-								<img src="<s:property value="postDTO.image"/>"
-									class="list-ebook-image" />
-							</div>
-							<div class="col-sm-6">
-								<input type="file" name="image" />
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">Mô tả</div>
-						<div class="col-sm-4">
-							<textarea rows="5" cols="50" name="description"><s:property
-									value="postDTO.description" /></textarea>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">Tác giả</div>
-						<div class="col-sm-4">
-							<input name="author" type="text"
-								value="<s:property value="postDTO.authorName"/>" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">Số lượng chương:</div>
-						<div class="col-sm-4">
-							<input name="countChapter" type="text"
-								value="<s:property value="postDTO.countChapter"/>" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">Giá</div>
-						<div class="col-sm-4">
-							<input name="price" type="text"
-								value="<s:property value="postDTO.price"/>" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">Nội dung</div>
-						<div class="col-sm-4">
-							<textarea rows="5" cols="50" name="content"><s:property
-									value="postDTO.contents" /></textarea>
-						</div>
-					</div>
-					<div class="row">
-						<input type="reset" value="Xoá nội dung" class="btn btn-danger" />
-						<input type="submit" value="Gửi yêu cầu đăng bài"
-							class="btn btn-primary" />
-					</div>
-				</form>
-
 			</div>
 			<div class="wrap">
-				<div class="container">
-					<div class="product-content-box col-sm-12">
+				<div class="container" id="addChapter">
+					<div class="product-content-box">
 						<div class="row box-product-lifestyle">
-							<h3 class="product-table-title">Chương đọc thêm:</h3>
+							<h3 class="product-table-title">Thêm nội dung chương mới</h3>
 						</div>
-						<div class="row box-product-lifestyle">
-							<ul>
-								<s:iterator status="chap" value="listChapters">
-									<li>Chương <s:property value="#chap.count" />: <a
-										href="./sendUpdateChapter?chapterId=<s:property value ="chapterId"/>"><s:property
-												value="chapterName" /></a>
-									</li>
-								</s:iterator>
-							</ul>
-							<a
-								href="sendAddChapter?postId=<s:property value="postDTO.postId"/>">Thêm
-								chương mới</a>
+						<div class="col-sm-12">
+							<div class="row box-product-lifestyle">
+								<form action="addChapter" method="post">
+									<div class="row">
+										<input type="hidden" name="postId"
+											value="<s:property value="postDTO.postId" />" />
+										<div class="col-sm-2">Tên chương:</div>
+										<div class="col-sm-10">
+											<input type="text" name="chapterName" />
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-2">Mô tả:</div>
+										<div class="col-sm-10">
+											<textarea rows="5" cols="100" name="description"></textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-2">Nội dung:</div>
+										<div class="col-sm-10">
+											<textarea rows="5" cols="100" name="contents"></textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-12">
+											<input type="reset" value="Xoá nội dung"
+												class="btn btn-danger" /> <input type="submit"
+												value="Thêm chương mới" class="btn btn-primary" />
+										</div>
+									</div>
+
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<!-- footer -->
 	<footer class="wrap-footer">

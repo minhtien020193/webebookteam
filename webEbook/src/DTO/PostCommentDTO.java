@@ -11,7 +11,7 @@ public class PostCommentDTO {
 	private int postCommentId;
 	private int postId;
 	private int commentId;
-
+	private boolean del_flg;
 	/**
 	 * 
 	 */
@@ -24,11 +24,12 @@ public class PostCommentDTO {
 	 * @param postId
 	 * @param commentId
 	 */
-	public PostCommentDTO(int postCommentId, int postId, int commentId) {
+	public PostCommentDTO(int postCommentId, int postId, int commentId, boolean del_flg) {
 		super();
 		this.postCommentId = postCommentId;
 		this.postId = postId;
 		this.commentId = commentId;
+		this.del_flg = del_flg;
 	}
 
 	/**
@@ -74,6 +75,14 @@ public class PostCommentDTO {
 	 */
 	public void setCommentId(int commentId) {
 		this.commentId = commentId;
+	}
+
+	public boolean isDel_flg() {
+		return del_flg;
+	}
+
+	public void setDel_flg(boolean del_flg) {
+		this.del_flg = del_flg;
 	}
 
 }

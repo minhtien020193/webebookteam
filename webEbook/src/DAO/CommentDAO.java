@@ -79,8 +79,8 @@ public class CommentDAO {
 		logger.info("Done...");
 		return lstComment;
 	}
-	
-	//get list comment chapter
+
+	// get list comment chapter
 	public ArrayList<CommentDTO> getListCommentByChapterId(int chapterId) {
 		ArrayList<CommentDTO> lstComment = new ArrayList<CommentDTO>();
 		List<Integer> lstCommentId = listChapterCommentByChapterId(chapterId);
@@ -134,7 +134,7 @@ public class CommentDAO {
 		return lstComment;
 	}
 
-	//list comment id by post id
+	// list comment id by post id
 	public List<Integer> listChapterCommentByPostId(int postId) {
 		List<Integer> lstCommentId = new ArrayList<Integer>();
 
@@ -172,8 +172,8 @@ public class CommentDAO {
 		logger.info("Done...");
 		return lstCommentId;
 	}
-	
-	//list comment id by chapter id
+
+	// list comment id by chapter id
 	public List<Integer> listChapterCommentByChapterId(int chapterId) {
 		List<Integer> lstCommentId = new ArrayList<Integer>();
 
@@ -213,7 +213,7 @@ public class CommentDAO {
 	}
 
 	// insert comment table
-	//type comment = true -> comment chapter
+	// type comment = true -> comment chapter
 	public int postCommentPost(String content, int userId, boolean typeComment) {
 		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
 		Connection con = null;
@@ -271,10 +271,11 @@ public class CommentDAO {
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "INSERT INTO eb_postComment(postId, commentId) VALUES (?, ?)";
+			String query = "INSERT INTO eb_postComment(postId, commentId, del_flg) VALUES (?, ?, ?)";
 			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, postId);
 			pstmt.setInt(2, commentId);
+			pstmt.setBoolean(3, false);
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
 				return true;
@@ -301,42 +302,43 @@ public class CommentDAO {
 		logger.info("Done...");
 		return false;
 	}
-	
+
 	// insert chapter comment table
-		public boolean insertChapterComment(int chapterId, int commentId) {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			logger.info("Logging begins...");
-			try {
-				con = DBConnect.createConnection(); // establishing connection
-				String query = "INSERT INTO eb_chapterComment(chapterId, commentId) VALUES (?, ?)";
-				pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-				pstmt.setInt(1, chapterId);
-				pstmt.setInt(2, commentId);
-				int index = pstmt.executeUpdate();
-				if (index == 1) {
-					return true;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				logger.log(Level.SEVERE, e.getMessage(), e);
-			} finally {
-				// finally block used to close resources
-				try {
-					if (pstmt != null)
-						pstmt.close();
-				} catch (SQLException ex) {
-					logger.log(Level.SEVERE, ex.getMessage(), ex);
-				}
-				try {
-					if (con != null)
-						con.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-					logger.log(Level.SEVERE, se.getMessage(), se);
-				} // end finally try
+	public boolean insertChapterComment(int chapterId, int commentId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "INSERT INTO eb_chapterComment(chapterId, commentId, del_flg) VALUES (?, ?, ?)";
+			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, chapterId);
+			pstmt.setInt(2, commentId);
+			pstmt.setBoolean(3, false);
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				return true;
 			}
-			logger.info("Done...");
-			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
 		}
+		logger.info("Done...");
+		return false;
+	}
 }

@@ -24,7 +24,7 @@ public class PostDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_posts";
+			String query = "SELECT * FROM eb_posts WHERE del_flg = 0 and postStatus = 1";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -78,7 +78,7 @@ public class PostDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_posts WHERE postId ='" + postId + "'";
+			String query = "SELECT * FROM eb_posts WHERE postId ='" + postId + "' AND del_flg = 0";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -161,7 +161,7 @@ public class PostDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_posts WHERE userId ='" + userId + "'";
+			String query = "SELECT * FROM eb_posts WHERE userId ='" + userId + "' AND postStatus = 1 AND del_flg = 0";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -207,15 +207,16 @@ public class PostDAO {
 		return lstPostByUserId;
 	}
 
-	public boolean insertPost(PostDTO post) {
+	public int insertPost(PostDTO post) {
 		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		logger.info("Logging begins...");
+		int postId = 0;
 		try {
 			con = DBConnect.createConnection(); // establishing connection
 			String query = "INSERT INTO eb_posts(userId, postStatus, postName, contents, description, countChapter, authorName, image, saleoff, price, linkDownload, postType, del_flg, createDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, post.getUserId());
 			pstmt.setBoolean(2, post.isPostStatus());
 			pstmt.setString(3, post.getPostName());
@@ -230,6 +231,63 @@ public class PostDAO {
 			pstmt.setBoolean(12, post.isPostType());
 			pstmt.setBoolean(13, post.isDel_flg());
 			pstmt.setDate(14, currentDate);
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+					if (generatedKeys.next()) {
+						postId = (int) generatedKeys.getInt(1);
+					} else {
+						return postId;
+					}
+				}
+				return postId;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return postId;
+	}
+	
+	
+	public boolean updatePostDTO(PostDTO post) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "UPDATE eb_posts SET postName=?, contents=?, description=?, countChapter=?, authorName=?, image=?, price=?, linkDownload=?, updateDate=? "
+					+ " WHERE postId ='" + post.getPostId() + "'";
+			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt.setString(1, post.getPostName());
+			pstmt.setString(2, post.getContents());
+			pstmt.setString(3, post.getDescription());
+			pstmt.setInt(4, post.getCountChapter());
+			pstmt.setString(5, post.getAuthorName());
+			pstmt.setString(6, post.getImage());
+			pstmt.setDouble(7, post.getPrice());
+			pstmt.setString(8, post.getLinkDownload());
+			pstmt.setDate(9, currentDate);
+			
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
 				return true;
@@ -257,8 +315,8 @@ public class PostDAO {
 		return false;
 	}
 	
-	
-	public boolean updatePostDTO(PostDTO post) {
+	//detele post (change status)
+	public boolean updateDel_FlgPostDTO(int postId) {
 		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -267,18 +325,12 @@ public class PostDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "UPDATE eb_posts SET postName=?, contents=?, description=?, countChapter=?, authorName=?, image=?, price=?, linkDownload=?, updateDate=? "
-					+ " WHERE postId ='" + post.getPostId() + "'";
+			String query = "UPDATE eb_posts SET  del_flg=?, updateDate=?, deleteDate=? "
+					+ " WHERE postId ='" + postId + "'";
 			pstmt = (PreparedStatement) con.prepareStatement(query);
-			pstmt.setString(1, post.getPostName());
-			pstmt.setString(2, post.getContents());
-			pstmt.setString(3, post.getDescription());
-			pstmt.setInt(4, post.getCountChapter());
-			pstmt.setString(5, post.getAuthorName());
-			pstmt.setString(6, post.getImage());
-			pstmt.setDouble(7, post.getPrice());
-			pstmt.setString(8, post.getLinkDownload());
-			pstmt.setDate(9, currentDate);
+			pstmt.setBoolean(1, true);
+			pstmt.setDate(2, currentDate);
+			pstmt.setDate(3, currentDate);
 			
 			int index = pstmt.executeUpdate();
 			if (index == 1) {

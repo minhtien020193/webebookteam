@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 import DBUtilities.DBConnect;
 import DTO.ChapterDTO;
+import DTO.PostDTO;
 
 /**
  * @author mac
@@ -191,6 +193,142 @@ public class ChapterDAO {
 			}// end finally try
 		}
 		return null;
+	}
+	
+	public int insertChapter(ChapterDTO chapter) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		int chapterId = 0;
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "INSERT INTO eb_chapters(chapterName, contents, description, del_flg, createDate) VALUES (?, ?, ?, ?, ?)";
+			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, chapter.getChapterName());
+			pstmt.setString(2, chapter.getContents());
+			pstmt.setString(3, chapter.getDescription());
+			pstmt.setBoolean(4, chapter.isDel_flg());
+			pstmt.setDate(5, currentDate);
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+					if (generatedKeys.next()) {
+						chapterId = (int) generatedKeys.getInt(1);
+					} else {
+						return chapterId;
+					}
+				}
+				return chapterId;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return chapterId;
+	}
+	
+	public boolean insertPostChapter(int chapterId, int postId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "INSERT INTO eb_postChapter(postId, chapterId, del_flg) VALUES (?, ?, ?)";
+			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, postId);
+			pstmt.setInt(2, chapterId);
+			pstmt.setBoolean(3, false);
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return false;
+	}
+
+	/**
+	 * update chapter
+	 * @param chapter
+	 * @return
+	 */
+	public boolean updateChapterDTO(ChapterDTO chapter) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "UPDATE eb_chapters SET  chapterName=?, contents=?, description=?, updateDate=?"
+					+ " WHERE chapterId ='" + chapter.getChapterId() + "'";
+			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt.setString(1, chapter.getChapterName());
+			pstmt.setString(2, chapter.getContents());
+			pstmt.setString(3, chapter.getDescription());
+			pstmt.setDate(4, currentDate);
+			
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return false;
 	}
 
 }

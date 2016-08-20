@@ -95,8 +95,8 @@ public class PostAction {
 		post.setDel_flg(false);
 		
 		PostDAO postDAO = new PostDAO();
-		boolean check = postDAO.insertPost(post);
-		if (check) {
+		int newPostId = postDAO.insertPost(post);
+		if (newPostId != 0) {
 			return "success";
 		}
 
@@ -114,6 +114,9 @@ public class PostAction {
 	}
 	
 	public String sendUpdatePost() {
+		ChapterDAO chapter = new ChapterDAO();
+		listChapters = chapter.getListChapterByPostId(postId);
+		
 		PostDAO post = new PostDAO();
 		postDTO = post.findPostDTO(postId);
 		if(postDTO == null){
@@ -144,6 +147,16 @@ public class PostAction {
 		PostDAO postDAO = new PostDAO();
 		boolean check = postDAO.updatePostDTO(post);
 		if (check) {
+			return "success";
+		}
+
+		return "fail";
+	}
+	
+	public String deletePost(){
+		PostDAO post = new PostDAO();
+		boolean checkDel = post.updateDel_FlgPostDTO(postId);
+		if (checkDel) {
 			return "success";
 		}
 
