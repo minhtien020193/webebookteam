@@ -3,6 +3,8 @@
  */
 package DTO;
 
+import java.util.Date;
+
 /**
  * @author mac
  *
@@ -12,6 +14,7 @@ public class ChapterCommentDTO {
 	private int chapterId;
 	private int commentId;
 	private boolean del_flg;
+	private Date createDate;
 	/**
 	 * 
 	 */
@@ -23,12 +26,13 @@ public class ChapterCommentDTO {
 	 * @param chapterId
 	 * @param commentId
 	 */
-	public ChapterCommentDTO(int chapterCommentId, int chapterId, int commentId, boolean del_flg) {
+	public ChapterCommentDTO(int chapterCommentId, int chapterId, int commentId, boolean del_flg, Date createDate) {
 		super();
 		this.chapterCommentId = chapterCommentId;
 		this.chapterId = chapterId;
 		this.commentId = commentId;
 		this.del_flg = del_flg;
+		this.createDate = createDate;
 	}
 	/**
 	 * @return the chapterCommentId
@@ -71,6 +75,12 @@ public class ChapterCommentDTO {
 	}
 	public void setDel_flg(boolean del_flg) {
 		this.del_flg = del_flg;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	
 	

@@ -60,6 +60,34 @@
 			<result name="noId">/test.jsp</result>
 			<result name="noData">/test.jsp</result>
 		</action>
+		
+		<action name="feedbackCommentPost" class="Action.Struts2.CommentAction"
+			method="feedbackCommentPost">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="noPostId">/test.jsp</result>
+			<result name="fail">/test.jsp</result>
+		</action>
+		
+		<action name="cancelFeedbackCommentPost" class="Action.Struts2.CommentAction"
+			method="cancelFeedbackCommentPost">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="noPostId">/test.jsp</result>
+			<result name="fail">/test.jsp</result>
+		</action>
+		
+		<action name="feedbackCommentChapter" class="Action.Struts2.CommentAction"
+			method="feedbackCommentChapter">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="noChapterId">/test.jsp</result>
+			<result name="fail">/test.jsp</result>
+		</action>
+		
+		<action name="cancelFeedbackCommentChapter" class="Action.Struts2.CommentAction"
+			method="cancelFeedbackCommentChapter">
+			<result name="success" type="redirectAction">${#session['lastAction']}</result>
+			<result name="noChapterId">/test.jsp</result>
+			<result name="fail">/test.jsp</result>
+		</action>
 
 		<action name="chapterDetail" class="Action.Struts2.ChapterAction"
 			method="detailChapter">
@@ -91,6 +119,9 @@
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="fail">/test.jsp</result>
 		</action>
+		
+		
+		
 
 	</package>
 </struts>

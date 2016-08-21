@@ -76,7 +76,7 @@ public class ChapterDAO {
 		logger.info("Done...");
 		return lstChapter;
 	}
-	
+
 	public List<Integer> listChapterPostByPostId(int postId) {
 		List<Integer> lstChapterId = new ArrayList<Integer>();
 
@@ -152,15 +152,14 @@ public class ChapterDAO {
 		logger.info("Done...");
 		return lstCommentId;
 	}
-	
-	
-	public ChapterDTO getChapterDTObyChapterId(int chapterId){
+
+	public ChapterDTO getChapterDTObyChapterId(int chapterId) {
 		Connection con = null;
 		Statement stmt = null;
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "SELECT * FROM eb_chapters WHERE chapterId ='" + chapterId  + "' AND del_flg = 0";
+			String query = "SELECT * FROM eb_chapters WHERE chapterId ='" + chapterId + "' AND del_flg = 0";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -173,9 +172,9 @@ public class ChapterDAO {
 				chapter.setCreateDate(rs.getDate("createDate"));
 				chapter.setUpdateDate(rs.getDate("updateDate"));
 				chapter.setDeleteDate(rs.getDate("deleteDate"));
-				
+
 				return chapter;
-	        }
+			}
 		} catch (SQLException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
 		} finally {
@@ -184,17 +183,17 @@ public class ChapterDAO {
 				if (stmt != null)
 					stmt.close();
 			} catch (SQLException se) {
-			}// do nothing
+			} // do nothing
 			try {
 				if (con != null)
 					con.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
-			}// end finally try
+			} // end finally try
 		}
 		return null;
 	}
-	
+
 	public int insertChapter(ChapterDTO chapter) {
 		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
 		Connection con = null;
@@ -243,7 +242,7 @@ public class ChapterDAO {
 		logger.info("Done...");
 		return chapterId;
 	}
-	
+
 	public boolean insertPostChapter(int chapterId, int postId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -284,6 +283,7 @@ public class ChapterDAO {
 
 	/**
 	 * update chapter
+	 * 
 	 * @param chapter
 	 * @return
 	 */
@@ -303,7 +303,7 @@ public class ChapterDAO {
 			pstmt.setString(2, chapter.getContents());
 			pstmt.setString(3, chapter.getDescription());
 			pstmt.setDate(4, currentDate);
-			
+
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
 				return true;
@@ -329,6 +329,38 @@ public class ChapterDAO {
 		}
 		logger.info("Done...");
 		return false;
+	}
+
+	// get chapter by commentId
+	public int getChapterIdbyCommentId(int commentId) {
+		Connection con = null;
+		Statement stmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "SELECT * FROM eb_chapterComment WHERE commentId ='" + commentId + "'";
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				return rs.getInt("chapterId");
+			}
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se) {
+			} // do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		}
+		return 0;
 	}
 
 }

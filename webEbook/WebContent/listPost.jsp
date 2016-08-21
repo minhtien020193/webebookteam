@@ -108,7 +108,7 @@
 				<div class="col-md-12">
 					<ol class="breadcrumb">
 						<li><a href="./">Trang chủ</a></li>
-						<li>Danh sách ebook/truyện</li>
+						<li>Danh sách bài viết</li>
 					</ol>
 				</div>
 			</div>
@@ -147,7 +147,7 @@
 									value="postName" /></a>
 						</div>
 						<div class="col-sm-3">
-							<s:property value="description" />
+							<s:property value="description" escapeHtml="false"/>
 						</div>
 						<div class="col-sm-2">
 							<s:property value="createDate" />

@@ -196,7 +196,7 @@
 					<h3 class="product-table-title">Thông Tin Chi Tiết</h3>
 				</div>
 				<div class="row box-product-lifestyle">
-					<s:property value="postDTO.description" />
+					<s:property value="postDTO.description" escapeHtml="false" />
 				</div>
 			</div>
 		</div>
@@ -258,7 +258,7 @@
 									<div class="col-md-2 item-profile">
 										<p class="image">
 											<a><img class="img-responsive"
-												src="https://graph.facebook.com/637828336316980/picture?width=50"
+												src="web/images/user.jpeg?width=50"
 												width="65" height="65"></a>
 										</p>
 										<p class="name" itemprop="author">
@@ -277,10 +277,25 @@
 										<div class="link">
 											<span class="text-success"></span> <span>Nhận xét này
 												hữu ích với bạn?</span>
-											<button class="btn btn-primary">
-												<span class="glyphicon glyphicon-thumbs-up"></span> <span>Cảm
-													ơn</span>
-											</button>
+											<s:if test="voteComment">
+												<a
+													href="./cancelFeedbackCommentPost?commentId=<s:property
+													value="commentId" />"
+													class="btn btn-primary"> <span
+													class="glyphicon glyphicon-thumbs-down"></span> <span>Huỷ
+														cảm ơn</span>
+												</a>
+											</s:if>
+											<s:else>
+												<a
+													href="./feedbackCommentPost?commentId=<s:property
+													value="commentId" />"
+													class="btn btn-primary"> <span
+													class="glyphicon glyphicon-thumbs-up"></span> <span>Cảm
+														ơn</span>
+												</a>
+
+											</s:else>
 										</div>
 									</div>
 								</div>

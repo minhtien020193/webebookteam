@@ -14,6 +14,13 @@
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
 
+<!-- text editer -->
+<link rel="stylesheet" media="screen"
+	href="cweb/textediter/ss/documentation.css" />
+<script src="web/textediter/js/jquery.classyedit.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="web/textediter/css/jquery.classyedit.css" />
+
 <title>Update Ebook</title>
 </head>
 <body class="ebook-product">
@@ -153,8 +160,8 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-2">Mô tả</div>
-						<div class="col-sm-4">
-							<textarea rows="5" cols="50" name="description"><s:property
+						<div class="col-sm-8">
+							<textarea class="des-classy-editor" name="description"><s:property
 									value="postDTO.description" /></textarea>
 						</div>
 					</div>
@@ -181,14 +188,14 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-2">Nội dung</div>
-						<div class="col-sm-4">
-							<textarea rows="5" cols="50" name="content"><s:property
+						<div class="col-sm-12">
+							<textarea class="classy-editor" name="content"><s:property
 									value="postDTO.contents" /></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<input type="reset" value="Xoá nội dung" class="btn btn-danger" />
-						<input type="submit" value="Gửi yêu cầu đăng bài"
+						<input type="submit" value="Chỉnh sửa bài viết"
 							class="btn btn-primary" />
 					</div>
 				</form>
@@ -232,5 +239,11 @@
 		</div>
 	</div>
 	</footer>
+	<script>
+		$(document).ready(function() {
+			$(".classy-editor").ClassyEdit();
+			$(".des-classy-editor").ClassyEdit();
+		});
+	</script>
 </body>
 </html>

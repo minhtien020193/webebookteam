@@ -145,7 +145,7 @@ public class CommentDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_postComment WHERE postId ='" + postId + "'";
+			String query = "SELECT * FROM eb_postComment WHERE postId ='" + postId + "' ORDER BY createDate DESC";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -184,7 +184,7 @@ public class CommentDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_chapterComment WHERE chapterId ='" + chapterId + "'";
+			String query = "SELECT * FROM eb_chapterComment WHERE chapterId ='" + chapterId + "' ORDER BY createDate DESC";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -266,16 +266,18 @@ public class CommentDAO {
 
 	// insert post comment table
 	public boolean insertPostComment(int postId, int commentId) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "INSERT INTO eb_postComment(postId, commentId, del_flg) VALUES (?, ?, ?)";
+			String query = "INSERT INTO eb_postComment(postId, commentId, del_flg, createDate) VALUES (?, ?, ?, ?)";
 			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, postId);
 			pstmt.setInt(2, commentId);
 			pstmt.setBoolean(3, false);
+			pstmt.setDate(4, currentDate);
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
 				return true;
@@ -305,16 +307,61 @@ public class CommentDAO {
 
 	// insert chapter comment table
 	public boolean insertChapterComment(int chapterId, int commentId) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "INSERT INTO eb_chapterComment(chapterId, commentId, del_flg) VALUES (?, ?, ?)";
+			String query = "INSERT INTO eb_chapterComment(chapterId, commentId, del_flg, createDate) VALUES (?, ?, ?,?)";
 			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, chapterId);
 			pstmt.setInt(2, commentId);
 			pstmt.setBoolean(3, false);
+			pstmt.setDate(4, currentDate);
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return false;
+	}
+
+	//update vote comment
+	public boolean updateVoteComment(int commentId, boolean voteComment) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "UPDATE eb_comments SET  voteComment=?, updateDate=? "
+					+ " WHERE commentId ='" + commentId + "'";
+			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt.setBoolean(1, voteComment);
+			pstmt.setDate(2, currentDate);
+			
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
 				return true;

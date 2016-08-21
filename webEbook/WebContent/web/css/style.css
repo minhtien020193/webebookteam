@@ -481,7 +481,7 @@ footer .bottom {
 }
 
 .ebook-product .item-profile {
-	border-right: 1px solid;
+	border-right: 1px solid #E4E4E4;
 }
 
 .product-review-content .item .image {
@@ -575,4 +575,8 @@ footer .bottom {
 }
 .title-box{
 	margin:20px;
+}
+.margin-comment .item .description{
+	min-height: 65px;
+	border-bottom: 1px solid #E4E4E4;
 }

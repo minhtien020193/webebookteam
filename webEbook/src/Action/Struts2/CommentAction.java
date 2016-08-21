@@ -7,7 +7,9 @@ import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
 
+import DAO.ChapterDAO;
 import DAO.CommentDAO;
+import DAO.PostDAO;
 
 /**
  * @author mac
@@ -17,6 +19,7 @@ public class CommentAction {
 	int postId;
 	String content;
 	int chapterId;
+	int commentId;
 
 	public String execute() throws Exception {
 		return "success";
@@ -64,7 +67,75 @@ public class CommentAction {
 		return "fail";
 
 	}
-
+	
+	public String feedbackCommentPost(){
+		PostDAO post = new PostDAO();
+		int postId = post.getPostIdbyCommentId(commentId);
+		if(postId == 0){
+			return "noPostId";
+		}
+		CommentDAO comment = new CommentDAO();
+		boolean voteComment = comment.updateVoteComment(commentId, true);
+		if(voteComment){
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			String lastAction = "detailPost?postId=" + postId;
+			session.put("lastAction", lastAction);
+			return "success";
+		}
+		return "fail";
+	}
+	
+	public String cancelFeedbackCommentPost(){
+		PostDAO post = new PostDAO();
+		int postId = post.getPostIdbyCommentId(commentId);
+		if(postId == 0){
+			return "noPostId";
+		}
+		CommentDAO comment = new CommentDAO();
+		boolean voteComment = comment.updateVoteComment(commentId, false);
+		if(voteComment){
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			String lastAction = "detailPost?postId=" + postId;
+			session.put("lastAction", lastAction);
+			return "success";
+		}
+		return "fail";
+	}
+	
+	public String feedbackCommentChapter(){
+		ChapterDAO chapter = new ChapterDAO();
+		int chapterId = chapter.getChapterIdbyCommentId(commentId);
+		if(chapterId == 0){
+			return "noChapterId";
+		}
+		CommentDAO comment = new CommentDAO();
+		boolean voteComment = comment.updateVoteComment(commentId, true);
+		if(voteComment){
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			String lastAction = "chapterDetail?chapterId=" + chapterId;
+			session.put("lastAction", lastAction);
+			return "success";
+		}
+		return "fail";
+	}
+	
+	public String cancelFeedbackCommentChapter(){
+		ChapterDAO chapter = new ChapterDAO();
+		int chapterId = chapter.getChapterIdbyCommentId(commentId);
+		if(chapterId == 0){
+			return "noChapterId";
+		}
+		CommentDAO comment = new CommentDAO();
+		boolean voteComment = comment.updateVoteComment(commentId, false);
+		if(voteComment){
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			String lastAction = "chapterDetail?chapterId=" + chapterId;
+			session.put("lastAction", lastAction);
+			return "success";
+		}
+		return "fail";
+	}
+	
 	// getter setter
 	public int getPostId() {
 		return postId;
@@ -88,6 +159,14 @@ public class CommentAction {
 
 	public void setChapterId(int chapterId) {
 		this.chapterId = chapterId;
+	}
+
+	public int getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
 	}
 
 }

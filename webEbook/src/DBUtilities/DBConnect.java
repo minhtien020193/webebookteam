@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class DBConnect {
 	public static Connection createConnection() {
 		Connection con = null;
-		String url = "jdbc:mysql://localhost:3306/eb_webEbook";
+		String url = "jdbc:mysql://localhost:3306/eb_webEbook?useUnicode=true&characterEncoding=UTF-8";
 		String username = "root"; // username of database user
 		String password = ""; // password
 
