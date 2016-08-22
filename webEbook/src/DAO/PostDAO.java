@@ -390,4 +390,101 @@ public class PostDAO {
 		}
 		return 0;
 	}
+	
+	public ArrayList<PostDTO> getListPostHold() {
+		ArrayList<PostDTO> lstPostHold = new ArrayList<PostDTO>();
+		Connection con = null;
+		Statement stmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "SELECT * FROM eb_posts WHERE postStatus = 0 AND del_flg = 0";
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				PostDTO post = new PostDTO();
+				post.setPostId(rs.getInt("postId"));
+				post.setUserId(rs.getInt("userId"));
+				post.setPostName(rs.getString("postName"));
+				post.setContents(rs.getString("contents"));
+				post.setDescription(rs.getString("description"));
+				post.setCountChapter(rs.getInt("countChapter"));
+				post.setAuthorName(rs.getString("authorName"));
+				post.setImage(rs.getString("image"));
+				post.setPrice(rs.getDouble("price"));
+				post.setSaleoff(rs.getInt("saleoff"));
+				post.setLinkDownload(rs.getString("linkDownload"));
+				post.setPostType(rs.getBoolean("postType"));
+				post.setDel_flg(rs.getBoolean("del_flg"));
+				post.setCreateDate(rs.getDate("createDate"));
+				post.setUpdateDate(rs.getDate("updateDate"));
+				post.setDeleteDate(rs.getDate("deleteDate"));
+
+				lstPostHold.add(post);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+			e.printStackTrace();
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					con.close();
+			} catch (SQLException se) {
+			} // do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		}
+		logger.info("Done...");
+		return lstPostHold;
+	}
+	
+	public boolean updateStatusPost(int postId) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "UPDATE eb_posts SET  postStatus=?, updateDate=?"
+					+ " WHERE postId ='" + postId + "'";
+			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt.setBoolean(1, true);
+			pstmt.setDate(2, currentDate);
+			
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return false;
+	}
 }

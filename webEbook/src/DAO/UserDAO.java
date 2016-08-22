@@ -5,11 +5,16 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
 
 import DBUtilities.DBConnect;
+import DTO.ChapterDTO;
+import DTO.PostDTO;
+import DTO.RoleDTO;
 import DTO.UserDTO;
 
 
@@ -142,4 +147,124 @@ public class UserDAO {
         for (byte byt : bytes) result.append(Integer.toString((byt & 0xff) + 0x100, 16).substring(1));
         return result.toString();
     }
+    
+    public RoleDTO getRoleByRoleId(int roleId){
+    	Connection con = null;
+		Statement stmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "SELECT * FROM eb_roles WHERE roleId ='" + roleId + "'";
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				RoleDTO role = new RoleDTO();
+				role.setRoleId(roleId);
+				role.setRoleName(rs.getString("roleName"));
+				role.setDescription(rs.getString("description"));
+				role.setCreateDate(rs.getDate("createDate"));
+				role.setUpdateDate(rs.getDate("updateDate"));
+				role.setDeleteDate(rs.getDate("deleteDate"));
+				return role;
+			}
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se) {
+			} // do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		}
+		return null;
+    }
+    
+    public int getRoleIdByUserId(int userId){
+    	Connection con = null;
+		Statement stmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			String query = "SELECT * FROM eb_users WHERE userId ='" + userId + "'";
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				return rs.getInt("roleId");
+			}
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se) {
+			} // do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		}
+		return 0;
+    }
+    
+    public ArrayList<UserDTO> getListSaler() {
+		ArrayList<UserDTO> lstSaler = new ArrayList<UserDTO>();
+		Connection con = null;
+		Statement stmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "SELECT * FROM eb_users WHERE roleId = 2 and del_Flg = 0";
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				UserDTO usr = new UserDTO();
+				usr.setUserId(rs.getInt("userId"));
+				usr.setUserName(rs.getString("userName"));
+				usr.setFirstName(rs.getString("firstName"));
+				usr.setMidName(rs.getString("midName"));
+				usr.setLastName(rs.getString("lastName"));
+				usr.setAddress(rs.getString("address"));
+				usr.setEmail(rs.getString("email"));
+				usr.setPhone(rs.getString("phone"));
+				usr.setRoleId(rs.getInt("roleId"));
+				usr.setCreateDate(rs.getDate("createDate"));
+				usr.setUpdateDate(rs.getDate("updateDate"));
+				
+				lstSaler.add(usr);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+			e.printStackTrace();
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					con.close();
+			} catch (SQLException se) {
+			} // do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		}
+		logger.info("Done...");
+		return lstSaler;
+	}
+
 }

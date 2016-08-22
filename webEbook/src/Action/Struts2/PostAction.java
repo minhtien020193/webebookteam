@@ -1,11 +1,9 @@
 package Action.Struts2;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 
 import DAO.ChapterDAO;
 import DAO.CommentDAO;
@@ -14,6 +12,7 @@ import DAO.UserDAO;
 import DTO.ChapterDTO;
 import DTO.CommentDTO;
 import DTO.PostDTO;
+import DTO.RoleDTO;
 
 public class PostAction {
 	List<PostDTO> listPost;
@@ -36,6 +35,10 @@ public class PostAction {
 	private String imageFileName;
 	private String ebookContentType;
 	private String imageContentType;
+	
+	final String ADMIN ="admin";
+	final String SALER ="saler";
+	final String MEMBER ="member";
 
 	public String execute() throws Exception {
 		PostDAO post = new PostDAO();
@@ -160,6 +163,38 @@ public class PostAction {
 			return "success";
 		}
 
+		return "fail";
+	}
+	
+	public String sendAcceptPost(){
+		int userId = 1;
+		UserDAO usr = new UserDAO();
+		int roleId = usr.getRoleIdByUserId(userId);
+		RoleDTO role = usr.getRoleByRoleId(roleId);
+		if(!(ADMIN).equals(role.getRoleName())){
+			return "notAdmin";
+		}
+		PostDAO post = new PostDAO();
+		listPost = post.getListPostHold();
+		if(listPost.isEmpty()){
+			noData = true;
+		}
+		return "success";
+	}
+	
+	public String acceptPost(){
+		int userId = 1;
+		UserDAO usr = new UserDAO();
+		int roleId = usr.getRoleIdByUserId(userId);
+		RoleDTO role = usr.getRoleByRoleId(roleId);
+		if(!(ADMIN).equals(role.getRoleName())){
+			return "notAdmin";
+		}
+		PostDAO post = new PostDAO();
+		boolean check = post.updateStatusPost(postId);
+		if(check){
+			return "success";
+		}
 		return "fail";
 	}
 

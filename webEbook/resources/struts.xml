@@ -60,28 +60,28 @@
 			<result name="noId">/test.jsp</result>
 			<result name="noData">/test.jsp</result>
 		</action>
-		
+
 		<action name="feedbackCommentPost" class="Action.Struts2.CommentAction"
 			method="feedbackCommentPost">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="noPostId">/test.jsp</result>
 			<result name="fail">/test.jsp</result>
 		</action>
-		
+
 		<action name="cancelFeedbackCommentPost" class="Action.Struts2.CommentAction"
 			method="cancelFeedbackCommentPost">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="noPostId">/test.jsp</result>
 			<result name="fail">/test.jsp</result>
 		</action>
-		
+
 		<action name="feedbackCommentChapter" class="Action.Struts2.CommentAction"
 			method="feedbackCommentChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="noChapterId">/test.jsp</result>
 			<result name="fail">/test.jsp</result>
 		</action>
-		
+
 		<action name="cancelFeedbackCommentChapter" class="Action.Struts2.CommentAction"
 			method="cancelFeedbackCommentChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
@@ -94,34 +94,52 @@
 			<result name="success">/detailChapter.jsp</result>
 			<result name="noData">/test.jsp</result>
 		</action>
-		
+
 		<action name="sendAddChapter" class="Action.Struts2.ChapterAction"
 			method="sendAddChapter">
 			<result name="success">/addChapter.jsp</result>
 			<result name="noPostId">/test.jsp</result>
 		</action>
-		
+
 		<action name="sendUpdateChapter" class="Action.Struts2.ChapterAction"
 			method="sendUpdateChapter">
 			<result name="success">/updateChapter.jsp</result>
 			<result name="noPostId">/test.jsp</result>
 		</action>
-		
+
 		<action name="addChapter" class="Action.Struts2.ChapterAction"
 			method="addChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="noPostChapter">/test.jsp</result>
 			<result name="fail">/test.jsp</result>
 		</action>
-		
+
 		<action name="updateChapter" class="Action.Struts2.ChapterAction"
 			method="updateChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="fail">/test.jsp</result>
 		</action>
-		
-		
-		
 
+		<!-- accept request post -->
+		<action name="sendAcceptPost" class="Action.Struts2.PostAction"
+			method="sendAcceptPost">
+			<result name="success">/listPostPedding.jsp</result>
+			<result name="notAdmin">/test.jsp</result>
+		</action>
+
+		<action name="acceptPost" class="Action.Struts2.PostAction"
+			method="acceptPost">
+			<result name="success" type="redirectAction">sendAcceptPost</result>
+			<result name="notAdmin">/test.jsp</result>
+			<result name="fail">/test.jsp</result>
+		</action>
+
+		<!-- list saler -->
+		<action name="listSaler" class="Action.Struts2.UserAction"
+			method="listSaler">
+			<result name="success">/listSaler.jsp</result>
+			<result name="noData">/test.jsp</result>
+			<result name="notAdmin">/test.jsp</result>
+		</action>
 	</package>
 </struts>
