@@ -141,5 +141,20 @@
 			<result name="noData">/test.jsp</result>
 			<result name="notAdmin">/test.jsp</result>
 		</action>
+		
+		<!-- list upgrad role -->
+		<action name="listUpgrande" class="Action.Struts2.UserAction"
+			method="listUpgrande">
+			<result name="success">/listUpgradeRole.jsp</result>
+			<result name="noData">/test.jsp</result>
+			<result name="notAdmin">/test.jsp</result>
+		</action>
+		
+		<action name="updateRoleUser" class="Action.Struts2.UserAction"
+			method="updateRoleUser">
+			<result name="success" type="redirectAction">listUpgrande</result>
+			<result name="fail">/test.jsp</result>
+		</action>
+		
 	</package>
 </struts>

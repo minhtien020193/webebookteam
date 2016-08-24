@@ -13,7 +13,7 @@ public class RequestRoleUpdate {
 	private int reqUpdateRoleId;
 	private int userId;
 	private String roleBefore;
-	private String reqStatus;
+	private boolean reqStatus;
 	private String description;
 	private boolean del_flg;
 	private Date createDate;
@@ -36,7 +36,7 @@ public class RequestRoleUpdate {
 	 * @param updateDate
 	 * @param deleteDate
 	 */
-	public RequestRoleUpdate(int reqUpdateRoleId, int userId, String roleBefore, String reqStatus, String description,
+	public RequestRoleUpdate(int reqUpdateRoleId, int userId, String roleBefore, boolean reqStatus, String description,
 			boolean del_flg, Date createDate, Date updateDate, Date deleteDate) {
 		super();
 		this.reqUpdateRoleId = reqUpdateRoleId;
@@ -67,10 +67,10 @@ public class RequestRoleUpdate {
 	public void setRoleBefore(String roleBefore) {
 		this.roleBefore = roleBefore;
 	}
-	public String getReqStatus() {
+	public boolean isReqStatus() {
 		return reqStatus;
 	}
-	public void setReqStatus(String reqStatus) {
+	public void setReqStatus(boolean reqStatus) {
 		this.reqStatus = reqStatus;
 	}
 	public String getDescription() {
