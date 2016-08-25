@@ -16,30 +16,28 @@ import DTO.RequestRoleUpdate;
 import DTO.RoleDTO;
 import DTO.UserDTO;
 
-
-
 public class UserDAO {
 	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
-	
+
 	public UserDTO authenticateUser(UserDTO user) {
 		String username = user.getUserName();
 		String password = hash256(user.getPassword());
-		
+
 		UserDTO result = null;
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
 			pstmt = (PreparedStatement) con.prepareStatement("select * from eb_users WHERE userName=? AND password=?");
-			pstmt.setString(1, username); 
+			pstmt.setString(1, username);
 			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				
+
 				result = new UserDTO();
-				
+
 				result.setUserName(rs.getString("userName"));
 				result.setFirstName(rs.getString("firstName"));
 				result.setMidName(rs.getString("midName"));
@@ -54,60 +52,59 @@ public class UserDAO {
 			try {
 				if (pstmt != null)
 					pstmt.close();
-				
+
 			} catch (SQLException se) {
-			}// do nothing
+			} // do nothing
 			try {
 				if (con != null)
 					con.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
-			}// end finally try
+			} // end finally try
 		}
 		logger.info("Done...");
 		return result;
 	}
-	
-	public boolean registerAccount(UserDTO user)
-	{
+
+	public boolean registerAccount(UserDTO user) {
 		// hash password
 		user.setPassword(hash256(user.getPassword()));
-		
+
 		// add create date
-		
+
 		// create a sql date object so we can use it in our INSERT statement
-	      Calendar calendar = Calendar.getInstance();
-	      java.sql.Date createDate = new java.sql.Date(calendar.getTime().getTime());
-		
+		Calendar calendar = Calendar.getInstance();
+		java.sql.Date createDate = new java.sql.Date(calendar.getTime().getTime());
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		logger.info("register begins...");
 
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			
+
 			// the mysql insert statement
-		    String query = "insert into eb_users (userName, password, firstName, midName, "
-		    		     + "lastName, address, email, phone, roleId, del_Flg, createDate) "
-		                 + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			
+			String query = "insert into eb_users (userName, password, firstName, midName, "
+					+ "lastName, address, email, phone, roleId, del_Flg, createDate) "
+					+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 			pstmt = (PreparedStatement) con.prepareStatement(query);
-			pstmt.setString(1, user.getUserName()); 
+			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getPassword());
-			
+
 			pstmt.setString(3, user.getFirstName());
 			pstmt.setString(4, user.getMidName());
 			pstmt.setString(5, user.getLastName());
 			pstmt.setString(6, user.getAddress());
 			pstmt.setString(7, user.getEmail());
 			pstmt.setString(8, user.getPhone());
-			
+
 			pstmt.setInt(9, user.getRoleId());
-			pstmt.setBoolean(10,false);
+			pstmt.setBoolean(10, false);
 			pstmt.setDate(11, createDate);
-			
-			boolean check = pstmt.execute();
-			if (check) {
+
+			int index = pstmt.executeUpdate();
+			if (index == 1) {
 				return true;
 			}
 		} catch (SQLException e) {
@@ -117,23 +114,20 @@ public class UserDAO {
 			try {
 				if (pstmt != null)
 					pstmt.close();
-				
 			} catch (SQLException se) {
-			}// do nothing
+			} // do nothing
 			try {
 				if (con != null)
 					con.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
-			}// end finally try
+			} // end finally try
 		}
 		logger.info("Done...");
-		
-		
 		return false;
 	}
-	
-	public int getUserId(String username){
+
+	public int getUserId(String username) {
 		int userId = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -141,9 +135,9 @@ public class UserDAO {
 		try {
 			con = DBConnect.createConnection(); // establishing connection
 			pstmt = (PreparedStatement) con.prepareStatement("select * from thtb_users WHERE username=?");
-			pstmt.setString(1, username); 
+			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()){
+			if (rs.next()) {
 				userId = rs.getInt(1);
 			}
 			return userId;
@@ -155,19 +149,19 @@ public class UserDAO {
 				if (pstmt != null)
 					pstmt.close();
 			} catch (SQLException se) {
-			}// do nothing
+			} // do nothing
 			try {
 				if (con != null)
 					con.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
-			}// end finally try
+			} // end finally try
 		}
 		logger.info("Done...");
 		return userId;
 	}
-	
-	public String getUserNameById(int userId){
+
+	public String getUserNameById(int userId) {
 		String username = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -175,9 +169,9 @@ public class UserDAO {
 		try {
 			con = DBConnect.createConnection(); // establishing connection
 			pstmt = (PreparedStatement) con.prepareStatement("select * from eb_users WHERE userId =?");
-			pstmt.setInt(1, userId); 
+			pstmt.setInt(1, userId);
 			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()){
+			if (rs.next()) {
 				username = rs.getString("username");
 			}
 			return username;
@@ -189,21 +183,21 @@ public class UserDAO {
 				if (pstmt != null)
 					pstmt.close();
 			} catch (SQLException se) {
-			}// do nothing
+			} // do nothing
 			try {
 				if (con != null)
 					con.close();
 			} catch (SQLException se) {
 				se.printStackTrace();
-			}// end finally try
+			} // end finally try
 		}
 		logger.info("Done...");
 		return null;
 	}
-	
-	public static String hash256(String data){
-        MessageDigest md = null;
-        logger.info("Logging begins...");
+
+	public static String hash256(String data) {
+		MessageDigest md = null;
+		logger.info("Logging begins...");
 		try {
 			md = MessageDigest.getInstance("SHA-256");
 		} catch (NoSuchAlgorithmException e) {
@@ -211,18 +205,19 @@ public class UserDAO {
 			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		logger.info("Done...");
-        md.update(data.getBytes());
-        return bytesToHex(md.digest());
-    }
-	
-    public static String bytesToHex(byte[] bytes) {
-        StringBuffer result = new StringBuffer();
-        for (byte byt : bytes) result.append(Integer.toString((byt & 0xff) + 0x100, 16).substring(1));
-        return result.toString();
-    }
-    
-    public RoleDTO getRoleByRoleId(int roleId){
-    	Connection con = null;
+		md.update(data.getBytes());
+		return bytesToHex(md.digest());
+	}
+
+	public static String bytesToHex(byte[] bytes) {
+		StringBuffer result = new StringBuffer();
+		for (byte byt : bytes)
+			result.append(Integer.toString((byt & 0xff) + 0x100, 16).substring(1));
+		return result.toString();
+	}
+
+	public RoleDTO getRoleByRoleId(int roleId) {
+		Connection con = null;
 		Statement stmt = null;
 		logger.info("Logging begins...");
 		try {
@@ -257,10 +252,10 @@ public class UserDAO {
 			} // end finally try
 		}
 		return null;
-    }
-    
-    public int getRoleIdByUserId(int userId){
-    	Connection con = null;
+	}
+
+	public int getRoleIdByUserId(int userId) {
+		Connection con = null;
 		Statement stmt = null;
 		logger.info("Logging begins...");
 		try {
@@ -288,10 +283,10 @@ public class UserDAO {
 			} // end finally try
 		}
 		return 0;
-    }
-    
-    //get UserDTO by userID
-    public UserDTO getUserbyId(int userId) {
+	}
+
+	// get UserDTO by userID
+	public UserDTO getUserbyId(int userId) {
 		Connection con = null;
 		Statement stmt = null;
 		logger.info("Logging begins...");
@@ -315,7 +310,7 @@ public class UserDAO {
 				usr.setRoleId(rs.getInt("roleId"));
 				usr.setCreateDate(rs.getDate("createDate"));
 				usr.setUpdateDate(rs.getDate("updateDate"));
-				
+
 				return usr;
 			}
 			rs.close();
@@ -339,8 +334,8 @@ public class UserDAO {
 		logger.info("Done...");
 		return null;
 	}
-    
-    public ArrayList<UserDTO> getListSaler() {
+
+	public ArrayList<UserDTO> getListSaler() {
 		ArrayList<UserDTO> lstSaler = new ArrayList<UserDTO>();
 		Connection con = null;
 		Statement stmt = null;
@@ -365,7 +360,7 @@ public class UserDAO {
 				usr.setRoleId(rs.getInt("roleId"));
 				usr.setCreateDate(rs.getDate("createDate"));
 				usr.setUpdateDate(rs.getDate("updateDate"));
-				
+
 				lstSaler.add(usr);
 			}
 			rs.close();
@@ -389,8 +384,8 @@ public class UserDAO {
 		logger.info("Done...");
 		return lstSaler;
 	}
-    
-    public ArrayList<RequestRoleUpdate> getListUpgrand() {
+
+	public ArrayList<RequestRoleUpdate> getListUpgrand() {
 		ArrayList<RequestRoleUpdate> lstUpgrande = new ArrayList<RequestRoleUpdate>();
 		Connection con = null;
 		Statement stmt = null;
@@ -434,7 +429,7 @@ public class UserDAO {
 		return lstUpgrande;
 	}
 
-    public boolean updateRoleSaler(int userId, int roleId) {
+	public boolean updateRoleSaler(int userId, int roleId) {
 		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -443,12 +438,11 @@ public class UserDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "UPDATE eb_users SET roleId = ?, updateDate =?"
-					+ " WHERE userId ='" + userId + "'";
+			String query = "UPDATE eb_users SET roleId = ?, updateDate =?" + " WHERE userId ='" + userId + "'";
 			pstmt = (PreparedStatement) con.prepareStatement(query);
 			pstmt.setInt(1, roleId);
 			pstmt.setDate(2, currentDate);
-			
+
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
 				updateRequestRoleUpdate(userId);
@@ -476,8 +470,8 @@ public class UserDAO {
 		logger.info("Done...");
 		return false;
 	}
-    
-    private boolean updateRequestRoleUpdate(int userId) {
+
+	private boolean updateRequestRoleUpdate(int userId) {
 		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -486,12 +480,12 @@ public class UserDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "UPDATE eb_requestRoleUpdate SET reqStatus = ?, updateDate =?"
-					+ " WHERE userId ='" + userId + "' AND reqStatus = 0";
+			String query = "UPDATE eb_requestRoleUpdate SET reqStatus = ?, updateDate =?" + " WHERE userId ='" + userId
+					+ "' AND reqStatus = 0";
 			pstmt = (PreparedStatement) con.prepareStatement(query);
 			pstmt.setBoolean(1, true);
 			pstmt.setDate(2, currentDate);
-			
+
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
 				return true;

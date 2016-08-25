@@ -14,91 +14,16 @@
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
 
-<title>Detail Chapter</title>
+<title>Chi tiết chương của bài viết</title>
 </head>
 <body class="ebook-product">
 	<header class="wrap-header affix-top">
 	<div class="container site-component">
 		<!-- row 1 -->
-		<div class="row">
-			<div class="col-md-3">
-				<p class="header-logo">
-					<a href="#" title="Ebook"> Logo </a>
-				</p>
-				<div class="clearfix"></div>
-			</div>
-			<div class="col-md-6 col-lg-6 header-search-wrap">
-				<form id="search_form" action="search" method="get"
-					class="header-search">
-					<div class="input-group">
-						<input type="text" name="txtsearch" autocomplete="off"
-							class="form-control"
-							placeholder="Tìm kiếm sản phẩm, danh mục mong muốn..." value="">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">
-								<span class="hidden-sm hidden-xs">Tìm</span> <i
-									class="fa fa-search hidden-lg hidden-md"></i>
-							</button>
-						</span>
-					</div>
-				</form>
-			</div>
-			<div class="col-md-3 col-lg-3 visible-lg-block visible-md-block">
-				<div class="header-user">
-					<div class="user-name">
-						<div class="user-name-link">
-							<div class="user-avatar">
-								<img width="34" height="34"
-									src="https://vcdn.tikicdn.com/assets/img/avatar-s.png" alt="">
-							</div>
-							<ul>
-								<li class="user-name-short"><span> <!-- react-text: 29 -->Chào,
-										<!-- /react-text --> <!-- react-text: 30 -->Trương<!-- /react-text -->
-								</span></li>
-								<li class="user-name-account"><span>Tài khoản</span><span>
-										&amp; Đơn hàng</span></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<%@ include file="include/header.jsp"%>
 
 		<!-- row 2 -->
-		<div class="row header-row2">
-			<div class="col-md-3">
-				<nav class="header-navigation first"> <a href="#"
-					id="listEbookDetail" class="menu-all" title="Tất cả Danh Mục">
-					<i class="glyphicon glyphicon-align-justify"></i>
-					<h2 title="Tất Cả Danh Mục">Tất Cả Danh Mục</h2>
-				</a>
-				<ul id="nav-menu">
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-				</ul>
-				</nav>
-			</div>
-			<div class="col-md-6"></div>
-			<div class="col-md-3"></div>
-		</div>
+		<%@ include file="include/menu.jsp"%>
 	</div>
 	</header>
 
@@ -270,17 +195,6 @@
 	</div>
 
 	<!-- footer -->
-	<footer class="wrap-footer">
-	<div class="footer-content">
-		<div class="container">
-			<div class="bottom ">
-				<p class="copyright">Giấy phép ICP số: 670/GP-BTTTT cấp ngày
-					30/11/2015 Copyright © 2009-2015 TaiLieu.VN. All rights reserved.
-					TaiLieu.VN hiển thị tốt nhất với trình duyệt Chrome, Firefox,
-					Internet Explorer 8.</p>
-			</div>
-		</div>
-	</div>
-	</footer>
+	<%@ include file="include/footer.jsp"%>
 </body>
 </html>

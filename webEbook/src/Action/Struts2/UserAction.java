@@ -76,7 +76,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 	}
 
 	public String register() {
-		UserDTO userDto = new UserDTO(username, password, firstName, midName, lastName, address, email, phone, 2); // TODO
+		UserDTO userDto = new UserDTO(username, password, firstName, midName, lastName, address, email, phone, 3); // TODO
 		UserDAO userDao = new UserDAO();
 		if (userDao.registerAccount(userDto)) {
 			return SUCCESS;

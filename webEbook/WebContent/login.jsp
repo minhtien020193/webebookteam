@@ -1,168 +1,90 @@
-
-<%@ page contentType="text/html; charset=UTF-8"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" media="all" />
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="web/css/style.css" rel="stylesheet" type="text/css"
+	media="all" />
+<script type="text/javascript" src="web/js/jquery.min.js"></script>
+<script type="text/javascript" src="web/js/home.js"></script>
+<script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
 
-<title>Insert title here</title>
+<title>Đăng nhập hệ thống</title>
 </head>
+<body class="ebook-product">
+	<header class="wrap-header affix-top">
+	<div class="container site-component">
+		<!-- row 1 -->
+		<%@ include file="include/header.jsp"%>
 
-<style>
-/* Full-width input fields */
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
+		<!-- row 2 -->
+		<%@ include file="include/menu.jsp"%>
+	</div>
+	</header>
 
-/* Set a style for all buttons */
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-}
+	<div class="breadcrumb-wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<ol class="breadcrumb">
+						<li><a href="./">Trang chủ</a></li>
+						<li>Đăng nhập</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wrap">
+		<div class="container">
+			<div class="col-sm-6">
+				<div class="login-title">
+					<h4 class="title">Đăng nhập hệ thống</h4>
+					<div class="comments-area">
+						<form action="loginAction" method="POST">
+							<p>
+								<label>Tên đăng nhập</label> <span>*</span> <input type="text"
+									required placeholder="Tên đăng nhập" name="username">
+							</p>
+							<p>
+								<label>Mật khẩu</label> <span>*</span> <input type="password"
+									required placeholder="Mật khẩu" name="password">
+							</p>
+							<p>
+								<input type="submit" value="Login" class="btn btn-primary">
+							</p>
+							<p id="login-form-remember">
+								<label><a href="#">Forget Your Password ? </a></label>
+							</p>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="login-title">
+					<h4 class="title">Thành viên mới</h4>
+					<h5 class="sub_title">Đăng kí tài khoản mới</h5>
+					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+						sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+						aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud
+						exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
+						commodo consequat. Duis autem vel eum iriure dolor in hendrerit in
+						vulputate velit esse molestie consequat, vel illum dolore eu
+						feugiat nulla facilisis at vero eros et accumsan</p>
+					<div class="button1">
+						<a href="register.jsp"><input type="submit" name="Submit"
+							value="Tiếp tục" class="btn btn-primary"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-/* Extra styles for the cancel button */
-.cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-}
-
-/* Center the image and position the close button */
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-    position: relative;
-}
-
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
-
-.container {
-    padding: 16px;
-}
-
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button (x) */
-.close {
-    position: absolute;
-    right: 25px;
-    top: 0;
-    color: #000;
-    font-size: 35px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: red;
-    cursor: pointer;
-}
-
-/* Add Zoom Animation */
-.animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)}
-    to {-webkit-transform: scale(1)}
-}
-    
-@keyframes animatezoom {
-    from {transform: scale(0)}
-    to {transform: scale(1)}
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-    span.psw {
-       display: block;
-       float: none;
-    }
-    .cancelbtn {
-       width: 100%;
-    }
-}
-</style>
-<body>
-
-
-
-<button onclick="document.getElementById('loginModal').style.display='block'" style="width:auto;">Login</button>
-
-<!-- The Modal -->
-<div id="loginModal" class="modal">
-  <span onclick="document.getElementById('loginModal').style.display='none'" 
-class="close" title="Close Modal">&times;</span>
-
-  <!-- Modal Content -->
-  <form class="modal-content animate" action="loginAction" method="POST">
-    <div class="imgcontainer">
-      <img src="./image/img_avatar2.png" alt="Avatar" class="avatar">
-    </div>
-
-    <div class="container">
-      <label><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="username" >
-
-      <label><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" >
-
-      <button type="submit" >Login</button>
-      <input type="checkbox" checked="checked"> Remember me
-    </div>
-    
-	<span > <a href="register.jsp">Chưa có tài khoản?</a> </span>
-    
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('loginModal').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form>
-</div>
-  
-
-
+	<!-- footer -->
+	<%@ include file="include/footer.jsp"%>
 </body>
 </html>

@@ -167,8 +167,6 @@
 			method="updateRoleUser">
 			<result name="success" type="redirectAction">listUpgrande</result>
 			<result name="fail">/test.jsp</result>
-
-		
-		
+		</action>
 	</package>
 </struts>

@@ -580,3 +580,60 @@ footer .bottom {
 	min-height: 65px;
 	border-bottom: 1px solid #E4E4E4;
 }
+.comments-area p {
+    padding: 8px 0;
+    color: #999;
+    font-size: 0.8125em;
+    line-height: 1.8em;
+}
+.comments-area p label{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+.comments-area input[type="text"] {
+    padding: 10px 15px;
+    width: 97%;
+    color: #000;
+    border: 1px solid #f0f0f0;
+    background: #fff;
+    outline: none;
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+.comments-area input[type="password"] {
+    padding: 10px 15px;
+    width: 97%;
+    color: #000;
+    font-size: 14px;
+    border: 1px solid #f0f0f0;
+    background: #fff;
+    outline: none;
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+}
+h5.sub_title {
+    color: #000;
+    font-size: 0.8125em;
+    text-transform: uppercase;
+    margin: 3%;
+}
+.register_account form input[type="text"],input[type="password"], input[type="email"], .register_account form select {
+    font-size: 14px;
+    color: #999;
+    padding: 8px;
+    outline: none;
+    margin: 10px 0;
+    width: 95%;
+    font-family: 'Open Sans', sans-serif;
+    border: 1px solid #f0f0f0;
+}
+.btn-register {
+	margin-top: 12px;
+	width: 95%;
+}
