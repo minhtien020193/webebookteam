@@ -4,6 +4,19 @@
    "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="ebook" extends="struts-default">
+		<action name="loginAction" class="Action.Struts2.UserAction" method="login">
+			<result name="success">/test.jsp</result>
+			<result name="fail">/error.jsp</result>
+		</action>
+		<action name="logoutAction" class="Action.Struts2.UserAction" method="logout">
+			<result name="success">/test.jsp</result>
+		</action>
+		<action name="registerAction" class="Action.Struts2.UserAction" method="register">
+			<result name="success">/test.jsp</result>
+			<result name="fail">/error.jsp</result>
+
+		</action>
+	
 		<action name="home" class="Action.Struts2.PostAction" method="execute">
 			<result name="success">/home.jsp</result>
 		</action>
@@ -154,7 +167,8 @@
 			method="updateRoleUser">
 			<result name="success" type="redirectAction">listUpgrande</result>
 			<result name="fail">/test.jsp</result>
-		</action>
+
+		
 		
 	</package>
 </struts>

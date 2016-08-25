@@ -6,14 +6,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
-
 import DBUtilities.DBConnect;
-import DTO.ChapterDTO;
-import DTO.PostDTO;
 import DTO.RequestRoleUpdate;
 import DTO.RoleDTO;
 import DTO.UserDTO;
@@ -23,20 +21,92 @@ import DTO.UserDTO;
 public class UserDAO {
 	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
 	
-	public boolean authenticateUser(UserDTO user) {
+	public UserDTO authenticateUser(UserDTO user) {
 		String username = user.getUserName();
 		String password = hash256(user.getPassword());
-
+		
+		UserDTO result = null;
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			pstmt = (PreparedStatement) con.prepareStatement("select * from thtb_users WHERE username=? AND password=?");
+			pstmt = (PreparedStatement) con.prepareStatement("select * from eb_users WHERE userName=? AND password=?");
 			pstmt.setString(1, username); 
 			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
-			boolean check = rs.next();
+			if (rs.next()) {
+				
+				result = new UserDTO();
+				
+				result.setUserName(rs.getString("userName"));
+				result.setFirstName(rs.getString("firstName"));
+				result.setMidName(rs.getString("midName"));
+				result.setLastName(rs.getString("lastName"));
+
+				return result;
+			}
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				
+			} catch (SQLException se) {
+			}// do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}// end finally try
+		}
+		logger.info("Done...");
+		return result;
+	}
+	
+	public boolean registerAccount(UserDTO user)
+	{
+		// hash password
+		user.setPassword(hash256(user.getPassword()));
+		
+		// add create date
+		
+		// create a sql date object so we can use it in our INSERT statement
+	      Calendar calendar = Calendar.getInstance();
+	      java.sql.Date createDate = new java.sql.Date(calendar.getTime().getTime());
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("register begins...");
+
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			
+			// the mysql insert statement
+		    String query = "insert into eb_users (userName, password, firstName, midName, "
+		    		     + "lastName, address, email, phone, roleId, del_Flg, createDate) "
+		                 + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt.setString(1, user.getUserName()); 
+			pstmt.setString(2, user.getPassword());
+			
+			pstmt.setString(3, user.getFirstName());
+			pstmt.setString(4, user.getMidName());
+			pstmt.setString(5, user.getLastName());
+			pstmt.setString(6, user.getAddress());
+			pstmt.setString(7, user.getEmail());
+			pstmt.setString(8, user.getPhone());
+			
+			pstmt.setInt(9, user.getRoleId());
+			pstmt.setBoolean(10,false);
+			pstmt.setDate(11, createDate);
+			
+			boolean check = pstmt.execute();
 			if (check) {
 				return true;
 			}
@@ -58,6 +128,8 @@ public class UserDAO {
 			}// end finally try
 		}
 		logger.info("Done...");
+		
+		
 		return false;
 	}
 	

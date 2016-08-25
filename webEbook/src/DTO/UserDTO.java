@@ -67,6 +67,32 @@ public class UserDTO {
 		this.updateDate = updateDate;
 		this.deleteDate = deleteDate;
 	}
+	
+	/**
+	 * @param userName
+	 * @param password
+	 * @param firstName
+	 * @param midName
+	 * @param lastName
+	 * @param address
+	 * @param email
+	 * @param phone
+	 * @param roleId
+	 */
+	public UserDTO(String userName, String password, String firstName, String midName, String lastName,
+			String address, String email, String phone, int roleId) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.firstName = firstName;
+		this.midName = midName;
+		this.lastName = lastName;
+		this.address = address;
+		this.email = email;
+		this.phone = phone;
+		this.roleId = roleId;
+
+	}
 
 	/**
 	 * @return the userId

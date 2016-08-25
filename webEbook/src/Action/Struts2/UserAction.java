@@ -2,73 +2,190 @@ package Action.Struts2;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import DAO.UserDAO;
 import DTO.RequestRoleUpdate;
 import DTO.RoleDTO;
 import DTO.UserDTO;
+import java.util.Map;
+import org.apache.struts2.interceptor.SessionAware;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class UserAction {
+@SuppressWarnings("serial")
+public class UserAction extends ActionSupport implements SessionAware {
 
-	final String ADMIN ="admin";
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
+
+	private Map<String, Object> sessionMap;
+	private String username;
+	private String password;
+	private String firstName;
+	private String midName;
+	private String lastName;
+	private String address;
+	private String email;
+	private String phone;
+	final String ADMIN = "admin";
 	final int saleId = 2;
 	List<UserDTO> listUsers;
 	boolean noData = false;
 	int userId;
 
 	public String execute() throws Exception {
-		return "success";
+		System.out.println(" cuc cuc " + username + password);
+		return SUCCESS;
 	}
-	
+
 	public String listSaler() {
 		int userId = 1;
 		UserDAO usr = new UserDAO();
 		int roleId = usr.getRoleIdByUserId(userId);
 		RoleDTO role = usr.getRoleByRoleId(roleId);
-		if(!(ADMIN).equals(role.getRoleName())){
+		if (!(ADMIN).equals(role.getRoleName())) {
 			return "notAdmin";
 		}
 		UserDAO user = new UserDAO();
 		listUsers = user.getListSaler();
-		if(listUsers.isEmpty()){
+		if (listUsers.isEmpty()) {
 			noData = true;
 		}
 		return "success";
 	}
-	
-	public String listUpgrande(){
+
+	public String login() {
+		UserDTO userDto = new UserDTO();
+		userDto.setUserName(username);
+		userDto.setPassword(password);
+		System.out.println(" cuc cuc " + username + password);
+		UserDAO userDao = new UserDAO();
+
+		userDto = userDao.authenticateUser(userDto);
+		if (userDto != null) {
+			sessionMap.put("LOGINED", userDto);
+			return SUCCESS;
+		}
+		return FAIL;
+	}
+
+	public String logout() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		session.remove("LOGINED");
+
+		return SUCCESS;
+	}
+
+	public String register() {
+		UserDTO userDto = new UserDTO(username, password, firstName, midName, lastName, address, email, phone, 2); // TODO
+		UserDAO userDao = new UserDAO();
+		if (userDao.registerAccount(userDto)) {
+			return SUCCESS;
+		}
+		return FAIL;
+	}
+
+	public String listUpgrande() {
 		int userId = 1;
 		UserDAO usr = new UserDAO();
 		int roleId = usr.getRoleIdByUserId(userId);
 		RoleDTO role = usr.getRoleByRoleId(roleId);
-		if(!(ADMIN).equals(role.getRoleName())){
+		if (!(ADMIN).equals(role.getRoleName())) {
 			return "notAdmin";
 		}
 		listUsers = new ArrayList<>();
 		for (RequestRoleUpdate reqRole : usr.getListUpgrand()) {
-			UserDTO userDTO=  usr.getUserbyId(reqRole.getUserId());
+			UserDTO userDTO = usr.getUserbyId(reqRole.getUserId());
 			listUsers.add(userDTO);
 		}
-		if(usr.getListUpgrand().isEmpty()){
+		if (usr.getListUpgrand().isEmpty()) {
 			noData = true;
 		}
 		return "success";
 	}
-	
-	public String updateRoleUser(){
+
+	public String updateRoleUser() {
 		UserDAO urs = new UserDAO();
 		boolean check = urs.updateRoleSaler(userId, saleId);
-		if(check){
+		if (check) {
 			return "success";
 		}
 		return "fail";
 	}
-	
 
-	//getter setter
+	// getter setter
+	@Override
+	public void setSession(Map<String, Object> sessionMap) {
+		this.sessionMap = sessionMap;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getMidName() {
+		return midName;
+	}
+
+	public void setMidName(String midName) {
+		this.midName = midName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 	public List<UserDTO> getListUsers() {
 		return listUsers;
 	}
+
 	public void setListUsers(List<UserDTO> listUsers) {
 		this.listUsers = listUsers;
 	}
@@ -88,5 +205,5 @@ public class UserAction {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	
+
 }
