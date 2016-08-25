@@ -5,14 +5,14 @@
 <struts>
 	<package name="ebook" extends="struts-default">
 		<action name="loginAction" class="Action.Struts2.UserAction" method="login">
-			<result name="success">/test.jsp</result>
+			<result name="success" type="redirectAction">home</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 		<action name="logoutAction" class="Action.Struts2.UserAction" method="logout">
-			<result name="success">/test.jsp</result>
+			<result name="success" type="redirectAction">home</result>
 		</action>
 		<action name="registerAction" class="Action.Struts2.UserAction" method="register">
-			<result name="success">/test.jsp</result>
+			<result name="success" type="redirectAction">home</result>
 			<result name="fail">/error.jsp</result>
 
 		</action>

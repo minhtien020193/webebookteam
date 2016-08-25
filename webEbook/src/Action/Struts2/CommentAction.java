@@ -26,7 +26,7 @@ public class CommentAction {
 	}
 
 	public String postCommentPost() {
-
+		Map<String, Object> session = ActionContext.getContext().getSession();
 		if (("").equals(content)) {
 			return "noComment";
 		}
@@ -38,7 +38,6 @@ public class CommentAction {
 		}
 		boolean insertPostComment = comment.insertPostComment(postId, commentId);
 		if (insertPostComment) {
-			Map<String, Object> session = ActionContext.getContext().getSession();
 			String lastAction = "detailPost?postId=" + postId;
 			session.put("lastAction", lastAction);
 			return "success";

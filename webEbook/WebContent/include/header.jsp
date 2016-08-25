@@ -24,19 +24,28 @@
 	</div>
 	<div class="col-md-3 col-lg-3">
 		<div class="header-user">
+			<div></div>
+
 			<div class="user-name">
 				<div class="user-name-link">
-					<div class="user-avatar">
-						<img width="34" height="34"
-							src="https://vcdn.tikicdn.com/assets/img/avatar-s.png" alt="">
-					</div>
-					<ul>
-						<li class="user-name-short"><span> <!-- react-text: 29 -->Chào,
-								<!-- /react-text --> <!-- react-text: 30 -->Trương<!-- /react-text -->
-						</span></li>
-						<li class="user-name-account"><span>Tài khoản</span><span>
-								&amp; Đơn hàng</span></li>
-					</ul>
+					<s:if test="#session.LOGINED == NULL">
+						<div>
+							<a href="login.jsp">Đăng nhập</a>
+						</div>
+					</s:if>
+					<s:else>
+						<div class="user-avatar">
+							<img width="34" height="34"
+								src="https://vcdn.tikicdn.com/assets/img/avatar-s.png" alt="">
+						</div>
+						<ul>
+							<li class="user-name-short"><span>Chào, <s:property
+										value="#session.LOGINED.userName" escapeHtml="false" />
+							</span> <a href="logoutAction.action">Thoát</a></li>
+							<li class="user-name-account"><span>Tài khoản</span><span>
+									&amp; Đơn hàng</span></li>
+						</ul>
+					</s:else>
 				</div>
 			</div>
 		</div>
