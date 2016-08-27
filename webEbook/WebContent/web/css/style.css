@@ -637,3 +637,18 @@ h5.sub_title {
 	margin-top: 12px;
 	width: 95%;
 }
+.product-item .image{
+	height: 160px;
+}
+.profile-box{
+	border: 1px solid;
+}
+.profile-box .row{
+	margin: 10px;
+}
+.image-box{
+	text-align: center;
+}
+.profile{
+	height: 400px;
+}

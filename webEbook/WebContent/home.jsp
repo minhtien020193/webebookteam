@@ -21,7 +21,7 @@
 	<div class="container site-component">
 		<!-- row 1 -->
 		<%@ include file="include/header.jsp"%>
-		
+
 		<!-- row 2 -->
 		<div class="row header-row2">
 			<div class="col-md-3">
@@ -29,30 +29,7 @@
 					id="listEbook" class="menu-all" title="Tất cả Danh Mục"> <i
 					class="glyphicon glyphicon-align-justify"></i>
 					<h2 title="Tất Cả Danh Mục">Tất Cả Danh Mục</h2>
-				</a>
-				<ul id="nav-menu">
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-					<li><a href="#"> <i
-							class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-								loai 1</span>
-					</a></li>
-				</ul>
-				</nav>
+				</a> <%@ include file="include/contentMenu.jsp"%> </nav>
 			</div>
 			<div class="col-md-6"></div>
 			<div class="col-md-3"></div>
@@ -110,7 +87,8 @@
 								<div class="product-item">
 									<a href="detailPost?postId=<s:property value="postId" />">
 										<div class="image">
-											<img alt="<s:property value="postName" />" src="<s:property value="image"/>" />
+											<img alt="<s:property value="postName" />"
+												src="<s:property value="image"/>" />
 										</div>
 										<div class="cblock ctitle">
 											<h3>
@@ -128,8 +106,7 @@
 											<div class="col-md-6">
 												<i class="glyphicon glyphicon-file margin-10"
 													aria-hidden="true"></i> <span class="fred"><s:property
-														value="countChapter" /></span>
-														<span>Chương</span>
+														value="countChapter" /></span> <span>Chương</span>
 											</div>
 											<div class="col-md-6">
 												<i class="glyphicon glyphicon-eye-open margin-10"

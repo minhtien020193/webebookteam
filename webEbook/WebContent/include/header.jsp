@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-3">
 		<p class="header-logo">
-			<a href="#" title="Ebook"> Logo </a>
+			<a href="home" title="Ebook"> Logo </a>
 		</p>
 		<div class="clearfix"></div>
 	</div>
@@ -42,8 +42,7 @@
 							<li class="user-name-short"><span>Chào, <s:property
 										value="#session.LOGINED.userName" escapeHtml="false" />
 							</span> <a href="logoutAction.action">Thoát</a></li>
-							<li class="user-name-account"><span>Tài khoản</span><span>
-									&amp; Đơn hàng</span></li>
+							<li class="user-name-account"><span><a href="profile">Tài khoản</a></span>
 						</ul>
 					</s:else>
 				</div>

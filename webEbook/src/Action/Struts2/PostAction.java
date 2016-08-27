@@ -45,6 +45,7 @@ public class PostAction {
 	private String imageContentType;
 	private int categoryId;
 	String categoryName;
+	boolean noFeedback = false;
 	
 	final String ADMIN ="admin";
 	final String SALER ="saler";
@@ -52,7 +53,12 @@ public class PostAction {
 
 	public String execute() throws Exception {
 		PostDAO post = new PostDAO();
-		listPost = post.getListPost();
+		if(categoryId == 0){
+			listPost = post.getListPost();
+		} else {
+			listPost = post.getListPostByCategoryId(categoryId);
+		}
+		
 		return "success";
 	}
 
@@ -105,7 +111,15 @@ public class PostAction {
 		//category
 		CategoryDAO cat = new CategoryDAO();
 		categoryName = cat.getCategoryById(postDTO.getCategoryId());
-
+		//show button feedback for poster
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") != null){
+			UserDTO usr = (UserDTO) session.get("LOGINED");
+			int userId = usr.getUserId();
+			if(userId == postDTO.getUserId()){
+				noFeedback = true;
+			}
+		}
 		return "success";
 	}
 
@@ -506,6 +520,14 @@ public class PostAction {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public boolean isNoFeedback() {
+		return noFeedback;
+	}
+
+	public void setNoFeedback(boolean noFeedback) {
+		this.noFeedback = noFeedback;
 	}
 
 }

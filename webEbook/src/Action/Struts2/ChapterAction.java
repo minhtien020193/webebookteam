@@ -28,11 +28,20 @@ public class ChapterAction {
 	final String ADMIN ="admin";
 	final String SALER ="saler";
 	final String MEMBER ="member";
+	boolean noFeedback = false;
 
 	public String detailChapter() {
 		PostDAO post = new PostDAO();
 		int postId = post.getPostIdbyChapterId(chapterId);
 		postDTO = post.findPostDTO(postId);
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") != null){
+			UserDTO usr = (UserDTO) session.get("LOGINED");
+			int userId = usr.getUserId();
+			if(userId == postDTO.getUserId()){
+				noFeedback = true;
+			}
+		}
 
 		ChapterDAO chapter = new ChapterDAO();
 		chapterDTO = chapter.getChapterDTObyChapterId(chapterId);
@@ -62,7 +71,6 @@ public class ChapterAction {
 		if(MEMBER.equals(role)){
 			return "noPermission";
 		}
-		
 		PostDAO post = new PostDAO();
 		postDTO = post.findPostDTO(postId);
 
@@ -84,10 +92,13 @@ public class ChapterAction {
 		if(MEMBER.equals(role)){
 			return "noPermission";
 		}
-		
 		PostDAO post = new PostDAO();
 		int postIdbyChapterId = post.getPostIdbyChapterId(chapterId);
 		postDTO = post.findPostDTO(postIdbyChapterId);
+		if(userId != postDTO.getUserId()){
+			//user nay ko co quyen chinh sua chapter nay
+			return "noPermission";
+		}
 		if (postDTO == null) {
 			return "noPostId";
 		}
@@ -111,7 +122,6 @@ public class ChapterAction {
 		if(MEMBER.equals(role)){
 			return "noPermission";
 		}
-		
 		ChapterDTO chapterDTO = new ChapterDTO();
 		chapterDTO.setChapterName(chapterName);
 		chapterDTO.setContents(contents);
@@ -236,6 +246,14 @@ public class ChapterAction {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isNoFeedback() {
+		return noFeedback;
+	}
+
+	public void setNoFeedback(boolean noFeedback) {
+		this.noFeedback = noFeedback;
 	}
 
 }

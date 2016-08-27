@@ -7,28 +7,7 @@
 				class="glyphicon glyphicon-align-justify"></i>
 				<h2 title="Tất Cả Danh Mục">Tất Cả Danh Mục</h2>
 			</a>
-			<ul id="nav-menu">
-				<li><a href="#"> <i
-						class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-							loai 1</span>
-				</a></li>
-				<li><a href="#"> <i
-						class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-							loai 1</span>
-				</a></li>
-				<li><a href="#"> <i
-						class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-							loai 1</span>
-				</a></li>
-				<li><a href="#"> <i
-						class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-							loai 1</span>
-				</a></li>
-				<li><a href="#"> <i
-						class="ebook-icons glyphicon glyphicon-book"></i> <span>The
-							loai 1</span>
-				</a></li>
-			</ul>
+			<%@ include file="contentMenu.jsp"%>
 		</nav>
 	</div>
 	<div class="col-md-6"></div>

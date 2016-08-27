@@ -8,17 +8,23 @@
 			<result name="success" type="redirectAction">home</result>
 			<result name="fail">/error.jsp</result>
 		</action>
+		
 		<action name="logoutAction" class="Action.Struts2.UserAction" method="logout">
 			<result name="success" type="redirectAction">home</result>
 		</action>
+		
 		<action name="registerAction" class="Action.Struts2.UserAction" method="register">
 			<result name="success" type="redirectAction">home</result>
 			<result name="fail">/error.jsp</result>
-
 		</action>
 	
 		<action name="home" class="Action.Struts2.PostAction" method="execute">
 			<result name="success">/home.jsp</result>
+		</action>
+		
+		<action name="profile" class="Action.Struts2.UserAction" method="getProfile">
+			<result name="success">/profile.jsp</result>
+			<result name="noData">/test.jsp</result>
 		</action>
 
 		<action name="detailPost" class="Action.Struts2.PostAction"
@@ -172,7 +178,7 @@
 		<action name="listUpgrande" class="Action.Struts2.UserAction"
 			method="listUpgrande">
 			<result name="success">/listUpgradeRole.jsp</result>
-			<result name="noPermission">/test.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="noData">/test.jsp</result>
 			<result name="notAdmin">/test.jsp</result>
 		</action>

@@ -203,29 +203,31 @@
 											<span class="review_detail" itemprop="reviewBody"><s:property
 													value="comment" /></span>
 										</div>
-										<div class="link">
-											<span class="text-success"></span> <span>Nhận xét này
-												hữu ích với bạn?</span>
-											<s:if test="voteComment">
-												<a
-													href="./cancelFeedbackCommentPost?commentId=<s:property
+										<s:if test="noFeedback">
+											<div class="link">
+												<span class="text-success"></span> <span>Nhận xét này
+													hữu ích với bạn?</span>
+												<s:if test="voteComment">
+													<a
+														href="./cancelFeedbackCommentPost?commentId=<s:property
 													value="commentId" />"
-													class="btn btn-primary"> <span
-													class="glyphicon glyphicon-thumbs-down"></span> <span>Huỷ
-														cảm ơn</span>
-												</a>
-											</s:if>
-											<s:else>
-												<a
-													href="./feedbackCommentPost?commentId=<s:property
+														class="btn btn-primary"> <span
+														class="glyphicon glyphicon-thumbs-down"></span> <span>Huỷ
+															cảm ơn</span>
+													</a>
+												</s:if>
+												<s:else>
+													<a
+														href="./feedbackCommentPost?commentId=<s:property
 													value="commentId" />"
-													class="btn btn-primary"> <span
-													class="glyphicon glyphicon-thumbs-up"></span> <span>Cảm
-														ơn</span>
-												</a>
+														class="btn btn-primary"> <span
+														class="glyphicon glyphicon-thumbs-up"></span> <span>Cảm
+															ơn</span>
+													</a>
 
-											</s:else>
-										</div>
+												</s:else>
+											</div>
+										</s:if>
 									</div>
 								</div>
 							</div>

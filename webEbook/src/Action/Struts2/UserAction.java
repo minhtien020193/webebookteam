@@ -16,7 +16,6 @@ public class UserAction extends ActionSupport implements SessionAware {
 
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
-
 	private Map<String, Object> sessionMap;
 	private String username;
 	private String password;
@@ -27,10 +26,13 @@ public class UserAction extends ActionSupport implements SessionAware {
 	private String email;
 	private String phone;
 	final String ADMIN = "admin";
+	final String SALER = "saler";
+	final String MEMBER = "member";
 	final int saleId = 2;
 	List<UserDTO> listUsers;
 	boolean noData = false;
 	int userId;
+	UserDTO userDTO;
 
 	public String execute() throws Exception {
 		System.out.println(" cuc cuc " + username + password);
@@ -39,7 +41,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 
 	public String listSaler() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
@@ -64,6 +66,14 @@ public class UserAction extends ActionSupport implements SessionAware {
 		userDto = userDao.authenticateUser(userDto);
 		if (userDto != null) {
 			sessionMap.put("LOGINED", userDto);
+			int roleId = userDao.getRoleIdByUserId(userDto.getUserId());
+			String roleName = MEMBER;
+			if (roleId == 1) {
+				roleName = ADMIN;
+			} else if (roleId == 2) {
+				roleName = SALER;
+			}
+			sessionMap.put("ROLE", roleName);
 			return SUCCESS;
 		}
 		return FAIL;
@@ -72,6 +82,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 	public String logout() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		session.remove("LOGINED");
+		session.remove("ROLE");
 
 		return SUCCESS;
 	}
@@ -87,7 +98,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 
 	public String listUpgrande() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
@@ -97,7 +108,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 		if (!(ADMIN).equals(role)) {
 			return "notAdmin";
 		}
-		
+
 		listUsers = new ArrayList<>();
 		for (RequestRoleUpdate reqRole : user.getListUpgrand()) {
 			UserDTO userDTO = user.getUserbyId(reqRole.getUserId());
@@ -116,6 +127,21 @@ public class UserAction extends ActionSupport implements SessionAware {
 			return "success";
 		}
 		return "fail";
+	}
+
+	public String getProfile() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if (session.get("LOGINED") == null) {
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO userDAO = new UserDAO();
+		userDTO = userDAO.getUserbyId(userId);
+		if(userDTO == null){
+			return "noData";
+		}
+		return "success";
 	}
 
 	// getter setter
@@ -187,7 +213,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 	public List<UserDTO> getListUsers() {
 		return listUsers;
 	}
@@ -210,6 +236,14 @@ public class UserAction extends ActionSupport implements SessionAware {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public UserDTO getUserDTO() {
+		return userDTO;
+	}
+
+	public void setUserDTO(UserDTO userDTO) {
+		this.userDTO = userDTO;
 	}
 
 }

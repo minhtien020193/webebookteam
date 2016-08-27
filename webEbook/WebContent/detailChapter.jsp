@@ -98,7 +98,7 @@
 							<h3 class="product-table-title">Nội dung:</h3>
 						</div>
 						<div class="row box-product-lifestyle">
-							<s:property value="chapterDTO.contents"  escapeHtml="false"/>
+							<s:property value="chapterDTO.contents" escapeHtml="false" />
 						</div>
 					</div>
 				</div>
@@ -140,8 +140,7 @@
 									<div class="col-md-2 item-profile">
 										<p class="image">
 											<a><img class="img-responsive"
-												src="web/images/user.jpeg?width=50"
-												width="65" height="65"></a>
+												src="web/images/user.jpeg?width=50" width="65" height="65"></a>
 										</p>
 										<p class="name" itemprop="author">
 											<s:property value="userComment.get(#stat.count -1)" />
@@ -156,33 +155,31 @@
 											<span class="review_detail" itemprop="reviewBody"><s:property
 													value="comment" /></span>
 										</div>
-										<div class="link">
-											<span class="text-success"></span> <span>Nhận xét này
-												hữu ích với bạn?</span>
+										<s:if test="noFeedback">
+											<div class="link">
+												<span class="text-success"></span> <span>Nhận xét này
+													hữu ích với bạn?</span>
 												<s:if test="voteComment">
-												<a
-													href="./cancelFeedbackCommentChapter?commentId=<s:property
+													<a
+														href="./cancelFeedbackCommentChapter?commentId=<s:property
 													value="commentId" />"
-													class="btn btn-primary"> <span
-													class="glyphicon glyphicon-thumbs-down"></span> <span>Huỷ
-														cảm ơn</span>
-												</a>
-											</s:if>
-											<s:else>
-												<a
-													href="./feedbackCommentChapter?commentId=<s:property
+														class="btn btn-primary"> <span
+														class="glyphicon glyphicon-thumbs-down"></span> <span>Huỷ
+															cảm ơn</span>
+													</a>
+												</s:if>
+												<s:else>
+													<a
+														href="./feedbackCommentChapter?commentId=<s:property
 													value="commentId" />"
-													class="btn btn-primary"> <span
-													class="glyphicon glyphicon-thumbs-up"></span> <span>Cảm
-														ơn</span>
-												</a>
+														class="btn btn-primary"> <span
+														class="glyphicon glyphicon-thumbs-up"></span> <span>Cảm
+															ơn</span>
+													</a>
 
-											</s:else>
-											<%-- <button class="btn btn-primary">
-												<span class="glyphicon glyphicon-thumbs-up"></span> <span>Cảm
-													ơn</span>
-											</button> --%>
-										</div>
+												</s:else>
+											</div>
+										</s:if>
 									</div>
 								</div>
 							</div>
