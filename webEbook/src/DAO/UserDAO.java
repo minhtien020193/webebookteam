@@ -22,9 +22,7 @@ public class UserDAO {
 	public UserDTO authenticateUser(UserDTO user) {
 		String username = user.getUserName();
 		String password = hash256(user.getPassword());
-
 		UserDTO result = null;
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		logger.info("Logging begins...");
@@ -35,14 +33,12 @@ public class UserDAO {
 			pstmt.setString(2, password);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-
 				result = new UserDTO();
-
 				result.setUserName(rs.getString("userName"));
 				result.setFirstName(rs.getString("firstName"));
 				result.setMidName(rs.getString("midName"));
 				result.setLastName(rs.getString("lastName"));
-
+				result.setUserId(rs.getInt("userId"));
 				return result;
 			}
 		} catch (SQLException e) {

@@ -69,6 +69,12 @@
 											value="postDTO.authorName" /></a>
 								</p>
 							</div>
+							<div class="item-brand">
+								<h6>Thể loại</h6>
+								<p>
+									<s:property value="categoryName" />
+								</p>
+							</div>
 							<s:if test="priceEmpty">
 								<div class="item-brand">
 									<h6>Giá:</h6>
@@ -182,8 +188,7 @@
 									<div class="col-md-2 item-profile">
 										<p class="image">
 											<a><img class="img-responsive"
-												src="web/images/user.jpeg?width=50"
-												width="65" height="65"></a>
+												src="web/images/user.jpeg?width=50" width="65" height="65"></a>
 										</p>
 										<p class="name" itemprop="author">
 											<s:property value="userComment.get(#stat.count -1)" />

@@ -12,6 +12,7 @@ import java.util.Date;
 public class PostDTO {
 	private int postId;
 	private int userId;
+	private int categoryId;
 	private boolean postStatus;
 	private String postName;
 	private String contents;
@@ -51,12 +52,13 @@ public class PostDTO {
 	 * @param updateDate
 	 * @param deleteDate
 	 */
-	public PostDTO(int postId, int userId, String postName, boolean postStatus, String contents, String description, int countChapter,
+	public PostDTO(int postId, int categoryId, int userId, String postName, boolean postStatus, String contents, String description, int countChapter,
 			String authorName, String image, double price, int saleoff, String linkDownload, boolean postType,
 			boolean del_flg, Date createDate, Date updateDate, Date deleteDate) {
 		super();
 		this.postId = postId;
 		this.userId = userId;
+		this.categoryId = categoryId;
 		this.postStatus = postStatus;
 		this.postName = postName;
 		this.contents = contents;
@@ -271,6 +273,10 @@ public class PostDTO {
 	public void setPostStatus(boolean postStatus) {
 		this.postStatus = postStatus;
 	}
-
-	
+	public int getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
 }

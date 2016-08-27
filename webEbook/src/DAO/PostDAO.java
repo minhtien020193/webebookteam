@@ -30,6 +30,7 @@ public class PostDAO {
 			while (rs.next()) {
 				PostDTO post = new PostDTO();
 				post.setPostId(rs.getInt("postId"));
+				post.setCategoryId(rs.getInt("categoryId"));
 				post.setUserId(rs.getInt("userId"));
 				post.setPostName(rs.getString("postName"));
 				post.setContents(rs.getString("contents"));
@@ -85,6 +86,7 @@ public class PostDAO {
 				PostDTO post = new PostDTO();
 				post.setPostId(rs.getInt("postId"));
 				post.setUserId(rs.getInt("userId"));
+				post.setCategoryId(rs.getInt("categoryId"));
 				post.setPostName(rs.getString("postName"));
 				post.setContents(rs.getString("contents"));
 				post.setDescription(rs.getString("description"));
@@ -168,6 +170,7 @@ public class PostDAO {
 				PostDTO post = new PostDTO();
 				post.setPostId(rs.getInt("postId"));
 				post.setUserId(rs.getInt("userId"));
+				post.setCategoryId(rs.getInt("categoryId"));
 				post.setPostName(rs.getString("postName"));
 				post.setContents(rs.getString("contents"));
 				post.setDescription(rs.getString("description"));
@@ -215,7 +218,7 @@ public class PostDAO {
 		int postId = 0;
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "INSERT INTO eb_posts(userId, postStatus, postName, contents, description, countChapter, authorName, image, saleoff, price, linkDownload, postType, del_flg, createDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String query = "INSERT INTO eb_posts(userId, postStatus, postName, contents, description, countChapter, authorName, image, saleoff, price, linkDownload, postType, del_flg, createDate, categoryId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, post.getUserId());
 			pstmt.setBoolean(2, post.isPostStatus());
@@ -231,6 +234,7 @@ public class PostDAO {
 			pstmt.setBoolean(12, post.isPostType());
 			pstmt.setBoolean(13, post.isDel_flg());
 			pstmt.setDate(14, currentDate);
+			pstmt.setInt(15, post.getCategoryId());
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
 				try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
@@ -275,7 +279,7 @@ public class PostDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "UPDATE eb_posts SET postName=?, contents=?, description=?, countChapter=?, authorName=?, image=?, price=?, linkDownload=?, updateDate=? "
+			String query = "UPDATE eb_posts SET postName=?, contents=?, description=?, countChapter=?, authorName=?, image=?, price=?, linkDownload=?, updateDate=?, categoryId=? "
 					+ " WHERE postId ='" + post.getPostId() + "'";
 			pstmt = (PreparedStatement) con.prepareStatement(query);
 			pstmt.setString(1, post.getPostName());
@@ -287,6 +291,7 @@ public class PostDAO {
 			pstmt.setDouble(7, post.getPrice());
 			pstmt.setString(8, post.getLinkDownload());
 			pstmt.setDate(9, currentDate);
+			pstmt.setInt(10, post.getCategoryId());
 			
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
@@ -407,6 +412,7 @@ public class PostDAO {
 				PostDTO post = new PostDTO();
 				post.setPostId(rs.getInt("postId"));
 				post.setUserId(rs.getInt("userId"));
+				post.setCategoryId(rs.getInt("categoryId"));
 				post.setPostName(rs.getString("postName"));
 				post.setContents(rs.getString("contents"));
 				post.setDescription(rs.getString("description"));

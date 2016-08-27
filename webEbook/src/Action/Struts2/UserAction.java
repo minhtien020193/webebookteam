@@ -38,14 +38,17 @@ public class UserAction extends ActionSupport implements SessionAware {
 	}
 
 	public String listSaler() {
-		int userId = 1;
-		UserDAO usr = new UserDAO();
-		int roleId = usr.getRoleIdByUserId(userId);
-		RoleDTO role = usr.getRoleByRoleId(roleId);
-		if (!(ADMIN).equals(role.getRoleName())) {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if (!(ADMIN).equals(role)) {
 			return "notAdmin";
 		}
-		UserDAO user = new UserDAO();
 		listUsers = user.getListSaler();
 		if (listUsers.isEmpty()) {
 			noData = true;
@@ -57,9 +60,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 		UserDTO userDto = new UserDTO();
 		userDto.setUserName(username);
 		userDto.setPassword(password);
-		System.out.println(" cuc cuc " + username + password);
 		UserDAO userDao = new UserDAO();
-
 		userDto = userDao.authenticateUser(userDto);
 		if (userDto != null) {
 			sessionMap.put("LOGINED", userDto);
@@ -85,19 +86,24 @@ public class UserAction extends ActionSupport implements SessionAware {
 	}
 
 	public String listUpgrande() {
-		int userId = 1;
-		UserDAO usr = new UserDAO();
-		int roleId = usr.getRoleIdByUserId(userId);
-		RoleDTO role = usr.getRoleByRoleId(roleId);
-		if (!(ADMIN).equals(role.getRoleName())) {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if (!(ADMIN).equals(role)) {
 			return "notAdmin";
 		}
+		
 		listUsers = new ArrayList<>();
-		for (RequestRoleUpdate reqRole : usr.getListUpgrand()) {
-			UserDTO userDTO = usr.getUserbyId(reqRole.getUserId());
+		for (RequestRoleUpdate reqRole : user.getListUpgrand()) {
+			UserDTO userDTO = user.getUserbyId(reqRole.getUserId());
 			listUsers.add(userDTO);
 		}
-		if (usr.getListUpgrand().isEmpty()) {
+		if (user.getListUpgrand().isEmpty()) {
 			noData = true;
 		}
 		return "success";

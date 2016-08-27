@@ -28,36 +28,42 @@
 			<result name="noData">/test.jsp</result>
 		</action>
 
-		<action name="sendCreatePost" class="Action.Struts2.PostAction">
+		<action name="sendCreatePost" class="Action.Struts2.PostAction" method="sendCreatePost">
 			<result name="success">/createPost.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 		</action>
 
 		<action name="createPost" class="Action.Struts2.PostAction"
 			method="createPost">
 			<result name="success" type="redirectAction">listPost</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/test.jsp</result>
 		</action>
 
 		<action name="sendUpdatePost" class="Action.Struts2.PostAction"
 			method="sendUpdatePost">
 			<result name="success">/updatePost.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 		</action>
 
 		<action name="updatePost" class="Action.Struts2.PostAction"
 			method="updatePost">
 			<result name="success" type="redirectAction">listPost</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/test.jsp</result>
 		</action>
 
 		<action name="deletePost" class="Action.Struts2.PostAction"
 			method="deletePost">
 			<result name="success" type="redirectAction">listPost</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/test.jsp</result>
 		</action>
 
 		<action name="listPost" class="Action.Struts2.PostAction"
 			method="listPost">
 			<result name="success">/listPost.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 		</action>
 
 		<action name="postCommentPost" class="Action.Struts2.CommentAction"
@@ -111,12 +117,14 @@
 		<action name="sendAddChapter" class="Action.Struts2.ChapterAction"
 			method="sendAddChapter">
 			<result name="success">/addChapter.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="noPostId">/test.jsp</result>
 		</action>
 
 		<action name="sendUpdateChapter" class="Action.Struts2.ChapterAction"
 			method="sendUpdateChapter">
 			<result name="success">/updateChapter.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="noPostId">/test.jsp</result>
 		</action>
 
@@ -124,6 +132,7 @@
 			method="addChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="noPostChapter">/test.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/test.jsp</result>
 		</action>
 
@@ -131,34 +140,39 @@
 			method="updateChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="fail">/test.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 		</action>
 
 		<!-- accept request post -->
 		<action name="sendAcceptPost" class="Action.Struts2.PostAction"
 			method="sendAcceptPost">
 			<result name="success">/listPostPedding.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="notAdmin">/test.jsp</result>
 		</action>
 
 		<action name="acceptPost" class="Action.Struts2.PostAction"
 			method="acceptPost">
 			<result name="success" type="redirectAction">sendAcceptPost</result>
-			<result name="notAdmin">/test.jsp</result>
+			<result name="notAdmin">/error.jsp</result>
 			<result name="fail">/test.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 		</action>
 
 		<!-- list saler -->
 		<action name="listSaler" class="Action.Struts2.UserAction"
 			method="listSaler">
 			<result name="success">/listSaler.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="noData">/test.jsp</result>
-			<result name="notAdmin">/test.jsp</result>
+			<result name="notAdmin">/error.jsp</result>
 		</action>
 		
 		<!-- list upgrad role -->
 		<action name="listUpgrande" class="Action.Struts2.UserAction"
 			method="listUpgrande">
 			<result name="success">/listUpgradeRole.jsp</result>
+			<result name="noPermission">/test.jsp</result>
 			<result name="noData">/test.jsp</result>
 			<result name="notAdmin">/test.jsp</result>
 		</action>

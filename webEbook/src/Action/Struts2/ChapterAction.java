@@ -13,6 +13,7 @@ import DAO.UserDAO;
 import DTO.ChapterDTO;
 import DTO.CommentDTO;
 import DTO.PostDTO;
+import DTO.UserDTO;
 
 public class ChapterAction {
 	int chapterId;
@@ -24,6 +25,9 @@ public class ChapterAction {
 	String chapterName;
 	String contents;
 	String description;
+	final String ADMIN ="admin";
+	final String SALER ="saler";
+	final String MEMBER ="member";
 
 	public String detailChapter() {
 		PostDAO post = new PostDAO();
@@ -47,6 +51,18 @@ public class ChapterAction {
 	}
 
 	public String sendAddChapter() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
 		PostDAO post = new PostDAO();
 		postDTO = post.findPostDTO(postId);
 
@@ -57,6 +73,18 @@ public class ChapterAction {
 	}
 
 	public String sendUpdateChapter() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
 		PostDAO post = new PostDAO();
 		int postIdbyChapterId = post.getPostIdbyChapterId(chapterId);
 		postDTO = post.findPostDTO(postIdbyChapterId);
@@ -72,6 +100,18 @@ public class ChapterAction {
 	}
 
 	public String addChapter() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
 		ChapterDTO chapterDTO = new ChapterDTO();
 		chapterDTO.setChapterName(chapterName);
 		chapterDTO.setContents(contents);
@@ -83,7 +123,6 @@ public class ChapterAction {
 		if (chapterId != 0) {
 			boolean checkPostChapter = chapter.insertPostChapter(chapterId, postId);
 			if (checkPostChapter) {
-				Map<String, Object> session = ActionContext.getContext().getSession();
 				String lastAction = "sendUpdatePost?postId=" + postId;
 				session.put("lastAction", lastAction);
 				return "success";
@@ -96,6 +135,18 @@ public class ChapterAction {
 	}
 
 	public String updateChapter() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
 		ChapterDTO chapterDTO = new ChapterDTO();
 		chapterDTO.setChapterId(chapterId);
 		chapterDTO.setChapterName(chapterName);
@@ -106,7 +157,6 @@ public class ChapterAction {
 		ChapterDAO chapter = new ChapterDAO();
 		boolean updateChapter = chapter.updateChapterDTO(chapterDTO);
 		if (updateChapter) {
-			Map<String, Object> session = ActionContext.getContext().getSession();
 			String lastAction = "sendUpdatePost?postId=" + postId;
 			session.put("lastAction", lastAction);
 			return "success";

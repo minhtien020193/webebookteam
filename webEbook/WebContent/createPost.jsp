@@ -25,7 +25,7 @@
 </head>
 <body class="ebook-product">
 	<header class="wrap-header affix-top">
-	
+
 	<div class="container site-component">
 		<!-- row 1 -->
 		<%@ include file="include/header.jsp"%>
@@ -50,14 +50,23 @@
 
 	<div class="wrap">
 		<div class="container">
-			<div class="col-sm-12" id="createPost"> 
-				<form action="createPost" method="post" enctype="multipart/form-data">
+			<div class="col-sm-12" id="createPost">
+				<form action="createPost" method="post"
+					enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-sm-2">Tên tác phẩm</div>
 						<div class="col-sm-4">
 							<input name="postName" type="text" />
 						</div>
-
+					</div>
+					<div class="row">
+						<div class="col-sm-2">Thể loại</div>
+						<div class="col-sm-4">
+							<s:select headerKey="-1"
+								headerValue="Chọn thể loại"
+								list="listCats" listKey="key" listValue="value"
+								name="categoryId" value="0" />
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">File upload</div>
@@ -84,7 +93,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-2">Số lượng chương: </div>
+						<div class="col-sm-2">Số lượng chương:</div>
 						<div class="col-sm-4">
 							<input name="countChapter" type="text" />
 						</div>
@@ -102,8 +111,9 @@
 						</div>
 					</div>
 					<div class="row">
-						<input type="reset" value="Xoá nội dung" class="btn btn-danger"/>
-						<input type="submit" value="Gửi yêu cầu đăng bài" class="btn btn-primary"/>
+						<input type="reset" value="Xoá nội dung" class="btn btn-danger" />
+						<input type="submit" value="Gửi yêu cầu đăng bài"
+							class="btn btn-primary" />
 					</div>
 				</form>
 			</div>

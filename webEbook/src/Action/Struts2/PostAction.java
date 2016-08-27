@@ -2,17 +2,24 @@ package Action.Struts2;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 
+import DAO.CategoryDAO;
 import DAO.ChapterDAO;
 import DAO.CommentDAO;
 import DAO.PostDAO;
 import DAO.UserDAO;
+import DTO.Category;
+import DTO.CategoryDTO;
 import DTO.ChapterDTO;
 import DTO.CommentDTO;
 import DTO.PostDTO;
 import DTO.RoleDTO;
+import DTO.UserDTO;
 
 public class PostAction {
 	List<PostDTO> listPost;
@@ -20,6 +27,7 @@ public class PostAction {
 	PostDTO postDTO;
 	List<CommentDTO> listComments;
 	List<ChapterDTO> listChapters;
+	Map<Integer, String> listCats;
 	boolean priceEmpty = true;
 	List<String> userComment;
 	boolean noData = false;
@@ -35,6 +43,8 @@ public class PostAction {
 	private String imageFileName;
 	private String ebookContentType;
 	private String imageContentType;
+	private int categoryId;
+	String categoryName;
 	
 	final String ADMIN ="admin";
 	final String SALER ="saler";
@@ -47,6 +57,24 @@ public class PostAction {
 	}
 
 	public String sendCreatePost() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
+		CategoryDAO cat = new CategoryDAO();
+		List<CategoryDTO> lstCat = cat.getListCategory();
+		listCats = new HashMap<>();
+		for (CategoryDTO categoryDTO : lstCat) {
+			listCats.put(categoryDTO.getCategoryId(), categoryDTO.getCategoryName());
+		}
 		return "success";
 	}
 
@@ -62,25 +90,40 @@ public class PostAction {
 		if (postDTO.getPrice() == 0) {
 			priceEmpty = false;
 		}
-
+		//listcomment
 		CommentDAO comment = new CommentDAO();
 		listComments = comment.getListCommentByPostId(postId);
-
+		//user comment
 		userComment = new ArrayList<String>();
 		UserDAO user = new UserDAO();
 		for (CommentDTO commentDTO : listComments) {
 			userComment.add(user.getUserNameById(commentDTO.getUserId()));
 		}
-
+		//listChapter
 		ChapterDAO chapter = new ChapterDAO();
 		listChapters = chapter.getListChapterByPostId(postId);
+		//category
+		CategoryDAO cat = new CategoryDAO();
+		categoryName = cat.getCategoryById(postDTO.getCategoryId());
 
 		return "success";
 	}
 
 	public String createPost() {
 		// uploadFile();
-		int userId = 1;
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
 		PostDTO post = new PostDTO();
 		post.setAuthorName(author);
 		post.setContents(content);
@@ -91,6 +134,7 @@ public class PostAction {
 		post.setPrice(Double.parseDouble(price));
 		post.setPostType(true);
 		post.setUserId(userId);
+		post.setCategoryId(categoryId);
 		post.setSaleoff(0);
 		post.setImage("image");
 		post.setLinkDownload("linkdownload");
@@ -107,7 +151,18 @@ public class PostAction {
 	}
 
 	public String listPost() {
-		int userId = 1;
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
 		PostDAO post = new PostDAO();
 		listPost = post.getListPostbyUserId(userId);
 		if (listPost.isEmpty()) {
@@ -117,19 +172,49 @@ public class PostAction {
 	}
 	
 	public String sendUpdatePost() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
 		ChapterDAO chapter = new ChapterDAO();
 		listChapters = chapter.getListChapterByPostId(postId);
 		
+		CategoryDAO cat = new CategoryDAO();
+		List<CategoryDTO> lstCat = cat.getListCategory();
+		listCats = new HashMap<>();
+		for (CategoryDTO categoryDTO : lstCat) {
+			listCats.put(categoryDTO.getCategoryId(), categoryDTO.getCategoryName());
+		}
 		PostDAO post = new PostDAO();
 		postDTO = post.findPostDTO(postId);
 		if(postDTO == null){
 			return "fail";
 		}
+		
 		return "success";
 	}
 	
 	public String updatePost() {
-		int userId = 1;
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
 		PostDTO post = new PostDTO();
 		post.setPostId(postId);
 		post.setAuthorName(author);
@@ -140,6 +225,7 @@ public class PostAction {
 		post.setImage(ebookFileName);
 		post.setPrice(Double.parseDouble(price));
 		post.setPostType(true);
+		post.setCategoryId(categoryId);
 		post.setUserId(userId);
 		post.setSaleoff(0);
 		post.setImage("image");
@@ -157,6 +243,18 @@ public class PostAction {
 	}
 	
 	public String deletePost(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		
 		PostDAO post = new PostDAO();
 		boolean checkDel = post.updateDel_FlgPostDTO(postId);
 		if (checkDel) {
@@ -167,11 +265,15 @@ public class PostAction {
 	}
 	
 	public String sendAcceptPost(){
-		int userId = 1;
-		UserDAO usr = new UserDAO();
-		int roleId = usr.getRoleIdByUserId(userId);
-		RoleDTO role = usr.getRoleByRoleId(roleId);
-		if(!(ADMIN).equals(role.getRoleName())){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(!(ADMIN).equals(role)){
 			return "notAdmin";
 		}
 		PostDAO post = new PostDAO();
@@ -183,11 +285,15 @@ public class PostAction {
 	}
 	
 	public String acceptPost(){
-		int userId = 1;
-		UserDAO usr = new UserDAO();
-		int roleId = usr.getRoleIdByUserId(userId);
-		RoleDTO role = usr.getRoleByRoleId(roleId);
-		if(!(ADMIN).equals(role.getRoleName())){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(!(ADMIN).equals(role)){
 			return "notAdmin";
 		}
 		PostDAO post = new PostDAO();
@@ -197,7 +303,7 @@ public class PostAction {
 		}
 		return "fail";
 	}
-
+	
 	// private String uploadFile(){
 	// /* Copy file to a safe location */
 	// String destPath = "../ebookFolder";
@@ -376,6 +482,30 @@ public class PostAction {
 
 	public void setImageContentType(String imageContentType) {
 		this.imageContentType = imageContentType;
+	}
+
+	public Map<Integer, String> getListCats() {
+		return listCats;
+	}
+
+	public void setListCats(Map<Integer, String> listCats) {
+		this.listCats = listCats;
+	}
+
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 }

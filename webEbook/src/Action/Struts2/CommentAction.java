@@ -10,6 +10,8 @@ import com.opensymphony.xwork2.ActionContext;
 import DAO.ChapterDAO;
 import DAO.CommentDAO;
 import DAO.PostDAO;
+import DAO.UserDAO;
+import DTO.UserDTO;
 
 /**
  * @author mac
@@ -20,6 +22,9 @@ public class CommentAction {
 	String content;
 	int chapterId;
 	int commentId;
+	final String ADMIN ="admin";
+	final String SALER ="saler";
+	final String MEMBER ="member";
 
 	public String execute() throws Exception {
 		return "success";
@@ -27,12 +32,22 @@ public class CommentAction {
 
 	public String postCommentPost() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
 		if (("").equals(content)) {
 			return "noComment";
 		}
 		CommentDAO comment = new CommentDAO();
 		//type comment = false -> comment post
-		int commentId = comment.postCommentPost(content, 2, false);
+		int commentId = comment.postCommentPost(content, userId, false);
 		if (commentId == 0) {
 			return "fail";
 		}
@@ -47,18 +62,31 @@ public class CommentAction {
 	}
 
 	public String postCommentChapter() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(session.get("LOGINED") == null){
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		UserDAO user = new UserDAO();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		if(MEMBER.equals(role)){
+			return "noPermission";
+		}
+		if (("").equals(content)) {
+			return "noComment";
+		}
 		if (("").equals(content)) {
 			return "noComment";
 		}
 		CommentDAO comment = new CommentDAO();
 		//type comment = true -> comment chapter
-		int commentId = comment.postCommentPost(content, 2, true);
+		int commentId = comment.postCommentPost(content, userId, true);
 		if (commentId == 0) {
 			return "fail";
 		}
 		boolean insertPostComment = comment.insertChapterComment(chapterId, commentId);
 		if (insertPostComment) {
-			Map<String, Object> session = ActionContext.getContext().getSession();
 			String lastAction = "chapterDetail?chapterId=" + chapterId;
 			session.put("lastAction", lastAction);
 			return "success";

@@ -63,7 +63,14 @@
 								name="postName" type="text"
 								value="<s:property value="postDTO.postName"/>" />
 						</div>
-
+					</div>
+					<div class="row">
+						<div class="col-sm-2">Thể loại</div>
+						<div class="col-sm-4">
+							<s:select headerKey="-1" headerValue="Chọn thể loại"
+								list="listCats" listKey="key" listValue="value"
+								name="categoryId" value="postDTO.categoryId"/>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">File upload</div>
