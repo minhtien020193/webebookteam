@@ -7,9 +7,6 @@ public class DBConnect {
 	public static Connection createConnection() {
 		Connection con = null;
 //		String url = "jdbc:mysql://bewriterbeyou.com:3306/bewriter_ebook?useUnicode=true&characterEncoding=UTF-8";
-//		String username = "ebook"; // username of database user
-//		String password = ".5IDU$DB073i"; // password
-		
 //		String username = "root"; // username of database user
 //		String password = "sa&GeMHF-KXU"; // password
 		
