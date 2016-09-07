@@ -188,5 +188,11 @@
 			<result name="success" type="redirectAction">listUpgrande</result>
 			<result name="fail">/test.jsp</result>
 		</action>
+		
+		<action name="searchEbook" class="Action.Struts2.PostAction"
+			method="searchEbook">
+			<result name="success">/home.jsp</result>
+			<result name="noData">/noData.jsp</result>
+		</action>
 	</package>
 </struts>

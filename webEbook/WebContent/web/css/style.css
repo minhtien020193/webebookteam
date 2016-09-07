@@ -652,3 +652,13 @@ h5.sub_title {
 .profile{
 	height: 400px;
 }
+.logo-page{
+	width: 50%;
+	margin-left: 50px;
+}
+.header-search{
+	margin-top: 20px;
+}
+.image-detail{
+	width: 210px;
+}

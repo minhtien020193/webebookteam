@@ -43,7 +43,7 @@
 		<div class="container">
 			<div class="col-md-5">
 				<div class="image-box">
-					<img src="<s:property value="postDTO.image" />" />
+					<img src="<s:property value="postDTO.image" />" class="image-detail"/>
 				</div>
 			</div>
 			<div class="col-md-7">

@@ -550,4 +550,61 @@ public class PostDAO {
 		logger.info("Done...");
 		return false;
 	}
+	
+	public ArrayList<PostDTO> searchPost(String postName){
+		ArrayList<PostDTO> lstPost = new ArrayList<PostDTO>();
+		Connection con = null;
+		Statement stmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "SELECT * FROM eb_posts WHERE  postName LIKE '%" + postName + "%' AND del_flg = 0 and postStatus = 1";
+			stmt = (Statement) con.createStatement();
+			
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				PostDTO post = new PostDTO();
+				post.setPostId(rs.getInt("postId"));
+				post.setCategoryId(rs.getInt("categoryId"));
+				post.setUserId(rs.getInt("userId"));
+				post.setPostName(rs.getString("postName"));
+				post.setContents(rs.getString("contents"));
+				post.setDescription(rs.getString("description"));
+				post.setCountChapter(rs.getInt("countChapter"));
+				post.setAuthorName(rs.getString("authorName"));
+				post.setImage(rs.getString("image"));
+				post.setPrice(rs.getDouble("price"));
+				post.setSaleoff(rs.getInt("saleoff"));
+				post.setLinkDownload(rs.getString("linkDownload"));
+				post.setPostType(rs.getBoolean("postType"));
+				post.setDel_flg(rs.getBoolean("del_flg"));
+				post.setCreateDate(rs.getDate("createDate"));
+				post.setUpdateDate(rs.getDate("updateDate"));
+				post.setDeleteDate(rs.getDate("deleteDate"));
+
+				lstPost.add(post);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+			e.printStackTrace();
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					con.close();
+			} catch (SQLException se) {
+			} // do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		}
+		logger.info("Done...");
+		return lstPost;
+	}
 }

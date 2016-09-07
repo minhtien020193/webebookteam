@@ -1,10 +1,13 @@
 package Action.Struts2;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.io.FileUtils;
 
 import com.opensymphony.xwork2.ActionContext;
 
@@ -13,12 +16,10 @@ import DAO.ChapterDAO;
 import DAO.CommentDAO;
 import DAO.PostDAO;
 import DAO.UserDAO;
-import DTO.Category;
 import DTO.CategoryDTO;
 import DTO.ChapterDTO;
 import DTO.CommentDTO;
 import DTO.PostDTO;
-import DTO.RoleDTO;
 import DTO.UserDTO;
 
 public class PostAction {
@@ -46,35 +47,37 @@ public class PostAction {
 	private int categoryId;
 	String categoryName;
 	boolean noFeedback = false;
-	
-	final String ADMIN ="admin";
-	final String SALER ="saler";
-	final String MEMBER ="member";
+	private String txtsearch;
+
+	final String ADMIN = "admin";
+	final String SALER = "saler";
+	final String MEMBER = "member";
+	final String destPath = "/Users/mac/Documents/webEbook/webEbook/WebContent/";
 
 	public String execute() throws Exception {
 		PostDAO post = new PostDAO();
-		if(categoryId == 0){
+		if (categoryId == 0) {
 			listPost = post.getListPost();
 		} else {
 			listPost = post.getListPostByCategoryId(categoryId);
 		}
-		
+
 		return "success";
 	}
 
 	public String sendCreatePost() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
-		
+
 		CategoryDAO cat = new CategoryDAO();
 		List<CategoryDTO> lstCat = cat.getListCategory();
 		listCats = new HashMap<>();
@@ -96,27 +99,27 @@ public class PostAction {
 		if (postDTO.getPrice() == 0) {
 			priceEmpty = false;
 		}
-		//listcomment
+		// listcomment
 		CommentDAO comment = new CommentDAO();
 		listComments = comment.getListCommentByPostId(postId);
-		//user comment
+		// user comment
 		userComment = new ArrayList<String>();
 		UserDAO user = new UserDAO();
 		for (CommentDTO commentDTO : listComments) {
 			userComment.add(user.getUserNameById(commentDTO.getUserId()));
 		}
-		//listChapter
+		// listChapter
 		ChapterDAO chapter = new ChapterDAO();
 		listChapters = chapter.getListChapterByPostId(postId);
-		//category
+		// category
 		CategoryDAO cat = new CategoryDAO();
 		categoryName = cat.getCategoryById(postDTO.getCategoryId());
-		//show button feedback for poster
+		// show button feedback for poster
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") != null){
+		if (session.get("LOGINED") != null) {
 			UserDTO usr = (UserDTO) session.get("LOGINED");
 			int userId = usr.getUserId();
-			if(userId == postDTO.getUserId()){
+			if (userId == postDTO.getUserId()) {
 				noFeedback = true;
 			}
 		}
@@ -124,20 +127,26 @@ public class PostAction {
 	}
 
 	public String createPost() {
-		// uploadFile();
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
-		
+
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
-		
+		String linkdownload = uploadFile(ebookFileName, ebook);
+		if (("failed").equals(linkdownload)) {
+			return "fail";
+		}
+		String imagelink = uploadImage(imageFileName, image);
+		if (("failed").equals(image)) {
+			return "fail";
+		}
 		PostDTO post = new PostDTO();
 		post.setAuthorName(author);
 		post.setContents(content);
@@ -150,11 +159,11 @@ public class PostAction {
 		post.setUserId(userId);
 		post.setCategoryId(categoryId);
 		post.setSaleoff(0);
-		post.setImage("image");
-		post.setLinkDownload("linkdownload");
+		post.setImage(imagelink);
+		post.setLinkDownload(linkdownload);
 		post.setPostStatus(false);
 		post.setDel_flg(false);
-		
+
 		PostDAO postDAO = new PostDAO();
 		int newPostId = postDAO.insertPost(post);
 		if (newPostId != 0) {
@@ -166,17 +175,17 @@ public class PostAction {
 
 	public String listPost() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
-		
+
 		PostDAO post = new PostDAO();
 		listPost = post.getListPostbyUserId(userId);
 		if (listPost.isEmpty()) {
@@ -184,23 +193,23 @@ public class PostAction {
 		}
 		return "success";
 	}
-	
+
 	public String sendUpdatePost() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
-		
+
 		ChapterDAO chapter = new ChapterDAO();
 		listChapters = chapter.getListChapterByPostId(postId);
-		
+
 		CategoryDAO cat = new CategoryDAO();
 		List<CategoryDTO> lstCat = cat.getListCategory();
 		listCats = new HashMap<>();
@@ -209,26 +218,33 @@ public class PostAction {
 		}
 		PostDAO post = new PostDAO();
 		postDTO = post.findPostDTO(postId);
-		if(postDTO == null){
+		if (postDTO == null) {
 			return "fail";
 		}
-		
+
 		return "success";
 	}
-	
+
 	public String updatePost() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
-		
+		String linkdownload = uploadFile(ebookFileName, ebook);
+		if (("failed").equals(linkdownload)) {
+			return "fail";
+		}
+		String imagelink = uploadImage(imageFileName, image);
+		if (("failed").equals(image)) {
+			return "fail";
+		}
 		PostDTO post = new PostDTO();
 		post.setPostId(postId);
 		post.setAuthorName(author);
@@ -242,11 +258,11 @@ public class PostAction {
 		post.setCategoryId(categoryId);
 		post.setUserId(userId);
 		post.setSaleoff(0);
-		post.setImage("image");
-		post.setLinkDownload("linkdownload");
+		post.setImage(imagelink);
+		post.setLinkDownload(linkdownload);
 		post.setPostStatus(false);
 		post.setDel_flg(false);
-		
+
 		PostDAO postDAO = new PostDAO();
 		boolean check = postDAO.updatePostDTO(post);
 		if (check) {
@@ -255,20 +271,20 @@ public class PostAction {
 
 		return "fail";
 	}
-	
-	public String deletePost(){
+
+	public String deletePost() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
-		
+
 		PostDAO post = new PostDAO();
 		boolean checkDel = post.updateDel_FlgPostDTO(postId);
 		if (checkDel) {
@@ -277,65 +293,85 @@ public class PostAction {
 
 		return "fail";
 	}
-	
-	public String sendAcceptPost(){
+
+	public String sendAcceptPost() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(!(ADMIN).equals(role)){
+		if (!(ADMIN).equals(role)) {
 			return "notAdmin";
 		}
 		PostDAO post = new PostDAO();
 		listPost = post.getListPostHold();
-		if(listPost.isEmpty()){
+		if (listPost.isEmpty()) {
 			noData = true;
 		}
 		return "success";
 	}
-	
-	public String acceptPost(){
+
+	public String acceptPost() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(!(ADMIN).equals(role)){
+		if (!(ADMIN).equals(role)) {
 			return "notAdmin";
 		}
 		PostDAO post = new PostDAO();
 		boolean check = post.updateStatusPost(postId);
-		if(check){
+		if (check) {
 			return "success";
 		}
 		return "fail";
 	}
-	
-	// private String uploadFile(){
-	// /* Copy file to a safe location */
-	// String destPath = "../ebookFolder";
-	//
-	// try{
-	// System.out.println("Src File name: " + ebook);
-	// System.out.println("Dst File name: " + ebookFileName);
-	//
-	// File destFile = new File(destPath, ebookFileName);
-	// FileUtils.copyFile(ebook, destFile);
-	//
-	// }catch(IOException e){
-	// e.printStackTrace();
-	// return "noUpload";
-	// }
-	//
-	// return "aa";
-	// }
+
+	public String searchEbook() {
+		PostDAO post = new PostDAO();
+		listPost = post.searchPost(txtsearch);
+		if (listPost.isEmpty()) {
+			return "noData";
+		}
+		return "success";
+	}
+
+	private String uploadFile(String fileName, File fileUpload) {
+		String pathFileUpload = "";
+		try {
+			File destFile = new File(destPath + "/ebookFolder", fileName);
+			FileUtils.copyFile(fileUpload, destFile);
+			pathFileUpload = destFile.getPath();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "failed";
+		}
+
+		return pathFileUpload;
+	}
+
+	private String uploadImage(String fileName, File fileUpload) {
+		String pathFileUpload = "";
+		try {
+			File destFile = new File(destPath + "/image", fileName);
+			FileUtils.copyFile(fileUpload, destFile);
+			pathFileUpload = "image/" + destFile.getName();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "failed";
+		}
+
+		return pathFileUpload;
+	}
 
 	// getter setter
 	public List<PostDTO> getListPost() {
@@ -528,6 +564,14 @@ public class PostAction {
 
 	public void setNoFeedback(boolean noFeedback) {
 		this.noFeedback = noFeedback;
+	}
+
+	public String getTxtsearch() {
+		return txtsearch;
+	}
+
+	public void setTxtsearch(String txtsearch) {
+		this.txtsearch = txtsearch;
 	}
 
 }
