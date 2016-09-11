@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletContext;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 
@@ -52,7 +56,7 @@ public class PostAction {
 	final String ADMIN = "admin";
 	final String SALER = "saler";
 	final String MEMBER = "member";
-	final String destPath = "/Users/mac/Documents/webEbook/webEbook/WebContent/";
+	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
 
 	public String execute() throws Exception {
 		PostDAO post = new PostDAO();
@@ -345,13 +349,22 @@ public class PostAction {
 
 	private String uploadFile(String fileName, File fileUpload) {
 		String pathFileUpload = "";
+		
 		try {
-			File destFile = new File(destPath + "/ebookFolder", fileName);
+			ServletContext context = ServletActionContext.getServletContext();
+			String sRootPath = context.getRealPath("/");
+//			String newName = "";
+//			long millis = System.currentTimeMillis();
+//			newName = millis + "_" + fileName;
+//			fileUpload.renameTo(new File(newName));
+			
+			File destFile = new File(sRootPath + "/ebookFolder", fileName);
 			FileUtils.copyFile(fileUpload, destFile);
 			pathFileUpload = destFile.getPath();
-
+			logger.info("upload file success");
 		} catch (IOException e) {
 			e.printStackTrace();
+			logger.info("failed upload file");
 			return "failed";
 		}
 
@@ -361,12 +374,15 @@ public class PostAction {
 	private String uploadImage(String fileName, File fileUpload) {
 		String pathFileUpload = "";
 		try {
-			File destFile = new File(destPath + "/image", fileName);
+			ServletContext context = ServletActionContext.getServletContext();
+			String sRootPath = context.getRealPath("/");
+			File destFile = new File(sRootPath + "/image/", fileName);
 			FileUtils.copyFile(fileUpload, destFile);
 			pathFileUpload = "image/" + destFile.getName();
-
+			logger.info("upload image success");
 		} catch (IOException e) {
 			e.printStackTrace();
+			logger.info("failed image file");
 			return "failed";
 		}
 
