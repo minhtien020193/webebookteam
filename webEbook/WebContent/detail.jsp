@@ -43,7 +43,8 @@
 		<div class="container">
 			<div class="col-md-5">
 				<div class="image-box">
-					<img src="<s:property value="postDTO.image" />" class="image-detail"/>
+					<img src="<s:property value="postDTO.image" />"
+						class="image-detail" />
 				</div>
 			</div>
 			<div class="col-md-7">
@@ -53,7 +54,7 @@
 					</h1>
 					<div class="item-row1">
 						<div class="item-price">
-							<div class="item-brand">
+							<!-- <div class="item-brand">
 								<h6>Đánh giá:</h6>
 								<p>4444</p>
 								<div class="item-rating">
@@ -61,7 +62,7 @@
 										href="/do-choi-go-vietoys-rut-go-moc-funny-tower-p162970-p162970/reviews">(43
 										đánh giá)</a>
 								</div>
-							</div>
+							</div> -->
 							<div class="item-brand">
 								<h6>Tác giả</h6>
 								<p>

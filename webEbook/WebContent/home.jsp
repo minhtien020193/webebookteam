@@ -108,14 +108,14 @@
 													aria-hidden="true"></i> <span class="fred"><s:property
 														value="countChapter" /></span> <span>Chương</span>
 											</div>
-											<div class="col-md-6">
+											<%-- <div class="col-md-6">
 												<i class="glyphicon glyphicon-eye-open margin-10"
 													aria-hidden="true"></i><span>8888</span>
-											</div>
-											<div class="col-md-6">
+											</div> --%>
+											<%-- <div class="col-md-6">
 												<i class="glyphicon glyphicon-arrow-down margin-10"
 													aria-hidden="true"></i><span>123</span>
-											</div>
+											</div> --%>
 											<div class="col-md-12">
 												<i class="glyphicon glyphicon-user margin-10"
 													aria-hidden="true"></i><span class="user"><s:property

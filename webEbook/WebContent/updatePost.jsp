@@ -69,21 +69,34 @@
 						<div class="col-sm-4">
 							<s:select headerKey="-1" headerValue="Chọn thể loại"
 								list="listCats" listKey="key" listValue="value"
-								name="categoryId" value="postDTO.categoryId"/>
+								name="categoryId" value="postDTO.categoryId" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">File upload</div>
 						<div class="col-sm-4">
-							<input type="file" name="ebook" />
+							<input name="linkdownload_inserted" type="hidden"
+								value="<s:property value="postDTO.linkDownload"/>" />
+							<s:if test="postDTO.linkDownload !=''">
+								<div class="col-sm-6">
+									<a href="<s:property value="postDTO.linkDownload"/>">file
+										đính kèm</a>
+								</div>
+							</s:if>
+							<div class="col-sm-6">
+								<input type="file" name="ebook" />
+							</div>
+
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">Ảnh bìa</div>
 						<div class="col-sm-4">
+							<input name="image_inserted" type="hidden"
+								value="<s:property value="postDTO.image"/>" />
 							<div class="col-sm-6">
 								<img src="<s:property value="postDTO.image"/>"
-									class="list-ebook-image" />
+									class="list-ebook-image" name="image_inserted" />
 							</div>
 							<div class="col-sm-6">
 								<input type="file" name="image" />

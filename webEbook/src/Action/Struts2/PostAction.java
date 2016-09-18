@@ -52,6 +52,8 @@ public class PostAction {
 	String categoryName;
 	boolean noFeedback = false;
 	private String txtsearch;
+	private String image_inserted;
+	private String linkdownload_inserted;
 
 	final String ADMIN = "admin";
 	final String SALER = "saler";
@@ -262,8 +264,16 @@ public class PostAction {
 		post.setCategoryId(categoryId);
 		post.setUserId(userId);
 		post.setSaleoff(0);
-		post.setImage(imagelink);
-		post.setLinkDownload(linkdownload);
+		if(imagelink == null){
+			post.setImage(image_inserted);
+		} else {
+			post.setImage(imagelink);
+		}
+		if(linkdownload == null){
+			post.setLinkDownload(linkdownload_inserted);
+		} else {
+			post.setLinkDownload(linkdownload);
+		}
 		post.setPostStatus(false);
 		post.setDel_flg(false);
 
@@ -349,7 +359,9 @@ public class PostAction {
 
 	private String uploadFile(String fileName, File fileUpload) {
 		String pathFileUpload = "";
-		
+		if(fileUpload == null){
+			return null;
+		}
 		try {
 			ServletContext context = ServletActionContext.getServletContext();
 			String sRootPath = context.getRealPath("/");
@@ -360,7 +372,7 @@ public class PostAction {
 			
 			File destFile = new File(sRootPath + "/ebookFolder", fileName);
 			FileUtils.copyFile(fileUpload, destFile);
-			pathFileUpload = destFile.getPath();
+			pathFileUpload = "ebookFolder/" + destFile.getName();
 			logger.info("upload file success");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -373,6 +385,9 @@ public class PostAction {
 
 	private String uploadImage(String fileName, File fileUpload) {
 		String pathFileUpload = "";
+		if(fileUpload == null){
+			return null;
+		}
 		try {
 			ServletContext context = ServletActionContext.getServletContext();
 			String sRootPath = context.getRealPath("/");
@@ -588,6 +603,22 @@ public class PostAction {
 
 	public void setTxtsearch(String txtsearch) {
 		this.txtsearch = txtsearch;
+	}
+
+	public String getImage_inserted() {
+		return image_inserted;
+	}
+
+	public void setImage_inserted(String image_inserted) {
+		this.image_inserted = image_inserted;
+	}
+
+	public String getLinkdownload_inserted() {
+		return linkdownload_inserted;
+	}
+
+	public void setLinkdownload_inserted(String linkdownload_inserted) {
+		this.linkdownload_inserted = linkdownload_inserted;
 	}
 
 }
