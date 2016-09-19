@@ -6,8 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" media="all" />
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="web/css/style.css" rel="stylesheet" type="text/css"
 	media="all" />
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
@@ -29,7 +27,8 @@
 					id="listEbook" class="menu-all" title="Tất cả Danh Mục"> <i
 					class="glyphicon glyphicon-align-justify"></i>
 					<h2 title="Tất Cả Danh Mục">Tất Cả Danh Mục</h2>
-				</a> <%@ include file="include/contentMenu.jsp"%> </nav>
+				</a> <%@ include file="include/contentMenu.jsp"%>
+				</nav>
 			</div>
 			<div class="col-md-6"></div>
 			<div class="col-md-3"></div>
