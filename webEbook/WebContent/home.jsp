@@ -11,6 +11,7 @@
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.gif" />
 
 <title>Ebook</title>
 </head>

@@ -4,25 +4,29 @@
    "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="ebook" extends="struts-default">
-		<action name="loginAction" class="Action.Struts2.UserAction" method="login">
+		<action name="loginAction" class="Action.Struts2.UserAction"
+			method="login">
 			<result name="success" type="redirectAction">home</result>
 			<result name="fail">/error.jsp</result>
 		</action>
-		
-		<action name="logoutAction" class="Action.Struts2.UserAction" method="logout">
+
+		<action name="logoutAction" class="Action.Struts2.UserAction"
+			method="logout">
 			<result name="success" type="redirectAction">home</result>
 		</action>
-		
-		<action name="registerAction" class="Action.Struts2.UserAction" method="register">
+
+		<action name="registerAction" class="Action.Struts2.UserAction"
+			method="register">
 			<result name="success" type="redirectAction">home</result>
 			<result name="fail">/error.jsp</result>
 		</action>
-	
+
 		<action name="home" class="Action.Struts2.PostAction" method="execute">
 			<result name="success">/home.jsp</result>
 		</action>
-		
-		<action name="profile" class="Action.Struts2.UserAction" method="getProfile">
+
+		<action name="profile" class="Action.Struts2.UserAction"
+			method="getProfile">
 			<result name="success">/profile.jsp</result>
 			<result name="noData">/noData.jsp</result>
 		</action>
@@ -34,7 +38,8 @@
 			<result name="noData">/noData.jsp</result>
 		</action>
 
-		<action name="sendCreatePost" class="Action.Struts2.PostAction" method="sendCreatePost">
+		<action name="sendCreatePost" class="Action.Struts2.PostAction"
+			method="sendCreatePost">
 			<result name="success">/createPost.jsp</result>
 			<result name="noPermission">/error.jsp</result>
 		</action>
@@ -173,7 +178,7 @@
 			<result name="noData">/noData.jsp</result>
 			<result name="notAdmin">/error.jsp</result>
 		</action>
-		
+
 		<!-- list upgrad role -->
 		<action name="listUpgrande" class="Action.Struts2.UserAction"
 			method="listUpgrande">
@@ -182,17 +187,26 @@
 			<result name="noData">/noData.jsp</result>
 			<result name="notAdmin">/noData.jsp</result>
 		</action>
-		
+
 		<action name="updateRoleUser" class="Action.Struts2.UserAction"
 			method="updateRoleUser">
 			<result name="success" type="redirectAction">listUpgrande</result>
 			<result name="fail">/error.jsp</result>
 		</action>
-		
+
 		<action name="searchEbook" class="Action.Struts2.PostAction"
 			method="searchEbook">
 			<result name="success">/home.jsp</result>
 			<result name="noData">/noData.jsp</result>
 		</action>
 	</package>
+
+	<package name="default" extends="json-default">
+		<action name="ajaxAction" class="Action.Struts2.TestAjaxAction">
+			<result type="json">
+			</result>
+		</action>
+	</package>
+
+
 </struts>

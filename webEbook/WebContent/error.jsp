@@ -3,6 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" media="all" />
@@ -11,7 +12,8 @@
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
-
+<link rel="shortcut icon" type="image/x-icon"
+	href="web/images/favicon.gif" />
 <title>Không có quyền</title>
 </head>
 <body class="ebook-product">
@@ -49,13 +51,5 @@
 
 	<!-- footer -->
 	<%@ include file="include/footer.jsp"%>
-	<script>
-		$('#confirm-delete').on(
-				'show.bs.modal',
-				function(e) {
-					$(this).find('.btn-ok').attr('href',
-							$(e.relatedTarget).data('href'));
-				});
-	</script>
 </body>
 </html>
