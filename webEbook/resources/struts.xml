@@ -3,7 +3,7 @@
    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
    "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="ebook" extends="struts-default">
+	<package name="ebook" extends="struts-default, json-default">
 		<action name="loginAction" class="Action.Struts2.UserAction"
 			method="login">
 			<result name="success" type="redirectAction">home</result>
@@ -199,14 +199,11 @@
 			<result name="success">/home.jsp</result>
 			<result name="noData">/noData.jsp</result>
 		</action>
-	</package>
-
-	<package name="default" extends="json-default">
+		
+		<!-- Json -->
 		<action name="ajaxAction" class="Action.Struts2.TestAjaxAction">
-			<result type="json">
-			</result>
+			<result name="success" type="json"></result>
 		</action>
+		
 	</package>
-
-
 </struts>

@@ -42,7 +42,6 @@
 
 	<!-- Test -->
 
-	<h3>AJAX calls to Struts 2 using JSON and jQuery</h3>
 	<s:select id="country" name="country"
 		list="{'Select Country','India','US'}" label="Select Country" />
 	<br />

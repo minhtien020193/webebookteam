@@ -106,14 +106,14 @@
 						</div>
 					</div>
 				</div>
-				<s:if test="priceEmpty">
+				<%-- <s:if test="priceEmpty">
 					<div class="buy-box">
 						<button type="button" class="btn btn btn-danger">
 							<span class="glyphicon glyphicon-arrow-down"></span> <span>Tải
 								Xuống</span>
 						</button>
 					</div>
-				</s:if>
+				</s:if> --%>
 			</div>
 		</div>
 	</div>

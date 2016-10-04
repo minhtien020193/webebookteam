@@ -27,7 +27,7 @@ public class TestAjaxAction implements Action {
 			stateMap.put("1", "Select State");
 		}
 		dummyMsg = "Ajax action Triggered";
-		return SUCCESS;
+		return "success";
 	}
 
 	public Map<String, String> getStateMap() {
