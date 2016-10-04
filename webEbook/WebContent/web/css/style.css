@@ -243,7 +243,6 @@ header.wrap-header .header-navigation>ul>li>a .ebook-icons, header.wrap-header .
 	.ebook-home .wrap .home-slideshow {
 		width: 850px !important;
 		margin-top: 32px;
-		float: right;
 	}
 }
 
@@ -662,3 +661,9 @@ h5.sub_title {
 .image-detail{
 	width: 210px;
 }
+.ebook-home .row  .col-lg-8 .flexslider{
+	margin-left: -10px !important;
+}
+/* .ebook-home .row  .col-lg-4 {
+	margin-left: -4% !important;
+} */

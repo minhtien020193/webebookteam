@@ -8,10 +8,37 @@
 	type="text/css" media="all" />
 <link href="web/css/style.css" rel="stylesheet" type="text/css"
 	media="all" />
+<link href="web/css/slider.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link rel="stylesheet" href="web/css/sliderRight.css">
+<script type="text/javascript" src="web/js/prefix-free.js"></script>
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
+<script type="text/javascript" src="web/js/jquery.flexslider-min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.gif" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="web/images/favicon.gif" />
+<script type="text/javascript" charset="utf-8">
+	var $ = jQuery.noConflict();
+	$(window).load(function() {
+		$('.flexslider').flexslider({
+			animation : "fade"
+		});
+
+		$(function() {
+			$('.show_menu').click(function() {
+				$('.menu').fadeIn();
+				$('.show_menu').fadeOut();
+				$('.hide_menu').fadeIn();
+			});
+			$('.hide_menu').click(function() {
+				$('.menu').fadeOut();
+				$('.show_menu').fadeIn();
+				$('.hide_menu').fadeOut();
+			});
+		});
+	});
+</script>
 
 <title>Ebook</title>
 </head>
@@ -22,46 +49,76 @@
 		<%@ include file="include/header.jsp"%>
 
 		<!-- row 2 -->
-		<div class="row header-row2">
-			<div class="col-md-3">
-				<nav class="header-navigation first"> <a href="#"
-					id="listEbook" class="menu-all" title="Tất cả Danh Mục"> <i
-					class="glyphicon glyphicon-align-justify"></i>
-					<h2 title="Tất Cả Danh Mục">Tất Cả Danh Mục</h2>
-				</a> <%@ include file="include/contentMenu.jsp"%>
-				</nav>
-			</div>
-			<div class="col-md-6"></div>
-			<div class="col-md-3"></div>
-		</div>
+		<%@ include file="include/menu.jsp"%>
 	</div>
 	</header>
 	<div class="wrap">
-		<div class="container home-slideshow-root">
+		<div class="container">
 			<div class="row">
-				<div class="col-lg-12">
-					<div class="home-slideshow">
-						<div
-							class="swiper-container home-slideshow-content swiper-container-vertical">
-							<div id="slideshow">
-								<div>
-									<img
-										src="https://vcdn.tikicdn.com/media/custom/banners/File-1470367814.jpg">
-								</div>
-								<div>
-									<img
-										src="https://vcdn.tikicdn.com/media/custom/banners/File-1470961433.jpg">
-								</div>
-								<div>
-									<img
-										src="https://vcdn.tikicdn.com/media/custom/banners/File-1470961433.jpg">
-								</div>
-								<div>
-									<img
-										src="https://vcdn.tikicdn.com/media/custom/banners/File-1470961433.jpg">
-								</div>
-							</div>
+				<div class="col-lg-8">
+					<div class="slider_container">
+						<div class="flexslider">
+							<ul class="slides">
+								<li><a href="#"><img src="web/images/slider/slide1.jpg"
+										alt="" title="" /></a>
+									<div class="flex-caption">
+										<div class="caption_title_line">
+											<h2>Party Hairstyles</h2>
+											<p>Find the perfect hairstyle a la Lauren Conrad for
+												every type of festive fête.</p>
+										</div>
+									</div></li>
+								<li><a href="#"><img src="web/images/slider/slide2.jpg"
+										alt="" title="" /></a>
+									<div class="flex-caption">
+										<div class="caption_title_line">
+											<h2>Beautiful Hairstyle</h2>
+											<p>The latest hairstyles and instructions on how to
+												create them here. Total Beauty has your complete hairstyles
+												guide</p>
+										</div>
+									</div></li>
+								<li><a href="#"><img src="web/images/slider/slide3.jpg"
+										alt="" title="" /></a>
+									<div class="flex-caption">
+										<div class="caption_title_line">
+											<h2>Party Dresses</h2>
+											<p>If you are looking for something a little special for
+												your big night out, check out Rare London's collection of
+												stunning party dresses</p>
+										</div>
+									</div></li>
+								<li><a href="#"><img src="web/images/slider/slide4.jpg"
+										alt="" title="" /></a>
+									<div class="flex-caption">
+										<div class="caption_title_line">
+											<h2>Bodycon Dresses</h2>
+											<p>The bodycon dress is a key silhouette for this
+												season's party girl; from sleek colour-block panelling to
+												geometric prints the bodycon.</p>
+										</div>
+									</div></li>
+							</ul>
 						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="button-slider">
+						<a onclick="plusDivs(-1)"><span
+							class="glyphicon glyphicon-chevron-left"></span></a> <a
+							onclick="plusDivs(1)"><span
+							class="glyphicon glyphicon-chevron-right"></span></a>
+							<h2>UUUUUUU UU</h2>
+					</div>
+					<div class="rightSlider">
+						<img class="mySlides" src="web/images/slider/slide4.jpg"
+							style="width: 100%"> <img class="mySlides"
+							src="web/images/slider/slide1.jpg" style="width: 100%"> <img
+							class="mySlides" src="web/images/slider/slide3.jpg"
+							style="width: 100%"> <img class="mySlides"
+							src="web/images/slider/slide2.jpg" style="width: 100%">
+
+
 					</div>
 				</div>
 			</div>
@@ -69,81 +126,104 @@
 	</div>
 	<div class="wrap" id="content">
 		<div class="container">
-			<div class="col-md-12">
-				<ul class="nav nav-tabs">
-					<li class="active"><a data-toggle="tab" href="#home">Hàng
-							mới</a></li>
-					<li><a data-toggle="tab" href="#menu1">Giảm giá</a></li>
-					<li><a data-toggle="tab" href="#menu2">Bán chạy</a></li>
-				</ul>
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#home">Hàng
+						mới</a></li>
+				<li><a data-toggle="tab" href="#menu1">Giảm giá</a></li>
+				<li><a data-toggle="tab" href="#menu2">Bán chạy</a></li>
+			</ul>
 
-				<div class="tab-content slides">
-					<div id="home" class="tab-pane fade in active">
+			<div class="tab-content slides">
+				<div id="home" class="tab-pane fade in active">
 
-						<!-- list ebook -->
-						<s:iterator status="stat" value="listPost">
-							<!-- ebook -->
-							<div class="col-md-3 margin-top">
-								<div class="product-item">
-									<a href="detailPost?postId=<s:property value="postId" />">
-										<div class="image">
-											<img alt="<s:property value="postName" />"
-												src="<s:property value="image"/>" />
+					<!-- list ebook -->
+					<s:iterator status="stat" value="listPost">
+						<!-- ebook -->
+						<div class="col-md-3 margin-top">
+							<div class="product-item">
+								<a href="detailPost?postId=<s:property value="postId" />">
+									<div class="image">
+										<img alt="<s:property value="postName" />"
+											src="<s:property value="image"/>" />
+									</div>
+									<div class="cblock ctitle">
+										<h3>
+											<s:property value="postName" />
+										</h3>
+									</div>
+								</a>
+								<div class="cblock">
+									<div class="row">
+										<div class="col-md-6">
+											<i class="glyphicon glyphicon-calendar margin-10"
+												aria-hidden="true"></i><span><s:property
+													value="createDate" /></span>
 										</div>
-										<div class="cblock ctitle">
-											<h3>
-												<s:property value="postName" />
-											</h3>
+										<div class="col-md-6">
+											<i class="glyphicon glyphicon-file margin-10"
+												aria-hidden="true"></i> <span class="fred"><s:property
+													value="countChapter" /></span> <span>Chương</span>
 										</div>
-									</a>
-									<div class="cblock">
-										<div class="row">
-											<div class="col-md-6">
-												<i class="glyphicon glyphicon-calendar margin-10"
-													aria-hidden="true"></i><span><s:property
-														value="createDate" /></span>
-											</div>
-											<div class="col-md-6">
-												<i class="glyphicon glyphicon-file margin-10"
-													aria-hidden="true"></i> <span class="fred"><s:property
-														value="countChapter" /></span> <span>Chương</span>
-											</div>
-											<%-- <div class="col-md-6">
+										<%-- <div class="col-md-6">
 												<i class="glyphicon glyphicon-eye-open margin-10"
 													aria-hidden="true"></i><span>8888</span>
 											</div> --%>
-											<%-- <div class="col-md-6">
+										<%-- <div class="col-md-6">
 												<i class="glyphicon glyphicon-arrow-down margin-10"
 													aria-hidden="true"></i><span>123</span>
 											</div> --%>
-											<div class="col-md-12">
-												<i class="glyphicon glyphicon-user margin-10"
-													aria-hidden="true"></i><span class="user"><s:property
-														value="authorName" /></span>
-											</div>
+										<div class="col-md-12">
+											<i class="glyphicon glyphicon-user margin-10"
+												aria-hidden="true"></i><span class="user"><s:property
+													value="authorName" /></span>
 										</div>
 									</div>
 								</div>
 							</div>
-						</s:iterator>
+						</div>
+					</s:iterator>
 
-					</div>
-					<div id="menu1" class="tab-pane fade">
-						<h3>Menu 1</h3>
-						<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco
-							laboris nisi ut aliquip ex ea commodo consequat.</p>
-					</div>
-					<div id="menu2" class="tab-pane fade">
-						<h3>Menu 2</h3>
-						<p>Sed ut perspiciatis unde omnis iste natus error sit
-							voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-					</div>
 				</div>
-
+				<div id="menu1" class="tab-pane fade">
+					<h3>Menu 1</h3>
+					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco
+						laboris nisi ut aliquip ex ea commodo consequat.</p>
+				</div>
+				<div id="menu2" class="tab-pane fade">
+					<h3>Menu 2</h3>
+					<p>Sed ut perspiciatis unde omnis iste natus error sit
+						voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+				</div>
 			</div>
+
 		</div>
 	</div>
 
 	<!-- footer -->
 	<%@ include file="include/footer.jsp"%>
 </body>
+<script>
+	var slideIndex = 1;
+	showDivs(slideIndex);
+
+	function plusDivs(n) {
+		showDivs(slideIndex += n);
+	}
+
+	function showDivs(n) {
+		var i;
+		var x = document.getElementsByClassName("mySlides");
+		if (n > x.length) {
+			slideIndex = 1
+		}
+		if (n < 1) {
+			slideIndex = x.length
+		}
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";
+		}
+		x[slideIndex - 1].style.display = "block";
+	}
+
+	
+</script>
