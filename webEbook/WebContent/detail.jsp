@@ -121,7 +121,7 @@
 	<!-- detail ebook -->
 	<div class="wrap">
 		<div class="container">
-			<div class="product-content-box">
+			<div class="product-content-box col-sm-12">
 				<div class="row box-product-lifestyle">
 					<h3 class="product-table-title">Thông Tin Chi Tiết</h3>
 				</div>
@@ -135,7 +135,7 @@
 	<!-- chapter -->
 	<div class="wrap">
 		<div class="container">
-			<div class="product-content-box">
+			<div class="product-content-box col-sm-12">
 				<div class="row box-product-lifestyle">
 					<h3 class="product-table-title">Chương đính kèm</h3>
 				</div>
@@ -157,7 +157,7 @@
 	<!-- comment -->
 	<div class="wrap">
 		<div class="container">
-			<div class="product-content-box">
+			<div class="product-content-box col-sm-12">
 				<div class="row box-product-lifestyle">
 					<h3 class="product-table-title">Nhận xét</h3>
 				</div>

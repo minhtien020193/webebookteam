@@ -52,6 +52,7 @@
 		<%@ include file="include/menu.jsp"%>
 	</div>
 	</header>
+	<!-- silder -->
 	<div class="wrap">
 		<div class="container">
 			<div class="row">
@@ -104,11 +105,17 @@
 				</div>
 				<div class="col-lg-4">
 					<div class="button-slider">
-						<a onclick="plusDivs(-1)"><span
-							class="glyphicon glyphicon-chevron-left"></span></a> <a
-							onclick="plusDivs(1)"><span
-							class="glyphicon glyphicon-chevron-right"></span></a>
-							<h2>UUUUUUU UU</h2>
+						<div class="col-sm-8">
+							<h2 class="title-silder">Top</h2>
+						</div>
+						<div class="col-sm-4">
+							<div class="pull-right">
+								<a onclick="plusDivs(-1)"><span
+									class="glyphicon glyphicon-chevron-left"></span></a> <a
+									onclick="plusDivs(1)"><span
+									class="glyphicon glyphicon-chevron-right"></span></a>
+							</div>
+						</div>
 					</div>
 					<div class="rightSlider">
 						<img class="mySlides" src="web/images/slider/slide4.jpg"
@@ -117,22 +124,19 @@
 							class="mySlides" src="web/images/slider/slide3.jpg"
 							style="width: 100%"> <img class="mySlides"
 							src="web/images/slider/slide2.jpg" style="width: 100%">
-
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="wrap" id="content">
 		<div class="container">
-			<ul class="nav nav-tabs">
-				<li class="active"><a data-toggle="tab" href="#home">Hàng
-						mới</a></li>
-				<li><a data-toggle="tab" href="#menu1">Giảm giá</a></li>
-				<li><a data-toggle="tab" href="#menu2">Bán chạy</a></li>
+			<!-- 			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#home">Truyen
+						Hay</a></li>
 			</ul>
-
+ -->
 			<div class="tab-content slides">
 				<div id="home" class="tab-pane fade in active">
 
@@ -164,14 +168,6 @@
 												aria-hidden="true"></i> <span class="fred"><s:property
 													value="countChapter" /></span> <span>Chương</span>
 										</div>
-										<%-- <div class="col-md-6">
-												<i class="glyphicon glyphicon-eye-open margin-10"
-													aria-hidden="true"></i><span>8888</span>
-											</div> --%>
-										<%-- <div class="col-md-6">
-												<i class="glyphicon glyphicon-arrow-down margin-10"
-													aria-hidden="true"></i><span>123</span>
-											</div> --%>
 										<div class="col-md-12">
 											<i class="glyphicon glyphicon-user margin-10"
 												aria-hidden="true"></i><span class="user"><s:property
@@ -182,20 +178,20 @@
 							</div>
 						</div>
 					</s:iterator>
-
-				</div>
-				<div id="menu1" class="tab-pane fade">
-					<h3>Menu 1</h3>
-					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco
-						laboris nisi ut aliquip ex ea commodo consequat.</p>
-				</div>
-				<div id="menu2" class="tab-pane fade">
-					<h3>Menu 2</h3>
-					<p>Sed ut perspiciatis unde omnis iste natus error sit
-						voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 				</div>
 			</div>
 
+		</div>
+	</div>
+	<div class="wrap">
+		<div class="container">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#home">Top Review</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="col-lg-8">123</div>
+				<div class="col-lg-4">123</div>
+			</div>
 		</div>
 	</div>
 
