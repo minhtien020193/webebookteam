@@ -243,7 +243,6 @@ header.wrap-header .header-navigation>ul>li>a .ebook-icons, header.wrap-header .
 	.ebook-home .wrap .home-slideshow {
 		width: 850px !important;
 		margin-top: 32px;
-		float: right;
 	}
 }
 
@@ -379,7 +378,7 @@ footer .bottom {
 }
 
 .breadcrumb-wrap .breadcrumb li {
-	font-size: 11px;
+	font-size: 14px;
 	display: block;
 	float: left;
 	white-space: nowrap;
@@ -493,7 +492,7 @@ footer .bottom {
 	margin-left: auto;
 }
 
-.img-responsive {
+.review-list .image img.img-responsive {
 	display: block;
 	height: 100% !important;
 }
@@ -548,117 +547,167 @@ footer .bottom {
 	line-height: 20px;
 	display: inline-block;
 }
-.ebook-product #search_form{
+
+.ebook-product #search_form {
 	margin-top: 15px;
 }
 
-.ebook-home #search_form{
+.ebook-home #search_form {
 	margin-top: 15px;
 }
-.noEbook{
+
+.noEbook {
 	text-align: center;
 	min-height: 200px;
 	margin-top: 200px;
 }
-.list-ebook{
+
+.list-ebook {
 	margin: 20px;
 }
-.list-ebook-image{
+
+.list-ebook-image {
 	width: 50px;
 	height: 60px;
 }
-#createPost .row{
+
+#createPost .row {
 	margin: 20px;
 }
-#addChapter .row{
+
+#addChapter .row {
 	margin: 20px;
 }
-.title-box{
-	margin:20px;
+
+.title-box {
+	margin: 20px;
 }
-.margin-comment .item .description{
+
+.margin-comment .item .description {
 	min-height: 65px;
 	border-bottom: 1px solid #E4E4E4;
 }
+
 .comments-area p {
-    padding: 8px 0;
-    color: #999;
-    font-size: 0.8125em;
-    line-height: 1.8em;
+	padding: 8px 0;
+	color: #999;
+	font-size: 0.8125em;
+	line-height: 1.8em;
 }
-.comments-area p label{
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+
+.comments-area p label {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
+
 .comments-area input[type="text"] {
-    padding: 10px 15px;
-    width: 97%;
-    color: #000;
-    border: 1px solid #f0f0f0;
-    background: #fff;
-    outline: none;
-    display: block;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
+	padding: 10px 15px;
+	width: 97%;
+	color: #000;
+	border: 1px solid #f0f0f0;
+	background: #fff;
+	outline: none;
+	display: block;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
 }
 
 .comments-area input[type="password"] {
-    padding: 10px 15px;
-    width: 97%;
-    color: #000;
-    font-size: 14px;
-    border: 1px solid #f0f0f0;
-    background: #fff;
-    outline: none;
-    display: block;
-    font-family: 'Open Sans', sans-serif;
+	padding: 10px 15px;
+	width: 97%;
+	color: #000;
+	font-size: 14px;
+	border: 1px solid #f0f0f0;
+	background: #fff;
+	outline: none;
+	display: block;
+	font-family: 'Open Sans', sans-serif;
 }
+
 h5.sub_title {
-    color: #000;
-    font-size: 0.8125em;
-    text-transform: uppercase;
-    margin: 3%;
+	color: #000;
+	font-size: 0.8125em;
+	text-transform: uppercase;
+	margin: 3%;
 }
-.register_account form input[type="text"],input[type="password"], input[type="email"], .register_account form select {
-    font-size: 14px;
-    color: #999;
-    padding: 8px;
-    outline: none;
-    margin: 10px 0;
-    width: 95%;
-    font-family: 'Open Sans', sans-serif;
-    border: 1px solid #f0f0f0;
+
+.register_account form input[type="text"], input[type="password"], input[type="email"],
+	.register_account form select {
+	font-size: 14px;
+	color: #999;
+	padding: 8px;
+	outline: none;
+	margin: 10px 0;
+	width: 95%;
+	font-family: 'Open Sans', sans-serif;
+	border: 1px solid #f0f0f0;
 }
+
 .btn-register {
 	margin-top: 12px;
 	width: 95%;
 }
-.product-item .image{
+
+.product-item .image {
 	height: 160px;
 }
-.profile-box{
+
+.profile-box {
 	border: 1px solid;
 }
-.profile-box .row{
+
+.profile-box .row {
 	margin: 10px;
 }
-.image-box{
+
+.image-box {
 	text-align: center;
 }
-.profile{
+
+.profile {
 	height: 400px;
 }
-.logo-page{
+
+.logo-page {
 	width: 50%;
 	margin-left: 50px;
 }
-.header-search{
+
+.header-search {
 	margin-top: 20px;
 }
-.image-detail{
+
+.image-detail {
 	width: 210px;
+}
+
+.ebook-home .row  .col-lg-8 .flexslider {
+	margin-left: -10px !important;
+}
+
+.carousel-control {
+	padding-top: 10%;
+	width: 5%;
+}
+
+.ebtitle {
+	font-size: 16px;
+	font-weight: 500;
+	padding: 5px;
+	background: #484065;
+	color: #FFF;
+	height: 50px;
+	overflow: hidden;
+}
+
+.ebtitle:hover {
+    background: #6844e8;
+}
+.ebook-home .container .tab-content{
+	margin-left: -15px;
+	margin-right: -15px;
 }

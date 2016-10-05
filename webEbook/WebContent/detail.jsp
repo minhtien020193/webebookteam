@@ -11,6 +11,7 @@
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.gif" />
 
 <title>Chi tiết bài viết</title>
 </head>
@@ -105,14 +106,14 @@
 						</div>
 					</div>
 				</div>
-				<s:if test="priceEmpty">
+				<%-- <s:if test="priceEmpty">
 					<div class="buy-box">
 						<button type="button" class="btn btn btn-danger">
 							<span class="glyphicon glyphicon-arrow-down"></span> <span>Tải
 								Xuống</span>
 						</button>
 					</div>
-				</s:if>
+				</s:if> --%>
 			</div>
 		</div>
 	</div>
@@ -120,7 +121,7 @@
 	<!-- detail ebook -->
 	<div class="wrap">
 		<div class="container">
-			<div class="product-content-box">
+			<div class="product-content-box col-sm-12">
 				<div class="row box-product-lifestyle">
 					<h3 class="product-table-title">Thông Tin Chi Tiết</h3>
 				</div>
@@ -134,7 +135,7 @@
 	<!-- chapter -->
 	<div class="wrap">
 		<div class="container">
-			<div class="product-content-box">
+			<div class="product-content-box col-sm-12">
 				<div class="row box-product-lifestyle">
 					<h3 class="product-table-title">Chương đính kèm</h3>
 				</div>
@@ -156,7 +157,7 @@
 	<!-- comment -->
 	<div class="wrap">
 		<div class="container">
-			<div class="product-content-box">
+			<div class="product-content-box col-sm-12">
 				<div class="row box-product-lifestyle">
 					<h3 class="product-table-title">Nhận xét</h3>
 				</div>

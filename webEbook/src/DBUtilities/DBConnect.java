@@ -10,9 +10,9 @@ public class DBConnect {
 //		String username = "root"; // username of database user
 //		String password = "7V[^f!R;2ofs"; // password
 		
-		String url = "jdbc:mysql://localhost:3306/eb_webEbook?useUnicode=true&characterEncoding=UTF-8";
+		String url = "jdbc:mysql://localhost:3306/eb_webebook?useUnicode=true&characterEncoding=UTF-8";
 		String username = "root"; // username of database user
-		String password = ""; // password
+		String password = "admin"; // password
 		
 		try {
 			try {

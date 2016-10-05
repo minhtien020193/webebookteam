@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<link rel="icon" href="web/images/logo.jpg" sizes="100x100">
 <div class="row">
 	<div class="col-md-3">
 		<p class="header-logo">
