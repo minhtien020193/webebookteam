@@ -3,6 +3,7 @@ package Action.Struts2;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -393,9 +394,17 @@ public class PostAction {
 			return null;
 		}
 		try {
-			ServletContext context = ServletActionContext.getServletContext();
-			String sRootPath = context.getRealPath("/");
-			File destFile = new File(sRootPath + "/image/", fileName);
+//			ServletContext context = ServletActionContext.getServletContext();
+//			String sRootPath = context.getRealPath("/");
+			String sRootPath ="E:\\Ebook\\branches\\dev\\webEbook\\WebContent\\image";
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			if (session.get("LOGINED") == null) {
+				return "noPermission";
+			}
+			UserDTO usr = (UserDTO) session.get("LOGINED");
+			int userId = usr.getUserId();
+			String newFileName = new Date().getTime()+fileUpload.hashCode()+"_"+userId+"_"+fileName;
+			File destFile = new File(sRootPath , newFileName);
 			FileUtils.copyFile(fileUpload, destFile);
 			pathFileUpload = "image/" + destFile.getName();
 			logger.info("upload image success");
