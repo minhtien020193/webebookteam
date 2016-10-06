@@ -398,14 +398,11 @@ public class PostAction {
 			String sRootPath = context.getRealPath("/");
 			// String sRootPath
 			// ="E:\\Ebook\\branches\\dev\\webEbook\\WebContent\\image";
-			Map<String, Object> session = ActionContext.getContext().getSession();
-			if (session.get("LOGINED") == null) {
-				return "noPermission";
-			}
+			
 			String newFileName = new Date().getTime() + fileUpload.hashCode() + "_" + userId + "_" + fileName;
-			File destFile = new File(sRootPath, newFileName);
+			File destFile = new File(sRootPath + "/image", newFileName);
 			FileUtils.copyFile(fileUpload, destFile);
-			pathFileUpload = "image/" + destFile.getName();
+			pathFileUpload = "image/" + newFileName;
 			logger.info("upload image success");
 		} catch (IOException e) {
 			e.printStackTrace();
