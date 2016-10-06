@@ -81,6 +81,7 @@
 			method="postCommentPost">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="noId">/noData.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 			<result name="noData">/noData.jsp</result>
 		</action>
 

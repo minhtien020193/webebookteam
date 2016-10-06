@@ -11,7 +11,8 @@
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.gif" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="web/images/favicon.gif" />
 
 <title>Chi tiết bài viết</title>
 </head>
@@ -39,7 +40,7 @@
 	</div>
 
 	<div class="wrap">
-		<div class="container">
+		<div class="container box-detail">
 			<div class="col-md-5">
 				<div class="image-box">
 					<img src="<s:property value="postDTO.image" />"
@@ -53,15 +54,6 @@
 					</h1>
 					<div class="item-row1">
 						<div class="item-price">
-							<!-- <div class="item-brand">
-								<h6>Đánh giá:</h6>
-								<p>4444</p>
-								<div class="item-rating">
-									<a id="reiews-url"
-										href="/do-choi-go-vietoys-rut-go-moc-funny-tower-p162970-p162970/reviews">(43
-										đánh giá)</a>
-								</div>
-							</div> -->
 							<div class="item-brand">
 								<h6>Tác giả</h6>
 								<p>
@@ -75,58 +67,30 @@
 									<s:property value="categoryName" />
 								</p>
 							</div>
-							<s:if test="priceEmpty">
-								<div class="item-brand">
-									<h6>Giá:</h6>
-									<p>
-										<span><s:property value="postDTO.price" /> đ</span>
-									</p>
-								</div>
-							</s:if>
 							<div class="item-brand">
-								<h6>Ngày đăng:</h6>
-								<p>
-									<span><s:property value="postDTO.createDate" /></span>
-								</p>
+								<span>
+									<h6>Ngày đăng:</h6>
+									<p>
+										<span><s:property value="postDTO.createDate" /></span>
+									</p>
+								</span> <span class="update-date"> <s:if
+										test="postDTO.updateDate != null">
+										<h6>Ngày chỉnh sửa:</h6>
+										<p>
+											<span><s:property value="postDTO.updateDate" /></span>
+										</p>
+									</s:if>
+								</span>
 							</div>
-							<s:if test="postDTO.updateDate != null">
-								<div class="item-brand">
-									<h6>Ngày chỉnh sửa:</h6>
-									<p>
-										<span><s:property value="postDTO.updateDate" /></span>
-									</p>
-								</div>
-							</s:if>
 							<div class="item-brand">
-								<h6>Lượt tải:</h6>
-								<p>
-									<span>2222</span>
-								</p>
+								<h6>Mô tả:</h6>
+								<div class="box-description">
+									<s:property value="postDTO.description" escapeHtml="false" />
+								</div>
+
 							</div>
 						</div>
 					</div>
-				</div>
-				<%-- <s:if test="priceEmpty">
-					<div class="buy-box">
-						<button type="button" class="btn btn btn-danger">
-							<span class="glyphicon glyphicon-arrow-down"></span> <span>Tải
-								Xuống</span>
-						</button>
-					</div>
-				</s:if> --%>
-			</div>
-		</div>
-	</div>
-
-	<!-- detail ebook -->
-	<div class="wrap">
-		<div class="container">
-			<div class="product-content-box col-sm-12">
-				<div class="row box-product-lifestyle">
-					<h3 class="product-table-title">Thông Tin Chi Tiết</h3>
-				</div>
-				<div class="row box-product-lifestyle">
-					<s:property value="postDTO.description" escapeHtml="false" />
 				</div>
 			</div>
 		</div>
@@ -134,19 +98,57 @@
 
 	<!-- chapter -->
 	<div class="wrap">
-		<div class="container">
-			<div class="product-content-box col-sm-12">
-				<div class="row box-product-lifestyle">
-					<h3 class="product-table-title">Chương đính kèm</h3>
+		<div class="container ">
+			<div class="col-sm-8">
+				<div class="chapter-area col-sm-12">
+					<h3 class="product-table-title">Các chương hiện có:</h3>
+					<div class="row box-product-lifestyle">
+						<ul>
+							<s:iterator status="chap" value="listChapters">
+								<li><a
+									href="./chapterDetail?chapterId=<s:property value ="chapterId"/>">
+										<div class="pic">
+											<img width="100%" alt="a"
+												src="http://novel.phinf.naver.net/20161001_69/novel_1475319723249Asd6V_JPEG/ED8CA8EC9995EC97B0EAB080%2BEC82BDED9994%2B262.jpg?type=n200_200_2">
+										</div>
+										<div class="info">
+											<h2>
+												<s:property value="chapterName" />
+											</h2>
+											<div class="rating">
+												<span class="glyphicon glyphicon-heart voted"></span><em>100</em>
+												<span class="glyphicon glyphicon-calendar date"></span><em><s:property
+														value="createDate" /></em>
+											</div>
+										</div>
+								</a></li>
+							</s:iterator>
+						</ul>
+					</div>
 				</div>
+			</div>
+			<div class="col-sm-4 post-cat">
+				<h3 class="product-table-title">
+					Top 5 truyện <s:property value="categoryName" /> mới nhất.
+				</h3>
 				<div class="row box-product-lifestyle">
 					<ul>
-						<s:iterator status="chap" value="listChapters">
-							<li>Chương <s:property value="#chap.count" />: <a
-								href="./chapterDetail?chapterId=<s:property value ="chapterId"/>">
-									<s:property value="chapterName" />
-							</a>
-							</li>
+						<s:iterator status="cats" value="listPostbyCategory">
+							<li><a href="detailPost?postId=<s:property value="postId" />">
+									<div class="pic">
+										<img
+											src="http://novel.phinf.naver.net/20150720_248/novel_1437385761550CM4Jx_JPEG/mw.jpg?type=f100_80_2"
+											width="100" height="80" alt="<s:property value="postName" />">
+									</div>
+									<div class="info">
+										<h3>
+											<s:property value="postName" />
+										</h3>
+										<div class="rating">
+											<span class="glyphicon glyphicon-user user-icon"></span><em><s:property value="authorName" /></em>
+										</div>
+									</div>
+							</a></li>
 						</s:iterator>
 					</ul>
 				</div>
@@ -156,7 +158,7 @@
 
 	<!-- comment -->
 	<div class="wrap">
-		<div class="container">
+		<div class="container box-comment">
 			<div class="product-content-box col-sm-12">
 				<div class="row box-product-lifestyle">
 					<h3 class="product-table-title">Nhận xét</h3>
@@ -169,7 +171,7 @@
 									<div class="col-md-11">
 										<input type="hidden" name="postId"
 											value="<s:property value="postDTO.postId"/>" /> <input
-											type="text" name="content" id="content" data-product="162970"
+											type="text" name="content" id="content"
 											class="form-control" value=""
 											placeholder="Hãy cho chúng tôi biết cảm nghĩ của bạn!">
 									</div>

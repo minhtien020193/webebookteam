@@ -179,6 +179,8 @@ public class PostDAO {
 		}
 		return null;
 	}
+	
+	
 
 	public int getPostIdbyChapterId(int chapterId) {
 		Connection con = null;
@@ -221,6 +223,63 @@ public class PostDAO {
 			logger.log(Level.SEVERE, "Connect...:", con);
 
 			String query = "SELECT * FROM eb_posts WHERE userId ='" + userId + "' AND postStatus = 1 AND del_flg = 0";
+			stmt = (Statement) con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				PostDTO post = new PostDTO();
+				post.setPostId(rs.getInt("postId"));
+				post.setUserId(rs.getInt("userId"));
+				post.setCategoryId(rs.getInt("categoryId"));
+				post.setPostName(rs.getString("postName"));
+				post.setContents(rs.getString("contents"));
+				post.setDescription(rs.getString("description"));
+				post.setCountChapter(rs.getInt("countChapter"));
+				post.setAuthorName(rs.getString("authorName"));
+				post.setImage(rs.getString("image"));
+				post.setPrice(rs.getDouble("price"));
+				post.setSaleoff(rs.getInt("saleoff"));
+				post.setLinkDownload(rs.getString("linkDownload"));
+				post.setPostType(rs.getBoolean("postType"));
+				post.setDel_flg(rs.getBoolean("del_flg"));
+				post.setCreateDate(rs.getDate("createDate"));
+				post.setUpdateDate(rs.getDate("updateDate"));
+				post.setDeleteDate(rs.getDate("deleteDate"));
+
+				lstPostByUserId.add(post);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+			e.printStackTrace();
+		} finally {
+			// finally block used to close resources
+			try {
+				if (stmt != null)
+					con.close();
+			} catch (SQLException se) {
+			} // do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		}
+		logger.info("Done...");
+		return lstPostByUserId;
+	}
+	
+	//get list post by category Id
+	public ArrayList<PostDTO> getListPostbyCatId(int catId) {
+		ArrayList<PostDTO> lstPostByUserId = new ArrayList<PostDTO>();
+		Connection con = null;
+		Statement stmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "SELECT * FROM eb_posts WHERE categoryId ='" + catId + "' AND postStatus = 1 AND del_flg = 0  ORDER BY createDate DESC LIMIT 0,5";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {

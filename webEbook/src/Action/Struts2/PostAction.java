@@ -27,29 +27,30 @@ import DTO.PostDTO;
 import DTO.UserDTO;
 
 public class PostAction {
-	List<PostDTO> listPost;
+	private List<PostDTO> listPost;
+	private List<PostDTO> listPostbyCategory;
 	private int postId;
-	PostDTO postDTO;
-	List<CommentDTO> listComments;
-	List<ChapterDTO> listChapters;
-	Map<Integer, String> listCats;
-	boolean priceEmpty = true;
-	List<String> userComment;
-	boolean noData = false;
-	String postName;
-	File ebook;
-	File image;
-	String description;
-	String author;
-	int countChapter;
-	String price;
-	String content;
+	private PostDTO postDTO;
+	private List<CommentDTO> listComments;
+	private List<ChapterDTO> listChapters;
+	private Map<Integer, String> listCats;
+	private boolean priceEmpty = true;
+	private List<String> userComment;
+	private boolean noData = false;
+	private String postName;
+	private File ebook;
+	private File image;
+	private String description;
+	private String author;
+	private int countChapter;
+	private String price;
+	private String content;
 	private String ebookFileName;
 	private String imageFileName;
 	private String ebookContentType;
 	private String imageContentType;
 	private int categoryId;
-	String categoryName;
+	private String categoryName;
 	boolean noFeedback = false;
 	private String txtsearch;
 	private String image_inserted;
@@ -114,6 +115,9 @@ public class PostAction {
 		for (CommentDTO commentDTO : listComments) {
 			userComment.add(user.getUserNameById(commentDTO.getUserId()));
 		}
+		//post by category
+		listPostbyCategory = post.getListPostbyCatId(postDTO.getCategoryId());
+		
 		// listChapter
 		ChapterDAO chapter = new ChapterDAO();
 		listChapters = chapter.getListChapterByPostId(postId);
@@ -403,7 +407,7 @@ public class PostAction {
 
 		return pathFileUpload;
 	}
-
+	
 	// getter setter
 	public List<PostDTO> getListPost() {
 		return listPost;
@@ -443,6 +447,14 @@ public class PostAction {
 
 	public void setListChapters(List<ChapterDTO> listChapters) {
 		this.listChapters = listChapters;
+	}
+
+	public Map<Integer, String> getListCats() {
+		return listCats;
+	}
+
+	public void setListCats(Map<Integer, String> listCats) {
+		this.listCats = listCats;
 	}
 
 	public boolean isPriceEmpty() {
@@ -565,14 +577,6 @@ public class PostAction {
 		this.imageContentType = imageContentType;
 	}
 
-	public Map<Integer, String> getListCats() {
-		return listCats;
-	}
-
-	public void setListCats(Map<Integer, String> listCats) {
-		this.listCats = listCats;
-	}
-
 	public int getCategoryId() {
 		return categoryId;
 	}
@@ -619,6 +623,14 @@ public class PostAction {
 
 	public void setLinkdownload_inserted(String linkdownload_inserted) {
 		this.linkdownload_inserted = linkdownload_inserted;
+	}
+
+	public List<PostDTO> getListPostbyCategory() {
+		return listPostbyCategory;
+	}
+
+	public void setListPostbyCategory(List<PostDTO> listPostbyCategory) {
+		this.listPostbyCategory = listPostbyCategory;
 	}
 
 }
