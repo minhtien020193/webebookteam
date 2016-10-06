@@ -117,7 +117,7 @@ public class PostAction {
 			userComment.add(user.getUserNameById(commentDTO.getUserId()));
 		}
 		// post by category
-		listPostbyCategory = post.getListPostbyCatId(postDTO.getCategoryId());
+		listPostbyCategory = post.getListPostByCategoryId(postDTO.getCategoryId());
 
 		// listChapter
 		ChapterDAO chapter = new ChapterDAO();
@@ -158,6 +158,20 @@ public class PostAction {
 		if (("failed").equals(imagelink)) {
 			return "fail";
 		}
+		String messageError="";
+		if (postName== null|| postName== messageError) {
+			PostAction pst = new PostAction();
+			pst.sendCreatePost();
+			return "failValidate";
+		}
+		
+		if(categoryId != 1||categoryId!=2 ||categoryId!=3 ){
+			return "failValidate";
+		}
+		if(author== null || author == messageError){
+			return "failValidate";
+		}
+		
 		PostDTO post = new PostDTO();
 		post.setAuthorName(author);
 		post.setContents(content);

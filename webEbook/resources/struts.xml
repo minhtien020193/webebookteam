@@ -49,6 +49,7 @@
 			<result name="success" type="redirectAction">listPost</result>
 			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/error.jsp</result>
+			<result name="failValidate" type="redirectAction">sendCreatePost</result>
 		</action>
 
 		<action name="sendUpdatePost" class="Action.Struts2.PostAction"
