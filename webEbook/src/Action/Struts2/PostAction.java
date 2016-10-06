@@ -159,7 +159,7 @@ public class PostAction {
 			return "fail";
 		}
 		String messageError="";
-		if (postName== null|| postName== messageError) {
+		if (postName== null|| postName== messageError.trim()) {
 			PostAction pst = new PostAction();
 			pst.sendCreatePost();
 			return "failValidate";
@@ -168,7 +168,7 @@ public class PostAction {
 		if(categoryId != 1||categoryId!=2 ||categoryId!=3 ){
 			return "failValidate";
 		}
-		if(author== null || author == messageError){
+		if(author== null || author == messageError.trim()){
 			return "failValidate";
 		}
 		
