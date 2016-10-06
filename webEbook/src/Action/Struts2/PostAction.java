@@ -116,9 +116,9 @@ public class PostAction {
 		for (CommentDTO commentDTO : listComments) {
 			userComment.add(user.getUserNameById(commentDTO.getUserId()));
 		}
-		//post by category
+		// post by category
 		listPostbyCategory = post.getListPostbyCatId(postDTO.getCategoryId());
-		
+
 		// listChapter
 		ChapterDAO chapter = new ChapterDAO();
 		listChapters = chapter.getListChapterByPostId(postId);
@@ -154,8 +154,8 @@ public class PostAction {
 		if (("failed").equals(linkdownload)) {
 			return "fail";
 		}
-		String imagelink = uploadImage(imageFileName, image);
-		if (("failed").equals(image)) {
+		String imagelink = uploadImage(imageFileName, image, userId);
+		if (("failed").equals(imagelink)) {
 			return "fail";
 		}
 		PostDTO post = new PostDTO();
@@ -252,7 +252,7 @@ public class PostAction {
 		if (("failed").equals(linkdownload)) {
 			return "fail";
 		}
-		String imagelink = uploadImage(imageFileName, image);
+		String imagelink = uploadImage(imageFileName, image, userId);
 		if (("failed").equals(image)) {
 			return "fail";
 		}
@@ -269,12 +269,12 @@ public class PostAction {
 		post.setCategoryId(categoryId);
 		post.setUserId(userId);
 		post.setSaleoff(0);
-		if(imagelink == null){
+		if (imagelink == null) {
 			post.setImage(image_inserted);
 		} else {
 			post.setImage(imagelink);
 		}
-		if(linkdownload == null){
+		if (linkdownload == null) {
 			post.setLinkDownload(linkdownload_inserted);
 		} else {
 			post.setLinkDownload(linkdownload);
@@ -364,17 +364,17 @@ public class PostAction {
 
 	private String uploadFile(String fileName, File fileUpload) {
 		String pathFileUpload = "";
-		if(fileUpload == null){
+		if (fileUpload == null) {
 			return null;
 		}
 		try {
 			ServletContext context = ServletActionContext.getServletContext();
 			String sRootPath = context.getRealPath("/");
-//			String newName = "";
-//			long millis = System.currentTimeMillis();
-//			newName = millis + "_" + fileName;
-//			fileUpload.renameTo(new File(newName));
-			
+			// String newName = "";
+			// long millis = System.currentTimeMillis();
+			// newName = millis + "_" + fileName;
+			// fileUpload.renameTo(new File(newName));
+
 			File destFile = new File(sRootPath + "/ebookFolder", fileName);
 			FileUtils.copyFile(fileUpload, destFile);
 			pathFileUpload = "ebookFolder/" + destFile.getName();
@@ -388,23 +388,22 @@ public class PostAction {
 		return pathFileUpload;
 	}
 
-	private String uploadImage(String fileName, File fileUpload) {
+	private String uploadImage(String fileName, File fileUpload, int userId) {
 		String pathFileUpload = "";
-		if(fileUpload == null){
+		if (fileUpload == null) {
 			return null;
 		}
 		try {
-//			ServletContext context = ServletActionContext.getServletContext();
-//			String sRootPath = context.getRealPath("/");
-			String sRootPath ="E:\\Ebook\\branches\\dev\\webEbook\\WebContent\\image";
+			ServletContext context = ServletActionContext.getServletContext();
+			String sRootPath = context.getRealPath("/");
+			// String sRootPath
+			// ="E:\\Ebook\\branches\\dev\\webEbook\\WebContent\\image";
 			Map<String, Object> session = ActionContext.getContext().getSession();
 			if (session.get("LOGINED") == null) {
 				return "noPermission";
 			}
-			UserDTO usr = (UserDTO) session.get("LOGINED");
-			int userId = usr.getUserId();
-			String newFileName = new Date().getTime()+fileUpload.hashCode()+"_"+userId+"_"+fileName;
-			File destFile = new File(sRootPath , newFileName);
+			String newFileName = new Date().getTime() + fileUpload.hashCode() + "_" + userId + "_" + fileName;
+			File destFile = new File(sRootPath, newFileName);
 			FileUtils.copyFile(fileUpload, destFile);
 			pathFileUpload = "image/" + destFile.getName();
 			logger.info("upload image success");
@@ -416,7 +415,7 @@ public class PostAction {
 
 		return pathFileUpload;
 	}
-	
+
 	// getter setter
 	public List<PostDTO> getListPost() {
 		return listPost;

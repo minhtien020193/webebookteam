@@ -67,12 +67,12 @@
 								name="categoryId" value="0" />
 						</div>
 					</div>
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-sm-2">File upload</div>
 						<div class="col-sm-4">
 							<input type="file" name="ebook" />
 						</div>
-					</div>
+					</div> -->
 					<div class="row">
 						<div class="col-sm-2">Ảnh bìa</div>
 						<div class="col-sm-4">

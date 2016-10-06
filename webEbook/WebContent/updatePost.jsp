@@ -71,7 +71,7 @@
 								name="categoryId" value="postDTO.categoryId" />
 						</div>
 					</div>
-					<div class="row">
+					<%-- <div class="row">
 						<div class="col-sm-2">File upload</div>
 						<div class="col-sm-4">
 							<input name="linkdownload_inserted" type="hidden"
@@ -87,7 +87,7 @@
 							</div>
 
 						</div>
-					</div>
+					</div> --%>
 					<div class="row">
 						<div class="col-sm-2">Ảnh bìa</div>
 						<div class="col-sm-4">
