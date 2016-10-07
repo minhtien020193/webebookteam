@@ -50,12 +50,13 @@
 	<div class="wrap">
 		<div class="container">
 			<div class="col-sm-12" id="createPost">
+				<input type="hidden" value="<s:property value="messageError" />">
 				<form action="createPost" method="post"
 					enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-sm-2">Tên tác phẩm</div>
 						<div class="col-sm-4">
-							<input name="postName" type="text" />
+							<input name="postName" type="text" value=""/>
 						</div>
 					</div>
 					<div class="row">
@@ -88,21 +89,21 @@
 					<div class="row">
 						<div class="col-sm-2">Tác giả</div>
 						<div class="col-sm-4">
-							<input name="author" type="text" />
+							<input name="author" type="text" value=""/>
 						</div>
 					</div>
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-sm-2">Số lượng chương:</div>
 						<div class="col-sm-4">
 							<input name="countChapter" type="text" />
 						</div>
-					</div>
-					<div class="row">
+					</div> -->
+					<!-- <div class="row">
 						<div class="col-sm-2">Giá</div>
 						<div class="col-sm-4">
 							<input name="price" type="text" />
 						</div>
-					</div>
+					</div> -->
 					<div class="row">
 						<div class="col-sm-2">Nội dung</div>
 						<div class="col-sm-12">

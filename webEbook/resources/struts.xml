@@ -49,7 +49,11 @@
 			<result name="success" type="redirectAction">listPost</result>
 			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/error.jsp</result>
-			<result name="failValidate" type="redirectAction">sendCreatePost</result>
+			<!-- return page and param  -->
+			<result name="failValidate" type="redirectAction">
+				<param name="actionName">sendCreatePost</param>
+				<param name="messageError">${messageError}</param>
+			</result>
 		</action>
 
 		<action name="sendUpdatePost" class="Action.Struts2.PostAction"
@@ -63,6 +67,12 @@
 			<result name="success" type="redirectAction">listPost</result>
 			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/error.jsp</result>
+			<!-- return page and param  -->
+			<result name="failValidate" type="redirectAction">
+				<param name="actionName">sendUpdatePost</param>
+				<param name="messageError">${messageError}</param>
+				<param name="postId">${postId}</param>
+			</result>
 		</action>
 
 		<action name="deletePost" class="Action.Struts2.PostAction"
@@ -201,11 +211,11 @@
 			<result name="success">/home.jsp</result>
 			<result name="noData">/noData.jsp</result>
 		</action>
-		
+
 		<!-- Json -->
 		<action name="ajaxAction" class="Action.Struts2.TestAjaxAction">
 			<result name="success" type="json"></result>
 		</action>
-		
+
 	</package>
 </struts>

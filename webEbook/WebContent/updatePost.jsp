@@ -52,6 +52,7 @@
 				<div class="row box-product-lifestyle">
 					<h3 class="product-table-title">Chỉnh sửa nội dung bài viết:</h3>
 				</div>
+				<input type="hidden" value="<s:property value="messageError" />">
 				<form action="updatePost" method="post"
 					enctype="multipart/form-data">
 					<div class="row">
@@ -116,7 +117,7 @@
 								value="<s:property value="postDTO.authorName"/>" />
 						</div>
 					</div>
-					<div class="row">
+					<%-- <div class="row">
 						<div class="col-sm-2">Số lượng chương:</div>
 						<div class="col-sm-4">
 							<input name="countChapter" type="text"
@@ -129,7 +130,7 @@
 							<input name="price" type="text"
 								value="<s:property value="postDTO.price"/>" />
 						</div>
-					</div>
+					</div> --%>
 					<div class="row">
 						<div class="col-sm-2">Nội dung</div>
 						<div class="col-sm-12">

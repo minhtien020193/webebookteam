@@ -15,6 +15,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 
 import DAO.CategoryDAO;
 import DAO.ChapterDAO;
@@ -27,7 +28,7 @@ import DTO.CommentDTO;
 import DTO.PostDTO;
 import DTO.UserDTO;
 
-public class PostAction {
+public class PostAction extends ActionSupport {
 	private List<PostDTO> listPost;
 	private List<PostDTO> listPostbyCategory;
 	private int postId;
@@ -56,11 +57,13 @@ public class PostAction {
 	private String txtsearch;
 	private String image_inserted;
 	private String linkdownload_inserted;
+	String messageError = "";
 
 	final String ADMIN = "admin";
 	final String SALER = "saler";
 	final String MEMBER = "member";
-	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
+	private static final Logger logger = Logger.getLogger(UserDAO.class
+			.getName());
 
 	public String execute() throws Exception {
 		PostDAO post = new PostDAO();
@@ -81,7 +84,8 @@ public class PostAction {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
+				.getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -90,7 +94,8 @@ public class PostAction {
 		List<CategoryDTO> lstCat = cat.getListCategory();
 		listCats = new HashMap<>();
 		for (CategoryDTO categoryDTO : lstCat) {
-			listCats.put(categoryDTO.getCategoryId(), categoryDTO.getCategoryName());
+			listCats.put(categoryDTO.getCategoryId(),
+					categoryDTO.getCategoryName());
 		}
 		return "success";
 	}
@@ -117,7 +122,7 @@ public class PostAction {
 			userComment.add(user.getUserNameById(commentDTO.getUserId()));
 		}
 		// post by category
-		listPostbyCategory = post.getListPostByCategoryId(postDTO.getCategoryId());
+		listPostbyCategory = post.getListPostbyCatId(postDTO.getCategoryId());
 
 		// listChapter
 		ChapterDAO chapter = new ChapterDAO();
@@ -146,10 +151,34 @@ public class PostAction {
 		int userId = usr.getUserId();
 
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
+				.getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
+		// start validate postname
+		if (postName == null || postName.trim().equals("")) {
+			messageError += "postname null \n";
+		}
+		// end validate postname
+
+		// start validate category Id
+		if (categoryId != 1 || categoryId != 2 || categoryId != 3) {
+			messageError += "categoryId null \n";
+		}
+		// end validate category Id
+
+		// start validate author
+		if (author == null || author.trim().equals("")) {
+			messageError += "author null \n";
+		}
+		// end validate author
+
+		// check validate
+		if (messageError != null || messageError != "") {
+			return "failValidate";
+		}
+
 		String linkdownload = uploadFile(ebookFileName, ebook);
 		if (("failed").equals(linkdownload)) {
 			return "fail";
@@ -158,20 +187,7 @@ public class PostAction {
 		if (("failed").equals(imagelink)) {
 			return "fail";
 		}
-		String messageError="";
-		if (postName== null|| postName== messageError.trim()) {
-			PostAction pst = new PostAction();
-			pst.sendCreatePost();
-			return "failValidate";
-		}
-		
-		if(categoryId != 1||categoryId!=2 ||categoryId!=3 ){
-			return "failValidate";
-		}
-		if(author== null || author == messageError.trim()){
-			return "failValidate";
-		}
-		
+
 		PostDTO post = new PostDTO();
 		post.setAuthorName(author);
 		post.setContents(content);
@@ -206,7 +222,8 @@ public class PostAction {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
+				.getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -227,7 +244,8 @@ public class PostAction {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
+				.getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -239,7 +257,8 @@ public class PostAction {
 		List<CategoryDTO> lstCat = cat.getListCategory();
 		listCats = new HashMap<>();
 		for (CategoryDTO categoryDTO : lstCat) {
-			listCats.put(categoryDTO.getCategoryId(), categoryDTO.getCategoryName());
+			listCats.put(categoryDTO.getCategoryId(),
+					categoryDTO.getCategoryName());
 		}
 		PostDAO post = new PostDAO();
 		postDTO = post.findPostDTO(postId);
@@ -258,9 +277,32 @@ public class PostAction {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
+				.getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
+		}
+		// start validate postname
+		if (postName == null || postName.trim().equals("")) {
+			messageError += "postname null \n";
+		}
+		// end validate postname
+
+		// start validate category Id
+		if (categoryId != 1 || categoryId != 2 || categoryId != 3) {
+			messageError += "categoryId null \n";
+		}
+		// end validate category Id
+
+		// start validate author
+		if (author == null || author.trim().equals("")) {
+			messageError += "author null \n";
+		}
+		// end validate author
+
+		// check validate
+		if (messageError != null || messageError != "") {
+			return "failValidate";
 		}
 		String linkdownload = uploadFile(ebookFileName, ebook);
 		if (("failed").equals(linkdownload)) {
@@ -313,7 +355,8 @@ public class PostAction {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
+				.getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -335,7 +378,8 @@ public class PostAction {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
+				.getRoleName();
 		if (!(ADMIN).equals(role)) {
 			return "notAdmin";
 		}
@@ -355,7 +399,8 @@ public class PostAction {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
+				.getRoleName();
 		if (!(ADMIN).equals(role)) {
 			return "notAdmin";
 		}
@@ -412,8 +457,9 @@ public class PostAction {
 			String sRootPath = context.getRealPath("/");
 			// String sRootPath
 			// ="E:\\Ebook\\branches\\dev\\webEbook\\WebContent\\image";
-			
-			String newFileName = new Date().getTime() + fileUpload.hashCode() + "_" + userId + "_" + fileName;
+
+			String newFileName = new Date().getTime() + fileUpload.hashCode()
+					+ "_" + userId + "_" + fileName;
 			File destFile = new File(sRootPath + "/image", newFileName);
 			FileUtils.copyFile(fileUpload, destFile);
 			pathFileUpload = "image/" + newFileName;
@@ -650,6 +696,14 @@ public class PostAction {
 
 	public void setListPostbyCategory(List<PostDTO> listPostbyCategory) {
 		this.listPostbyCategory = listPostbyCategory;
+	}
+
+	public String getMessageError() {
+		return messageError;
+	}
+
+	public void setMessageError(String messageError) {
+		this.messageError = messageError;
 	}
 
 }
