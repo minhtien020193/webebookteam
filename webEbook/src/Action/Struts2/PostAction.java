@@ -175,7 +175,7 @@ public class PostAction extends ActionSupport {
 		// end validate author
 
 		// check validate
-		if (messageError != null || messageError != "") {
+		if (messageError != null || !messageError.trim().equals("")) {
 			return "failValidate";
 		}
 
@@ -301,7 +301,7 @@ public class PostAction extends ActionSupport {
 		// end validate author
 
 		// check validate
-		if (messageError != null || messageError != "") {
+		if (messageError != null || !messageError.trim().equals("")) {
 			return "failValidate";
 		}
 		String linkdownload = uploadFile(ebookFileName, ebook);
