@@ -52,20 +52,22 @@
 			<div class="col-sm-12" id="createPost">
 				<input type="hidden" value="<s:property value="messageError" />">
 				<form action="createPost" method="post"
-					enctype="multipart/form-data">
+					enctype="multipart/form-data" id="create_post">
 					<div class="row">
 						<div class="col-sm-2">Tên tác phẩm</div>
-						<div class="col-sm-4">
-							<input name="postName" type="text" value=""/>
+						<div class="col-sm-8">
+							<input name="postName" type="text" value="" id="post_name"/>
+							<span style="color:red" id="postname_error"></span>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">Thể loại</div>
-						<div class="col-sm-4">
+						<div class="col-sm-8">
 							<s:select headerKey="-1"
 								headerValue="Chọn thể loại"
 								list="listCats" listKey="key" listValue="value"
-								name="categoryId" value="0" />
+								name="categoryId" value="0" id="catagory_name"/>
+							<span style="color:red" id="catagory_error"></span>		
 						</div>
 					</div>
 					<!-- <div class="row">
@@ -89,7 +91,8 @@
 					<div class="row">
 						<div class="col-sm-2">Tác giả</div>
 						<div class="col-sm-4">
-							<input name="author" type="text" value=""/>
+							<input name="author" type="text" value="" id="author_name"/>
+							<span style="color:red" id="author_error"></span>	
 						</div>
 					</div>
 					<!-- <div class="row">

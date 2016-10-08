@@ -57,10 +57,10 @@
 					enctype="multipart/form-data">
 					<div class="row">
 						<div class="col-sm-2">Tên tác phẩm</div>
-						<div class="col-sm-4">
+						<div class="col-sm-8">
 							<input name="postId" type="hidden"
-								value="<s:property value="postDTO.postId"/>" /> <input
-								name="postName" type="text"
+								value="<s:property value="postDTO.postId"/>" /> 
+							<input name="postName" type="text"
 								value="<s:property value="postDTO.postName"/>" />
 						</div>
 					</div>
