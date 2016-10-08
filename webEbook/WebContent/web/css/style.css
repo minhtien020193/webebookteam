@@ -200,6 +200,10 @@ header.wrap-header .header-navigation>ul>li>a .ebook-icons, header.wrap-header .
 .ebook-home .wrap {
 	margin-bottom: 30px;
 }
+.margin-bottom-30{
+	margin-bottom: 30px;
+}
+
 
 .ebook-home .wrap .home-slideshow-root {
 	padding-left: 15px;
@@ -542,7 +546,9 @@ footer .bottom {
 .ebook-product .margin-comment {
 	margin-bottom: 10px;
 }
-
+.item-brand{
+	margin-top: 5px;
+}
 .item-brand p.author {
 	line-height: 20px;
 	margin-bottom: 0px;
@@ -822,4 +828,15 @@ h5.sub_title {
 }
 .ebook-product .wrap {
 	margin-top: 15px;
+}
+.add-chapter{
+	text-align: center;
+    min-height: 60px;
+    font-weight: 600;
+    border: 1px solid;
+}
+li.add-chapter a{
+	position: absolute;
+	margin-top: 20px;
+	color: #1c96ec;
 }

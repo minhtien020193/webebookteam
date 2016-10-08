@@ -24,7 +24,7 @@ $(document).ready(
 						}
 					});
 
-			//items
+			// items
 			$('#myCarousel').carousel({
 				interval : 10000
 			})
@@ -43,40 +43,46 @@ $(document).ready(function() {
 	});
 });
 
-function validateFromPost(){
-	// BƯỚC 1: Lấy dữ liệu từ form
+function validateFromPost() {
 	var post_name = $.trim($('#post_name').val());
 	var catagory_name = $('#catagory_name').val();
 	var author_name = $.trim($('#author_name').val());
 
-	// BƯỚC 2: Validate dữ liệu
-	// Biến cờ hiệu
 	var flag = true;
-
 	// postname
-	if (post_name == '' || (post_name.length < 5)) {
-		$('#postname_error').text('Tên tác phẩm phải lớn hơn 5 ký tự.');
+	if (post_name === '' || (post_name.length < 5)) {
+		$.jGrowl("Tên tác phẩm phải lớn hơn 5 kí tự.", {
+			sticky : !1,
+			position : "top-right",
+			theme : "bg-red"
+		});
 		flag = false;
 	} else {
 		$('#postname_error').text('');
 	}
 	// catagory name
 	if (catagory_name == -1) {
-		$('#catagory_error').text('Không được để trống thể loại.');
+		$.jGrowl("Không được để trống thể loại.", {
+			sticky : !1,
+			position : "top-right",
+			theme : "bg-red"
+		});
 		flag = false;
 	} else {
 		$('#catagory_error').text('');
 	}
 
-	// author
 	// catagory name
-	
-	if (author_name == '' || author_name.length < 5) {
-		$('#author_error').text('Tên tác giả phải lớn hơn 5 kí tự.');
+	if (author_name === '' || author_name.length < 5) {
+		$.jGrowl("Tên tác giả phải lớn hơn 5 kí tự.", {
+			sticky : !1,
+			position : "top-right",
+			theme : "bg-red"
+		});
 		flag = false;
 	} else {
 		$('#author_error').text('');
 	}
-	
+
 	return flag;
 }

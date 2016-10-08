@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<script type="text/javascript" src="web/js/jquery.jgrowl.js"></script>
+<link href="web/css/jquery.jgrowl.css" rel="stylesheet" type="text/css"
+	media="all" />
 <div class="row">
 	<div class="col-md-3">
 		<p class="header-logo">

@@ -11,11 +11,10 @@
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.gif" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="web/images/favicon.gif" />
 
 <!-- text editer -->
-<link rel="stylesheet" media="screen"
-	href="cweb/textediter/ss/documentation.css" />
 <script src="web/textediter/js/jquery.classyedit.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="web/textediter/css/jquery.classyedit.css" />
@@ -56,18 +55,17 @@
 					<div class="row">
 						<div class="col-sm-2">Tên tác phẩm</div>
 						<div class="col-sm-8">
-							<input name="postName" type="text" value="" id="post_name"/>
-							<span style="color:red" id="postname_error"></span>
+							<input name="postName" type="text" value="" id="post_name" /> <span
+								style="color: red" id="postname_error"></span>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">Thể loại</div>
 						<div class="col-sm-8">
-							<s:select headerKey="-1"
-								headerValue="Chọn thể loại"
+							<s:select headerKey="-1" headerValue="Chọn thể loại"
 								list="listCats" listKey="key" listValue="value"
-								name="categoryId" value="0" id="catagory_name"/>
-							<span style="color:red" id="catagory_error"></span>		
+								name="categoryId" value="0" id="catagory_name" />
+							<span style="color: red" id="catagory_error"></span>
 						</div>
 					</div>
 					<!-- <div class="row">
@@ -91,8 +89,8 @@
 					<div class="row">
 						<div class="col-sm-2">Tác giả</div>
 						<div class="col-sm-8">
-							<input name="author" type="text" value="" id="author_name"/>
-							<span style="color:red" id="author_error"></span>	
+							<input name="author" type="text" value="" id="author_name" /> <span
+								style="color: red" id="author_error"></span>
 						</div>
 					</div>
 					<!-- <div class="row">

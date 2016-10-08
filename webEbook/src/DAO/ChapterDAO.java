@@ -37,7 +37,7 @@ public class ChapterDAO {
 			logger.log(Level.SEVERE, "Connect...:", con);
 			for (Integer chapterId : lstChapterId) {
 
-				String query = "SELECT * FROM eb_chapters WHERE chapterId ='" + chapterId + "' AND del_flg = 0";
+				String query = "SELECT * FROM eb_chapters WHERE chapterId ='" + chapterId + "' AND del_flg = 0 ORDER BY createDate DESC";
 				stmt = (Statement) con.createStatement();
 				ResultSet rs = stmt.executeQuery(query);
 				while (rs.next()) {
