@@ -90,7 +90,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-2">Tác giả</div>
-						<div class="col-sm-4">
+						<div class="col-sm-8">
 							<input name="author" type="text" value="" id="author_name"/>
 							<span style="color:red" id="author_error"></span>	
 						</div>

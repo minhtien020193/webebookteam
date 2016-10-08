@@ -54,14 +54,15 @@
 				</div>
 				<input type="hidden" value="<s:property value="messageError" />">
 				<form action="updatePost" method="post"
-					enctype="multipart/form-data">
+					enctype="multipart/form-data" id="update_post">
 					<div class="row">
 						<div class="col-sm-2">Tên tác phẩm</div>
 						<div class="col-sm-8">
 							<input name="postId" type="hidden"
 								value="<s:property value="postDTO.postId"/>" /> 
 							<input name="postName" type="text"
-								value="<s:property value="postDTO.postName"/>" />
+								value="<s:property value="postDTO.postName"/>" id="post_name"/>
+							<span style="color:red" id="postname_error"></span>
 						</div>
 					</div>
 					<div class="row">
@@ -69,7 +70,8 @@
 						<div class="col-sm-4">
 							<s:select headerKey="-1" headerValue="Chọn thể loại"
 								list="listCats" listKey="key" listValue="value"
-								name="categoryId" value="postDTO.categoryId" />
+								name="categoryId" value="postDTO.categoryId" id="catagory_name"/>
+							<span style="color:red" id="catagory_error"></span>	
 						</div>
 					</div>
 					<%-- <div class="row">
@@ -112,9 +114,10 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-2">Tác giả</div>
-						<div class="col-sm-4">
+						<div class="col-sm-8">
 							<input name="author" type="text"
-								value="<s:property value="postDTO.authorName"/>" />
+								value="<s:property value="postDTO.authorName"/>" id="author_name"/>
+								<span style="color:red" id="author_error"></span>
 						</div>
 					</div>
 					<%-- <div class="row">
