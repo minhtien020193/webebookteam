@@ -11,9 +11,11 @@
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.gif" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="web/images/favicon.gif" />
 
-<title>Chi tiết chương của bài viết</title>
+<title><s:property value="postDTO.postName" /> > <s:property
+		value="chapterDTO.chapterName" /></title>
 </head>
 <body class="ebook-product">
 	<header class="wrap-header affix-top">
@@ -44,61 +46,31 @@
 
 	<div class="wrap">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="col-md-5">
-						<div class="image-box">
-							<img src="<s:property value="postDTO.image" />" />
-						</div>
-					</div>
-					<div class="col-md-7">
-						<h2>
-							Chương:
-							<s:property value="chapterDTO.chapterName" />
-						</h2>
-						<div class="item-brand">
-							<h6>Tác giả</h6>
-							<p class="author">
-								<a target="_blank" href="#"><s:property
-										value="postDTO.authorName" /></a>
-							</p>
-						</div>
-						<div class="item-brand">
-							<h6>Tên tác phẩm:</h6>
-							<p class="author">
-								<s:property value="postDTO.postName" />
-							</p>
-						</div>
-						<div class="item-brand">
-							<h6>Ngày đăng :</h6>
-							<p class="author">
-								<s:property value="chapterDTO.createDate" />
-							</p>
-						</div>
-						<div class="item-brand">
-							<h6>Ngày chỉnh sửa :</h6>
-							<p class="author">
-								<s:property value="chapterDTO.updateDate" />
-							</p>
-						</div>
-						<div class="item-brand">
-							<h6>Mô tả :</h6>
-							<p class="author">
-								<s:property value="chapterDTO.description" />
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
+
 			<div class="wrap">
 				<div class="container">
 					<div class="product-content-box">
-						<div class="row box-product-lifestyle">
-							<h3 class="product-table-title">Nội dung:</h3>
+
+						<div class="row change-style">
+							<div class="col-sm-8">
+								<h3>
+									<s:property value="postDTO.postName" />
+									>
+									<s:property value="chapterDTO.chapterName" />
+								</h3>
+							</div>
+							<div class="col-sm-4">
+								<button class="btn gray-btn">&ensp;</button>
+								<button class="btn yellow-btn ">&ensp;</button>
+								<button class="btn black-btn">&ensp;</button>
+							</div>
 						</div>
-						<div class="row box-product-lifestyle">
-							<s:property value="chapterDTO.contents" escapeHtml="false" />
+						<div class="row box-product-lifestyle content-box">
+							<p>
+								<s:property value="chapterDTO.contents" escapeHtml="false" />
+							</p>
 						</div>
+
 					</div>
 				</div>
 			</div>

@@ -200,10 +200,10 @@ header.wrap-header .header-navigation>ul>li>a .ebook-icons, header.wrap-header .
 .ebook-home .wrap {
 	margin-bottom: 30px;
 }
-.margin-bottom-30{
+
+.margin-bottom-30 {
 	margin-bottom: 30px;
 }
-
 
 .ebook-home .wrap .home-slideshow-root {
 	padding-left: 15px;
@@ -546,9 +546,11 @@ footer .bottom {
 .ebook-product .margin-comment {
 	margin-bottom: 10px;
 }
-.item-brand{
+
+.item-brand {
 	margin-top: 5px;
 }
+
 .item-brand p.author {
 	line-height: 20px;
 	margin-bottom: 0px;
@@ -698,10 +700,6 @@ h5.sub_title {
 	width: 210px;
 }
 
-.ebook-home .row  .col-lg-8 .flexslider {
-	margin-left: -10px !important;
-}
-
 .carousel-control {
 	padding-top: 10%;
 	width: 5%;
@@ -796,6 +794,7 @@ h5.sub_title {
 	margin-right: 18px;
 	display: inline-block;
 }
+
 .post-cat .info {
 	display: inline-block;
 	float: none;
@@ -804,39 +803,91 @@ h5.sub_title {
 	position: absolute;
 	vertical-align: middle;
 }
-.post-cat ul li{
+
+.post-cat ul li {
 	margin-bottom: 20px;
 }
+
 .post-cat a:FOCUS, a:ACTIVE {
 	text-decoration: none;
 }
-.post-cat .info h3{
+
+.post-cat .info h3 {
 	margin-bottom: 10px;
-    text-transform: uppercase;
+	text-transform: uppercase;
 }
-.post-cat .info .rating .user-icon{
+
+.post-cat .info .rating .user-icon {
 	margin-right: 10px;
 }
-.post-cat ul li a{
+
+.post-cat ul li a {
 	color: #333;
 }
-.post-cat ul li a:hover{
+
+.post-cat ul li a:hover {
 	color: #8a9dc1;
 }
-.post-cat h3.product-table-title{
+
+.post-cat h3.product-table-title {
 	margin-left: -15px;
 }
+
 .ebook-product .wrap {
 	margin-top: 15px;
 }
-.add-chapter{
+
+.add-chapter {
 	text-align: center;
-    min-height: 60px;
-    font-weight: 600;
-    border: 1px solid;
+	min-height: 60px;
+	font-weight: 600;
+	border: 1px solid;
 }
-li.add-chapter a{
+
+li.add-chapter a {
 	position: absolute;
 	margin-top: 20px;
 	color: #1c96ec;
+}
+
+.product-content-box .content-box {
+	margin: 20px;
+	background: #f5f5f5;
+}
+
+.product-content-box .content-box p {
+	margin: 20px;
+}
+
+.product-content-box .change-style {
+	margin: 20px;
+	min-height: 30px;
+	border: 1px solid #d6d3d3;
+}
+
+.product-content-box .change-style .gray-btn {
+	border: 1px solid #f5f5f5;
+	margin: 5px;
+	background: #f5f5f5;
+}
+
+.product-content-box .change-style .yellow-btn {
+	border: 1px solid #f7f5b9;
+	margin: 5px;
+	background: #f7f5b9;
+}
+
+.product-content-box .change-style .black-btn {
+	border: 1px solid #333333;
+	margin: 5px;
+	background: #333333;
+}
+
+.product-content-box .change-style button {
+	float: right;
+}
+
+.product-content-box .change-style .col-sm-8 h3 {
+	margin: 15px 0;
+	text-transform: uppercase;
 }

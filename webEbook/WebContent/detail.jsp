@@ -14,7 +14,7 @@
 <link rel="shortcut icon" type="image/x-icon"
 	href="web/images/favicon.gif" />
 
-<title>Chi tiết bài viết</title>
+<title><s:property value="postDTO.postName" /></title>
 </head>
 <body class="ebook-product">
 	<header class="wrap-header affix-top">

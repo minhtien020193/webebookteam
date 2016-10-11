@@ -41,6 +41,18 @@ $(document).ready(function() {
 	$('#update_post').submit(function() {
 		return validateFromPost();
 	});
+	$('.gray-btn').click(function() {
+		$('.product-content-box .content-box').css('background', '#f5f5f5');
+		$('.product-content-box .content-box p').css('color', '#333');
+	});
+	$('.yellow-btn').click(function() {
+		$('.product-content-box .content-box').css('background', '#f7f5b9');
+		$('.product-content-box .content-box p').css('color', '#333');
+	});
+	$('.black-btn').click(function() {
+		$('.product-content-box .content-box').css('background', '#333333');
+		$('.product-content-box .content-box p').css('color', '#fff');
+	});
 });
 
 function validateFromPost() {
