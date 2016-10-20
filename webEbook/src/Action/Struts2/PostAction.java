@@ -22,6 +22,7 @@ import DAO.ChapterDAO;
 import DAO.CommentDAO;
 import DAO.PostDAO;
 import DAO.UserDAO;
+import DAO.VoteDAO;
 import DTO.CategoryDTO;
 import DTO.ChapterDTO;
 import DTO.CommentDTO;
@@ -417,6 +418,23 @@ public class PostAction extends ActionSupport {
 		listPost = post.searchPost(txtsearch);
 		if (listPost.isEmpty()) {
 			return "noData";
+		}
+		return "success";
+	}
+	
+	public String votePost(){
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if (session.get("LOGINED") == null) {
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		VoteDAO vote = new VoteDAO();
+		int voteId = vote.searchVote(userId, postId);
+		if(voteId == 0){
+			boolean a = vote.voteInsertPost(postId, userId);
+		} else {
+			
 		}
 		return "success";
 	}

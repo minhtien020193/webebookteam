@@ -51,6 +51,7 @@
 				<div class="item-box">
 					<h1 class="item-name" itemprop="name">
 						<s:property value="postDTO.postName" />
+						<input type="hidden" value="<s:property value="postId" />" id="post_id"/>
 					</h1>
 					<div class="item-row1">
 						<div class="item-price">
@@ -89,6 +90,12 @@
 								</div>
 
 							</div>
+							<s:if test="#session.LOGINED != NULL">
+								<div>
+									Vote: <a id='vote' href='#'><span
+										class="glyphicon glyphicon-heart"></span> </a>
+								</div>
+							</s:if>
 						</div>
 					</div>
 				</div>
@@ -129,12 +136,15 @@
 			</div>
 			<div class="col-sm-4 post-cat">
 				<h3 class="product-table-title">
-					Top 5 truyện <s:property value="categoryName" /> mới nhất.
+					Top 5 truyện
+					<s:property value="categoryName" />
+					mới nhất.
 				</h3>
 				<div class="row box-product-lifestyle">
 					<ul>
 						<s:iterator status="cats" value="listPostbyCategory">
-							<li><a href="detailPost?postId=<s:property value="postId" />">
+							<li><a
+								href="detailPost?postId=<s:property value="postId" />">
 									<div class="pic">
 										<img
 											src="http://novel.phinf.naver.net/20150720_248/novel_1437385761550CM4Jx_JPEG/mw.jpg?type=f100_80_2"
@@ -145,7 +155,8 @@
 											<s:property value="postName" />
 										</h3>
 										<div class="rating">
-											<span class="glyphicon glyphicon-user user-icon"></span><em><s:property value="authorName" /></em>
+											<span class="glyphicon glyphicon-user user-icon"></span><em><s:property
+													value="authorName" /></em>
 										</div>
 									</div>
 							</a></li>
@@ -171,8 +182,8 @@
 									<div class="col-md-11">
 										<input type="hidden" name="postId"
 											value="<s:property value="postDTO.postId"/>" /> <input
-											type="text" name="content" id="content"
-											class="form-control" value=""
+											type="text" name="content" id="content" class="form-control"
+											value=""
 											placeholder="Hãy cho chúng tôi biết cảm nghĩ của bạn!">
 									</div>
 									<div class="col-md-1">
@@ -244,4 +255,22 @@
 	<!-- footer -->
 	<%@ include file="include/footer.jsp"%>
 </body>
+<script>
+	$(document).ready(function() {
+		$('#vote').click(function () {
+		    var postId = $('#post_id').val();
+		    
+		    $.ajax({
+				url : "voteAction",
+				type : 'POST',
+				dataType : 'json',
+				data : "postId="+postId,
+				success : function(data) {
+					console.log(data);
+				}
+
+			});
+		   });
+	});
+</script>
 </html>

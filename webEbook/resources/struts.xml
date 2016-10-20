@@ -211,8 +211,13 @@
 			<result name="success">/home.jsp</result>
 			<result name="noData">/noData.jsp</result>
 		</action>
-
+		
 		<!-- Json -->
+		<action name="voteAction" class="Action.Struts2.PostAction" method="votePost">
+			<result name="success" type="json"></result>
+		</action>
+
+		<!-- Json Test-->
 		<action name="ajaxAction" class="Action.Struts2.TestAjaxAction">
 			<result name="success" type="json"></result>
 		</action>
