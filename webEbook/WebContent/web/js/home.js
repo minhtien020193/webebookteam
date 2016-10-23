@@ -35,6 +35,7 @@ $(document).ready(
 		});
 
 $(document).ready(function() {
+
 	$('#create_post').submit(function() {
 		return validateFromPost();
 	});
@@ -53,15 +54,15 @@ $(document).ready(function() {
 		$('.product-content-box .content-box').css('background', '#333333');
 		$('.product-content-box .content-box p').css('color', '#fff');
 	});
-	 //Disable full page
-    $('body').bind('cut copy paste', function (e) {
-        e.preventDefault();
-        alert('Copying is not allowed');
-    });
-    $("body").on("contextmenu",function(e){
-        return false;
-        alert('Copying is not allowed');
-    });
+	// Disable full page
+	$('body').bind('cut copy paste', function(e) {
+		e.preventDefault();
+		alert('Copying is not allowed');
+	});
+	$("body").on("contextmenu", function(e) {
+		return false;
+		alert('Copying is not allowed');
+	});
 });
 
 function validateFromPost() {

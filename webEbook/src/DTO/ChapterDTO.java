@@ -7,6 +7,7 @@ public class ChapterDTO {
 	private String chapterName;
 	private String contents;
 	private String description;
+	private String image;
 	private boolean del_flg;
 	private Date createDate;
 	private Date updateDate;
@@ -30,14 +31,15 @@ public class ChapterDTO {
 	 * @param updateDate
 	 * @param deleteDate
 	 */
-	public ChapterDTO(int chapterId, String chapterName, String contents, String description, boolean del_flg,
-			Date createDate, Date updateDate, Date deleteDate) {
+	public ChapterDTO(int chapterId, String chapterName, String contents, String description, String image,
+			boolean del_flg, Date createDate, Date updateDate, Date deleteDate) {
 		super();
 		this.chapterId = chapterId;
 		this.chapterName = chapterName;
 		this.contents = contents;
 		this.description = description;
 		this.del_flg = del_flg;
+		this.image = image;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.deleteDate = deleteDate;
@@ -161,6 +163,14 @@ public class ChapterDTO {
 	 */
 	public void setDeleteDate(Date deleteDate) {
 		this.deleteDate = deleteDate;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

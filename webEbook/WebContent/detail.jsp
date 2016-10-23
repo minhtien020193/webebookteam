@@ -51,7 +51,6 @@
 				<div class="item-box">
 					<h1 class="item-name" itemprop="name">
 						<s:property value="postDTO.postName" />
-						<input type="hidden" value="<s:property value="postId" />" id="post_id"/>
 					</h1>
 					<div class="item-row1">
 						<div class="item-price">
@@ -83,19 +82,35 @@
 									</s:if>
 								</span>
 							</div>
-							<div class="item-brand">
-								<h6>Mô tả:</h6>
-								<div class="box-description">
-									<s:property value="postDTO.description" escapeHtml="false" />
-								</div>
-
+							<div class="margin-comment">
+								Số lượt bình chọn: <span><s:property value="countVote" /></span>
 							</div>
 							<s:if test="#session.LOGINED != NULL">
 								<div>
-									Vote: <a id='vote' href='#'><span
-										class="glyphicon glyphicon-heart"></span> </a>
+
+									<s:if test="postVoted">
+									Đã bình chọn:
+										<a id='vote'
+											href='voteAction?postId=<s:property value="postId" />&voteValue=false'><span
+											class="glyphicon glyphicon-heart"></span> </a>
+									</s:if>
+									<s:else>
+									Hãy bình chọn:
+										<a id='unVote'
+											href='voteAction?postId=<s:property value="postId" />&voteValue=true'><span
+											class="glyphicon glyphicon-heart-empty"></span> </a>
+									</s:else>
 								</div>
 							</s:if>
+							<div class="item-brand">
+								<h6>Mô tả:</h6>
+								<div class="box-description">
+									<i><s:property value="postDTO.description"
+											escapeHtml="false" /></i>
+								</div>
+
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -123,8 +138,9 @@
 												<s:property value="chapterName" />
 											</h2>
 											<div class="rating">
-												<span class="glyphicon glyphicon-heart voted"></span><em>100</em>
-												<span class="glyphicon glyphicon-calendar date"></span><em><s:property
+												<span class="glyphicon glyphicon-heart voted"></span> <em>
+													<s:property value="countVoteChapter.get(#chap.count -1)" />
+												</em> <span class="glyphicon glyphicon-calendar date"></span><em><s:property
 														value="createDate" /></em>
 											</div>
 										</div>
@@ -146,9 +162,8 @@
 							<li><a
 								href="detailPost?postId=<s:property value="postId" />">
 									<div class="pic">
-										<img
-											src="http://novel.phinf.naver.net/20150720_248/novel_1437385761550CM4Jx_JPEG/mw.jpg?type=f100_80_2"
-											width="100" height="80" alt="<s:property value="postName" />">
+										<img src="<s:property value="image" />" width="100"
+											height="80" alt="<s:property value="postName" />">
 									</div>
 									<div class="info">
 										<h3>
@@ -176,23 +191,26 @@
 				</div>
 				<div class="product-review-content tab-content">
 					<div class="review-list">
-						<div class="row margin-comment">
-							<div class="col-md-12">
-								<form action="postCommentPost" method="post">
-									<div class="col-md-11">
-										<input type="hidden" name="postId"
-											value="<s:property value="postDTO.postId"/>" /> <input
-											type="text" name="content" id="content" class="form-control"
-											value=""
-											placeholder="Hãy cho chúng tôi biết cảm nghĩ của bạn!">
-									</div>
-									<div class="col-md-1">
-										<button type="submit" class="btn btn-primary btn-add-question">Gửi
-											nhận xét</button>
-									</div>
-								</form>
+						<s:if test="#session.LOGINED != NULL">
+							<div class="row margin-comment">
+								<div class="col-md-12">
+									<form action="postCommentPost" method="post">
+										<div class="col-md-11">
+											<input type="hidden" name="postId"
+												value="<s:property value="postDTO.postId"/>" /> <input
+												type="text" name="content" id="content" class="form-control"
+												value=""
+												placeholder="Hãy cho chúng tôi biết cảm nghĩ của bạn!">
+										</div>
+										<div class="col-md-1">
+											<button type="submit"
+												class="btn btn-primary btn-add-question">Gửi nhận
+												xét</button>
+										</div>
+									</form>
+								</div>
 							</div>
-						</div>
+						</s:if>
 
 						<!-- list comment -->
 						<s:iterator status="stat" value="listComments">
@@ -255,22 +273,4 @@
 	<!-- footer -->
 	<%@ include file="include/footer.jsp"%>
 </body>
-<script>
-	$(document).ready(function() {
-		$('#vote').click(function () {
-		    var postId = $('#post_id').val();
-		    
-		    $.ajax({
-				url : "voteAction",
-				type : 'POST',
-				dataType : 'json',
-				data : "postId="+postId,
-				success : function(data) {
-					console.log(data);
-				}
-
-			});
-		   });
-	});
-</script>
 </html>

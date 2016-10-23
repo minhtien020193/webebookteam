@@ -58,6 +58,27 @@
 									>
 									<s:property value="chapterDTO.chapterName" />
 								</h3>
+								<div class="margin-comment">
+									Số lượt bình chọn: <span><s:property value="countVote" /></span>
+								</div>
+								<s:if test="#session.LOGINED != NULL">
+									<div class="margin-comment">
+
+										<s:if test="chapterVoted">
+										Đã bình chọn:
+											<a id='vote'
+												href='voteChapter?chapterId=<s:property value="chapterId" />&voteValue=false'><span
+												class="glyphicon glyphicon-heart"></span> </a>
+										</s:if>
+										<s:else>
+										Hãy bình chọn:
+											<a id='unVote'
+												href='voteChapter?chapterId=<s:property value="chapterId" />&voteValue=true'><span
+												class="glyphicon glyphicon-heart-empty"></span> </a>
+										</s:else>
+									</div>
+								</s:if>
+
 							</div>
 							<div class="col-sm-4">
 								<button class="btn gray-btn">&ensp;</button>
@@ -86,23 +107,26 @@
 				</div>
 				<div class="product-review-content tab-content">
 					<div class="review-list">
-						<div class="row margin-comment">
-							<div class="col-md-12">
-								<form action="postCommentChapter" method="post">
-									<div class="col-md-11">
-										<input type="hidden" name="chapterId"
-											value="<s:property value="ChapterDTO.chapterId"/>" /> <input
-											type="text" name="content" id="content" data-product="162970"
-											class="form-control" value=""
-											placeholder="Hãy cho chúng tôi biết cảm nghĩ của bạn!">
-									</div>
-									<div class="col-md-1">
-										<button type="submit" class="btn btn-primary btn-add-question">Gửi
-											nhận xét</button>
-									</div>
-								</form>
+						<s:if test="#session.LOGINED != NULL">
+							<div class="row margin-comment">
+								<div class="col-md-12">
+									<form action="postCommentChapter" method="post">
+										<div class="col-md-11">
+											<input type="hidden" name="chapterId"
+												value="<s:property value="ChapterDTO.chapterId"/>" /> <input
+												type="text" name="content" id="content"
+												data-product="162970" class="form-control" value=""
+												placeholder="Hãy cho chúng tôi biết cảm nghĩ của bạn!">
+										</div>
+										<div class="col-md-1">
+											<button type="submit"
+												class="btn btn-primary btn-add-question">Gửi nhận
+												xét</button>
+										</div>
+									</form>
+								</div>
 							</div>
-						</div>
+						</s:if>
 
 						<!-- list comment -->
 						<s:iterator status="stat" value="listComments">

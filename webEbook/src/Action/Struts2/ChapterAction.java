@@ -10,6 +10,7 @@ import DAO.ChapterDAO;
 import DAO.CommentDAO;
 import DAO.PostDAO;
 import DAO.UserDAO;
+import DAO.VoteDAO;
 import DTO.ChapterDTO;
 import DTO.CommentDTO;
 import DTO.PostDTO;
@@ -25,22 +26,31 @@ public class ChapterAction {
 	String chapterName;
 	String contents;
 	String description;
-	final String ADMIN ="admin";
-	final String SALER ="saler";
-	final String MEMBER ="member";
+	final String ADMIN = "admin";
+	final String SALER = "saler";
+	final String MEMBER = "member";
 	boolean noFeedback = false;
+	private boolean chapterVoted;
+	private boolean voteValue;
+	private int countVote;
 
 	public String detailChapter() {
 		PostDAO post = new PostDAO();
 		int postId = post.getPostIdbyChapterId(chapterId);
 		postDTO = post.findPostDTO(postId);
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") != null){
+		//vote count
+		VoteDAO voteDAO = new VoteDAO();
+		countVote = voteDAO.countVoteChapter(chapterId);
+		if (session.get("LOGINED") != null) {
 			UserDTO usr = (UserDTO) session.get("LOGINED");
 			int userId = usr.getUserId();
-			if(userId == postDTO.getUserId()){
+			if (userId == postDTO.getUserId()) {
 				noFeedback = true;
 			}
+
+			// check chapter vote
+			chapterVoted = voteDAO.checkVoteChapter(userId, chapterId);
 		}
 
 		ChapterDAO chapter = new ChapterDAO();
@@ -61,14 +71,14 @@ public class ChapterAction {
 
 	public String sendAddChapter() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
 		PostDAO post = new PostDAO();
@@ -82,21 +92,21 @@ public class ChapterAction {
 
 	public String sendUpdateChapter() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
 		PostDAO post = new PostDAO();
 		int postIdbyChapterId = post.getPostIdbyChapterId(chapterId);
 		postDTO = post.findPostDTO(postIdbyChapterId);
-		if(userId != postDTO.getUserId()){
-			//user nay ko co quyen chinh sua chapter nay
+		if (userId != postDTO.getUserId()) {
+			// user nay ko co quyen chinh sua chapter nay
 			return "noPermission";
 		}
 		if (postDTO == null) {
@@ -112,14 +122,14 @@ public class ChapterAction {
 
 	public String addChapter() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
 		ChapterDTO chapterDTO = new ChapterDTO();
@@ -146,17 +156,17 @@ public class ChapterAction {
 
 	public String updateChapter() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		if(session.get("LOGINED") == null){
+		if (session.get("LOGINED") == null) {
 			return "noPermission";
 		}
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
 		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
-		if(MEMBER.equals(role)){
+		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
-		
+
 		ChapterDTO chapterDTO = new ChapterDTO();
 		chapterDTO.setChapterId(chapterId);
 		chapterDTO.setChapterName(chapterName);
@@ -173,6 +183,27 @@ public class ChapterAction {
 
 		}
 		return "fail";
+	}
+
+	public String voteChapter() {
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		if (session.get("LOGINED") == null) {
+			return "noPermission";
+		}
+		UserDTO usr = (UserDTO) session.get("LOGINED");
+		int userId = usr.getUserId();
+		VoteDAO vote = new VoteDAO();
+		int voteId = vote.searchVoteChapter(userId, chapterId);
+		boolean updateVote = false;
+		if (voteId == 0) {
+			updateVote = vote.voteInsertChapter(chapterId, userId, voteValue);
+		} else {
+			updateVote = vote.voteUpdate(voteId, voteValue);
+		}
+		if (updateVote) {
+			chapterVoted = voteValue;
+		}
+		return "success";
 	}
 
 	// getter setter
@@ -254,6 +285,30 @@ public class ChapterAction {
 
 	public void setNoFeedback(boolean noFeedback) {
 		this.noFeedback = noFeedback;
+	}
+
+	public boolean isChapterVoted() {
+		return chapterVoted;
+	}
+
+	public void setChapterVoted(boolean chapterVoted) {
+		this.chapterVoted = chapterVoted;
+	}
+
+	public boolean isVoteValue() {
+		return voteValue;
+	}
+
+	public void setVoteValue(boolean voteValue) {
+		this.voteValue = voteValue;
+	}
+
+	public int getCountVote() {
+		return countVote;
+	}
+
+	public void setCountVote(int countVote) {
+		this.countVote = countVote;
 	}
 
 }

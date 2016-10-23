@@ -6,6 +6,7 @@ public class VoteDTO {
 	private int voteId;
 	private int userId;
 	private int postId;
+	private int chapterId;
 	private boolean vote;
 	private Date createDate;
 	private Date updateDate;
@@ -14,12 +15,12 @@ public class VoteDTO {
 		super();
 	}
 
-	public VoteDTO(int voteId, int userId, int postId, boolean vote,
-			Date createDate, Date updateDate) {
+	public VoteDTO(int voteId, int userId, int postId, int chapterId, boolean vote, Date createDate, Date updateDate) {
 		super();
 		this.voteId = voteId;
 		this.userId = userId;
 		this.postId = postId;
+		this.chapterId = chapterId;
 		this.vote = vote;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
@@ -71,6 +72,14 @@ public class VoteDTO {
 
 	public void setVote(boolean vote) {
 		this.vote = vote;
+	}
+
+	public int getChapterId() {
+		return chapterId;
+	}
+
+	public void setChapterId(int chapterId) {
+		this.chapterId = chapterId;
 	}
 
 }

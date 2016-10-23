@@ -2,6 +2,7 @@ package Action.Struts2;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.invoke.VolatileCallSite;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -58,13 +59,16 @@ public class PostAction extends ActionSupport {
 	private String txtsearch;
 	private String image_inserted;
 	private String linkdownload_inserted;
+	private boolean voteValue;
 	String messageError = "";
+	private boolean postVoted;
+	private int countVote;
+	private List<Integer> countVoteChapter;
 
 	final String ADMIN = "admin";
 	final String SALER = "saler";
 	final String MEMBER = "member";
-	private static final Logger logger = Logger.getLogger(UserDAO.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
 
 	public String execute() throws Exception {
 		PostDAO post = new PostDAO();
@@ -85,8 +89,7 @@ public class PostAction extends ActionSupport {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
-				.getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -95,8 +98,7 @@ public class PostAction extends ActionSupport {
 		List<CategoryDTO> lstCat = cat.getListCategory();
 		listCats = new HashMap<>();
 		for (CategoryDTO categoryDTO : lstCat) {
-			listCats.put(categoryDTO.getCategoryId(),
-					categoryDTO.getCategoryName());
+			listCats.put(categoryDTO.getCategoryId(), categoryDTO.getCategoryName());
 		}
 		return "success";
 	}
@@ -128,18 +130,30 @@ public class PostAction extends ActionSupport {
 		// listChapter
 		ChapterDAO chapter = new ChapterDAO();
 		listChapters = chapter.getListChapterByPostId(postId);
+		//count vote chapter
+		countVoteChapter = new ArrayList<>();
+		VoteDAO voteDAO = new VoteDAO();
+		for (ChapterDTO chapterDTO : listChapters) {
+			countVoteChapter.add(voteDAO.countVoteChapter(chapterDTO.getChapterId()));
+		}
 		// category
 		CategoryDAO cat = new CategoryDAO();
 		categoryName = cat.getCategoryById(postDTO.getCategoryId());
 		// show button feedback for poster
 		Map<String, Object> session = ActionContext.getContext().getSession();
+		//vote count
+		countVote = voteDAO.countVotePost(postId);
 		if (session.get("LOGINED") != null) {
 			UserDTO usr = (UserDTO) session.get("LOGINED");
 			int userId = usr.getUserId();
 			if (userId == postDTO.getUserId()) {
 				noFeedback = true;
 			}
+
+			// check post vote
+			postVoted = voteDAO.checkVotePost(userId, postId);
 		}
+
 		return "success";
 	}
 
@@ -152,8 +166,7 @@ public class PostAction extends ActionSupport {
 		int userId = usr.getUserId();
 
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
-				.getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -223,8 +236,7 @@ public class PostAction extends ActionSupport {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
-				.getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -245,8 +257,7 @@ public class PostAction extends ActionSupport {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
-				.getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -258,8 +269,7 @@ public class PostAction extends ActionSupport {
 		List<CategoryDTO> lstCat = cat.getListCategory();
 		listCats = new HashMap<>();
 		for (CategoryDTO categoryDTO : lstCat) {
-			listCats.put(categoryDTO.getCategoryId(),
-					categoryDTO.getCategoryName());
+			listCats.put(categoryDTO.getCategoryId(), categoryDTO.getCategoryName());
 		}
 		PostDAO post = new PostDAO();
 		postDTO = post.findPostDTO(postId);
@@ -278,8 +288,7 @@ public class PostAction extends ActionSupport {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
-				.getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -356,8 +365,7 @@ public class PostAction extends ActionSupport {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
-				.getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
 		if (MEMBER.equals(role)) {
 			return "noPermission";
 		}
@@ -379,8 +387,7 @@ public class PostAction extends ActionSupport {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
-				.getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
 		if (!(ADMIN).equals(role)) {
 			return "notAdmin";
 		}
@@ -400,8 +407,7 @@ public class PostAction extends ActionSupport {
 		UserDTO usr = (UserDTO) session.get("LOGINED");
 		int userId = usr.getUserId();
 		UserDAO user = new UserDAO();
-		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId))
-				.getRoleName();
+		String role = user.getRoleByRoleId(user.getRoleIdByUserId(userId)).getRoleName();
 		if (!(ADMIN).equals(role)) {
 			return "notAdmin";
 		}
@@ -421,8 +427,8 @@ public class PostAction extends ActionSupport {
 		}
 		return "success";
 	}
-	
-	public String votePost(){
+
+	public String votePost() {
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		if (session.get("LOGINED") == null) {
 			return "noPermission";
@@ -431,10 +437,14 @@ public class PostAction extends ActionSupport {
 		int userId = usr.getUserId();
 		VoteDAO vote = new VoteDAO();
 		int voteId = vote.searchVote(userId, postId);
-		if(voteId == 0){
-			boolean a = vote.voteInsertPost(postId, userId);
+		boolean updateVote = false;
+		if (voteId == 0) {
+			updateVote = vote.voteInsertPost(postId, userId, voteValue);
 		} else {
-			
+			updateVote = vote.voteUpdate(voteId, voteValue);
+		}
+		if (updateVote) {
+			postVoted = voteValue;
 		}
 		return "success";
 	}
@@ -476,8 +486,7 @@ public class PostAction extends ActionSupport {
 			// String sRootPath
 			// ="E:\\Ebook\\branches\\dev\\webEbook\\WebContent\\image";
 
-			String newFileName = new Date().getTime() + fileUpload.hashCode()
-					+ "_" + userId + "_" + fileName;
+			String newFileName = new Date().getTime() + fileUpload.hashCode() + "_" + userId + "_" + fileName;
 			File destFile = new File(sRootPath + "/image", newFileName);
 			FileUtils.copyFile(fileUpload, destFile);
 			pathFileUpload = "image/" + newFileName;
@@ -722,6 +731,38 @@ public class PostAction extends ActionSupport {
 
 	public void setMessageError(String messageError) {
 		this.messageError = messageError;
+	}
+
+	public boolean isVoteValue() {
+		return voteValue;
+	}
+
+	public void setVoteValue(boolean voteValue) {
+		this.voteValue = voteValue;
+	}
+
+	public boolean isPostVoted() {
+		return postVoted;
+	}
+
+	public void setPostVoted(boolean postVoted) {
+		this.postVoted = postVoted;
+	}
+
+	public int getCountVote() {
+		return countVote;
+	}
+
+	public void setCountVote(int countVote) {
+		this.countVote = countVote;
+	}
+
+	public List<Integer> getCountVoteChapter() {
+		return countVoteChapter;
+	}
+
+	public void setCountVoteChapter(List<Integer> countVoteChapter) {
+		this.countVoteChapter = countVoteChapter;
 	}
 
 }

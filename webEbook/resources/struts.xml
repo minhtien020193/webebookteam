@@ -49,7 +49,7 @@
 			<result name="success" type="redirectAction">listPost</result>
 			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/error.jsp</result>
-			<!-- return page and param  -->
+			<!-- return page and param -->
 			<result name="failValidate" type="redirectAction">
 				<param name="actionName">sendCreatePost</param>
 				<param name="messageError">${messageError}</param>
@@ -67,7 +67,7 @@
 			<result name="success" type="redirectAction">listPost</result>
 			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/error.jsp</result>
-			<!-- return page and param  -->
+			<!-- return page and param -->
 			<result name="failValidate" type="redirectAction">
 				<param name="actionName">sendUpdatePost</param>
 				<param name="messageError">${messageError}</param>
@@ -101,6 +101,7 @@
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
 			<result name="noId">/noData.jsp</result>
 			<result name="noData">/noData.jsp</result>
+			<result name="noPermission">/error.jsp</result>
 		</action>
 
 		<action name="feedbackCommentPost" class="Action.Struts2.CommentAction"
@@ -208,16 +209,28 @@
 
 		<action name="searchEbook" class="Action.Struts2.PostAction"
 			method="searchEbook">
-			<result name="success">/home.jsp</result>
-			<result name="noData">/noData.jsp</result>
-		</action>
-		
-		<!-- Json -->
-		<action name="voteAction" class="Action.Struts2.PostAction" method="votePost">
-			<result name="success" type="json"></result>
+			<result name="success">/searchResult.jsp</result>
+			<result name="noData">/searchResult.jsp</result>
 		</action>
 
-		<!-- Json Test-->
+		<action name="voteAction" class="Action.Struts2.PostAction"
+			method="votePost">
+			<result name="success" type="redirectAction">
+				<param name="actionName">detailPost</param>
+				<param name="postId">${postId}</param>
+			</result>
+		</action>
+		
+		<action name="voteChapter" class="Action.Struts2.ChapterAction"
+			method="voteChapter">
+			<result name="success" type="redirectAction">
+				<param name="actionName">chapterDetail</param>
+				<param name="chapterId">${chapterId}</param>
+			</result>
+		</action>
+
+
+		<!-- Json Test -->
 		<action name="ajaxAction" class="Action.Struts2.TestAjaxAction">
 			<result name="success" type="json"></result>
 		</action>
