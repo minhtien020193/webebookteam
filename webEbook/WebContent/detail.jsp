@@ -126,7 +126,7 @@
 					<h3 class="product-table-title">Các chương hiện có:</h3>
 					<div class="row box-product-lifestyle">
 						<ul>
-							<s:iterator status="chap" value="listChapters">1
+							<s:iterator status="chap" value="listChapters">
 								<li><a
 									href="./chapterDetail?chapterId=<s:property value ="chapterId"/>">
 										<div class="pic">
@@ -139,7 +139,7 @@
 											</h2>
 											<div class="rating">
 												<span class="glyphicon glyphicon-heart voted"></span> <em>
-													<%-- <s:property value="countVoteChapter.get(#chap.count -1)" /> --%>111
+													<s:property value="countVoteChapter.get(#chap.count -1)" />
 												</em> <span class="glyphicon glyphicon-calendar date"></span><em><s:property
 														value="createDate" /></em>
 											</div>
@@ -184,7 +184,7 @@
 
 	<!-- comment -->
 	<div class="wrap">
-		<div class="container box-comment">
+		<div class="container box-comment margin-comment20">
 			<div class="product-content-box col-sm-12">
 				<div class="row box-product-lifestyle">
 					<h3 class="product-table-title">Nhận xét</h3>

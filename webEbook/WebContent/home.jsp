@@ -183,7 +183,7 @@
 
 		</div>
 	</div>
-	<div class="wrap">
+	<!-- <div class="wrap">
 		<div class="container">
 			<ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#home">Top Review</a></li>
@@ -193,7 +193,7 @@
 				<div class="col-lg-4">123</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- footer -->
 	<%@ include file="include/footer.jsp"%>

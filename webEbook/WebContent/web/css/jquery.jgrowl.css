@@ -101,3 +101,9 @@
 .bg-red{
 	background: red;
 }
+.bg-success{
+	background: green;
+	font-size: 14px;
+	width: 100%;
+	text-align: center;
+}

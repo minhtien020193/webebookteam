@@ -87,7 +87,7 @@ public class ChapterDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_postChapter WHERE postId ='" + postId + "'";
+			String query = "SELECT * FROM eb_postchapter WHERE postId ='" + postId + "'";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -125,7 +125,7 @@ public class ChapterDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_postComment WHERE postId ='" + postId + "'";
+			String query = "SELECT * FROM eb_postcomment WHERE postId ='" + postId + "'";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -249,7 +249,7 @@ public class ChapterDAO {
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "INSERT INTO eb_postChapter(postId, chapterId, del_flg) VALUES (?, ?, ?)";
+			String query = "INSERT INTO eb_postchapter(postId, chapterId, del_flg) VALUES (?, ?, ?)";
 			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, postId);
 			pstmt.setInt(2, chapterId);
@@ -338,7 +338,7 @@ public class ChapterDAO {
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "SELECT * FROM eb_chapterComment WHERE commentId ='" + commentId + "'";
+			String query = "SELECT * FROM eb_chaptercomment WHERE commentId ='" + commentId + "'";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {

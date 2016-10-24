@@ -63,6 +63,8 @@ public class PostAction extends ActionSupport {
 	String messageError = "";
 	private boolean postVoted;
 	private int countVote;
+	private boolean changed = false;
+	private boolean updated = false;
 	private List<Integer> countVoteChapter;
 
 	final String ADMIN = "admin";
@@ -177,7 +179,7 @@ public class PostAction extends ActionSupport {
 		// end validate postname
 
 		// start validate category Id
-		if (categoryId != 1 || categoryId != 2 || categoryId != 3) {
+		if (categoryId == -1 ) {
 			messageError += "categoryId null \n";
 		}
 		// end validate category Id
@@ -189,7 +191,7 @@ public class PostAction extends ActionSupport {
 		// end validate author
 
 		// check validate
-		if (messageError != null || !messageError.trim().equals("")) {
+		if (!messageError.trim().equals("")) {
 			return "failValidate";
 		}
 
@@ -209,7 +211,8 @@ public class PostAction extends ActionSupport {
 		post.setPostName(postName);
 		post.setDescription(description);
 		post.setImage(ebookFileName);
-		post.setPrice(Double.parseDouble(price));
+		//price 0
+		post.setPrice(1);
 		post.setPostType(true);
 		post.setUserId(userId);
 		post.setCategoryId(categoryId);
@@ -222,6 +225,7 @@ public class PostAction extends ActionSupport {
 		PostDAO postDAO = new PostDAO();
 		int newPostId = postDAO.insertPost(post);
 		if (newPostId != 0) {
+			changed = true;
 			return "success";
 		}
 
@@ -299,7 +303,7 @@ public class PostAction extends ActionSupport {
 		// end validate postname
 
 		// start validate category Id
-		if (categoryId != 1 || categoryId != 2 || categoryId != 3) {
+		if (categoryId == -1) {
 			messageError += "categoryId null \n";
 		}
 		// end validate category Id
@@ -311,7 +315,7 @@ public class PostAction extends ActionSupport {
 		// end validate author
 
 		// check validate
-		if (messageError != null || !messageError.trim().equals("")) {
+		if (!messageError.trim().equals("")) {
 			return "failValidate";
 		}
 		String linkdownload = uploadFile(ebookFileName, ebook);
@@ -330,7 +334,7 @@ public class PostAction extends ActionSupport {
 		post.setPostName(postName);
 		post.setDescription(description);
 		post.setImage(ebookFileName);
-		post.setPrice(Double.parseDouble(price));
+		post.setPrice(1);
 		post.setPostType(true);
 		post.setCategoryId(categoryId);
 		post.setUserId(userId);
@@ -351,6 +355,7 @@ public class PostAction extends ActionSupport {
 		PostDAO postDAO = new PostDAO();
 		boolean check = postDAO.updatePostDTO(post);
 		if (check) {
+			updated = true;
 			return "success";
 		}
 
@@ -763,6 +768,22 @@ public class PostAction extends ActionSupport {
 
 	public void setCountVoteChapter(List<Integer> countVoteChapter) {
 		this.countVoteChapter = countVoteChapter;
+	}
+
+	public boolean isChanged() {
+		return changed;
+	}
+
+	public void setChanged(boolean changed) {
+		this.changed = changed;
+	}
+
+	public boolean isUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(boolean updated) {
+		this.updated = updated;
 	}
 
 }

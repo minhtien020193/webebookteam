@@ -188,7 +188,7 @@ public class PostDAO {
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "SELECT * FROM eb_postChapter WHERE chapterId ='" + chapterId + "'";
+			String query = "SELECT * FROM eb_postchapter WHERE chapterId ='" + chapterId + "'";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -487,7 +487,7 @@ public class PostDAO {
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "SELECT * FROM eb_postComment WHERE commentId ='" + commentId + "'";
+			String query = "SELECT * FROM eb_postcomment WHERE commentId ='" + commentId + "'";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {

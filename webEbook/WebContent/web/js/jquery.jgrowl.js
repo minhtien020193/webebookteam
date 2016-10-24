@@ -214,8 +214,6 @@
 			openDuration:		'normal',
 			easing:				'swing',
 			closer:				true,
-			closeTemplate:		'&times;',
-			closerTemplate:		'<div>[ close all ]</div>',
 			log:				function() {},
 			beforeOpen:			function() {},
 			afterOpen:			function() {},

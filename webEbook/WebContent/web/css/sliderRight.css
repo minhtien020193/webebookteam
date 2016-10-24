@@ -2095,7 +2095,7 @@ to {
 
 .rightSlider {
 	margin-top: 10px;
-	margin-left: -10%;
+	margin-left: -9%;
 }
 
 .button-slider {
@@ -2104,9 +2104,9 @@ to {
 	left: 0;
 	position: absolute;
 	top: 10px;
-	width: 101%;
+	width: 100%;
 	z-index: 20;
-	margin-left: -5%;
+	margin-left: -4%;
 	float: right;
 	opacity: 0.8;
 	background: rgba(33, 1, 1, 0.49);;
@@ -2121,7 +2121,7 @@ to {
 	margin: 15px;
 }
 .rightSlider img.mySlides{
-	height: 380px;
+	height: 400px;
 }
 .slider_container .flexslider ul.slides li a img {
 	height: 400px;

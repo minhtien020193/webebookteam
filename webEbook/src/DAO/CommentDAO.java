@@ -145,7 +145,7 @@ public class CommentDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_postComment WHERE postId ='" + postId + "' ORDER BY createDate DESC";
+			String query = "SELECT * FROM eb_postcomment WHERE postId ='" + postId + "' ORDER BY createDate DESC";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -184,7 +184,7 @@ public class CommentDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_chapterComment WHERE chapterId ='" + chapterId + "' ORDER BY createDate DESC";
+			String query = "SELECT * FROM eb_chaptercomment WHERE chapterId ='" + chapterId + "' ORDER BY createDate DESC";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -272,7 +272,7 @@ public class CommentDAO {
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "INSERT INTO eb_postComment(postId, commentId, del_flg, createDate) VALUES (?, ?, ?, ?)";
+			String query = "INSERT INTO eb_postcomment(postId, commentId, del_flg, createDate) VALUES (?, ?, ?, ?)";
 			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, postId);
 			pstmt.setInt(2, commentId);
@@ -313,7 +313,7 @@ public class CommentDAO {
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			String query = "INSERT INTO eb_chapterComment(chapterId, commentId, del_flg, createDate) VALUES (?, ?, ?,?)";
+			String query = "INSERT INTO eb_chaptercomment(chapterId, commentId, del_flg, createDate) VALUES (?, ?, ?,?)";
 			pstmt = (PreparedStatement) con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, chapterId);
 			pstmt.setInt(2, commentId);

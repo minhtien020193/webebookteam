@@ -390,7 +390,7 @@ public class UserDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_requestRoleUpdate WHERE reqStatus = 0 and del_Flg = 0";
+			String query = "SELECT * FROM eb_requestroleupdate WHERE reqStatus = 0 and del_Flg = 0";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -476,7 +476,7 @@ public class UserDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "UPDATE eb_requestRoleUpdate SET reqStatus = ?, updateDate =?" + " WHERE userId ='" + userId
+			String query = "UPDATE eb_requestroleupdate SET reqStatus = ?, updateDate =?" + " WHERE userId ='" + userId
 					+ "' AND reqStatus = 0";
 			pstmt = (PreparedStatement) con.prepareStatement(query);
 			pstmt.setBoolean(1, true);

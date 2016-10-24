@@ -46,7 +46,10 @@
 
 		<action name="createPost" class="Action.Struts2.PostAction"
 			method="createPost">
-			<result name="success" type="redirectAction">listPost</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">listPost</param>
+				<param name="changed">${changed}</param>
+			</result>
 			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/error.jsp</result>
 			<!-- return page and param -->
@@ -64,7 +67,10 @@
 
 		<action name="updatePost" class="Action.Struts2.PostAction"
 			method="updatePost">
-			<result name="success" type="redirectAction">listPost</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">listPost</param>
+				<param name="updated">${updated}</param>
+			</result>
 			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/error.jsp</result>
 			<!-- return page and param -->
@@ -220,7 +226,7 @@
 				<param name="postId">${postId}</param>
 			</result>
 		</action>
-		
+
 		<action name="voteChapter" class="Action.Struts2.ChapterAction"
 			method="voteChapter">
 			<result name="success" type="redirectAction">

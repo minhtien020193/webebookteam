@@ -99,7 +99,7 @@
 	</div>
 
 	<!-- comment -->
-	<div class="wrap">
+	<div class="wrap margin-comment20">
 		<div class="container">
 			<div class="product-content-box">
 				<div class="row box-product-lifestyle">

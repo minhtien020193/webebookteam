@@ -63,6 +63,29 @@ $(document).ready(function() {
 		return false;
 		alert('Copying is not allowed');
 	});
+	
+	//display message list post
+	var changed = $('#isChanged').val();
+	var updated = $('#isUpdated').val();
+	if (changed === 'true'){
+		$.jGrowl("Bạn đã tạo bài viết mới thành công.", {
+			sticky : !1,
+			position : "center",
+			theme : "bg-success"
+		});
+		flag = false;
+	}
+	
+	if (updated === 'true'){
+		$.jGrowl("Bài viết đã được chỉnh sửa thành công.", {
+			sticky : !1,
+			position : "center",
+			theme : "bg-success"
+		});
+		flag = false;
+	}
+	
+	
 });
 
 function validateFromPost() {

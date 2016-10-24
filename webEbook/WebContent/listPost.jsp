@@ -40,6 +40,8 @@
 	</div>
 	<div class="wrap">
 		<div class="container" style="min-height: 400px;">
+			<input type="hidden" id="isChanged" value="<s:property value="changed"/>" />
+			<input type="hidden" id="isUpdated" value="<s:property value="updated"/>" />
 			<s:if test="noData">
 				<div class="noEbook">
 					Bạn chưa có ebook hoặc truyện nào.<br /> <a href="sendCreatePost">Hãy
