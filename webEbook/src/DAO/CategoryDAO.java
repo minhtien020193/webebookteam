@@ -14,7 +14,7 @@ import DBUtilities.DBConnect;
 import DTO.CategoryDTO;
 
 public class CategoryDAO {
-	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
+	private static final Logger logger = Logger.getLogger(CategoryDAO.class.getName());
 	
 	public ArrayList<CategoryDTO> getListCategory() {
 		ArrayList<CategoryDTO> lstCat = new ArrayList<CategoryDTO>();

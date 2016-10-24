@@ -9,7 +9,7 @@ import DBUtilities.DBConnect;
 import com.mysql.jdbc.PreparedStatement;
 
 public class VoteDAO {
-	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
+	private static final Logger logger = Logger.getLogger(VoteDAO.class.getName());
 
 	public boolean voteInsertPost(int postId, int userId, boolean voteValue) {
 		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());

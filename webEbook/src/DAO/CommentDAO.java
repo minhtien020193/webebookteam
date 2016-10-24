@@ -25,7 +25,7 @@ import DTO.PostDTO;
  */
 public class CommentDAO {
 
-	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
+	private static final Logger logger = Logger.getLogger(CommentDAO.class.getName());
 
 	public ArrayList<CommentDTO> getListCommentByPostId(int postId) {
 		ArrayList<CommentDTO> lstComment = new ArrayList<CommentDTO>();

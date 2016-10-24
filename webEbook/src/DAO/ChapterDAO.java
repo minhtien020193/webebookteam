@@ -23,7 +23,7 @@ import DTO.PostDTO;
  *
  */
 public class ChapterDAO {
-	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
+	private static final Logger logger = Logger.getLogger(ChapterDAO.class.getName());
 
 	public ArrayList<ChapterDTO> getListChapterByPostId(int postId) {
 		ArrayList<ChapterDTO> lstChapter = new ArrayList<ChapterDTO>();

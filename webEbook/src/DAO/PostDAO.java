@@ -13,7 +13,7 @@ import DBUtilities.DBConnect;
 import DTO.PostDTO;
 
 public class PostDAO {
-	private static final Logger logger = Logger.getLogger(UserDAO.class.getName());
+	private static final Logger logger = Logger.getLogger(PostDAO.class.getName());
 
 	public ArrayList<PostDTO> getListPost() {
 		ArrayList<PostDTO> lstPost = new ArrayList<PostDTO>();
