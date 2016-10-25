@@ -33,10 +33,18 @@ public class ChapterAction {
 	private boolean chapterVoted;
 	private boolean voteValue;
 	private int countVote;
+	private boolean postExist = true;
+	private int page = 1;
+	private int countPage;
+	private int sizePerPage = 6;
 
 	public String detailChapter() {
 		PostDAO post = new PostDAO();
 		int postId = post.getPostIdbyChapterId(chapterId);
+		if(postId == 0){
+			postExist = false;
+			return "success";
+		}
 		postDTO = post.findPostDTO(postId);
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		//vote count
@@ -59,7 +67,21 @@ public class ChapterAction {
 			return "noData";
 		}
 		CommentDAO comment = new CommentDAO();
-		listComments = comment.getListCommentByChapterId(chapterId);
+		List<CommentDTO> listCom = comment.getListCommentByChapterId(chapterId);
+		if (listCom.size() < sizePerPage) {
+			sizePerPage = listCom.size();
+		}
+		// count page
+		countPage = (int) Math.ceil(listCom.size() / (double) sizePerPage);
+		// condition get page value
+		page = page > countPage ? countPage : page;
+		if (page == 1) {
+			listComments = listCom.subList(0, sizePerPage);
+		} else {
+			int from = Math.max(0, (page - 1) * sizePerPage);
+			int to = Math.min(listCom.size(), page * sizePerPage);
+			listComments = listCom.subList(from, to);
+		}
 
 		userComment = new ArrayList<String>();
 		UserDAO user = new UserDAO();
@@ -310,5 +332,30 @@ public class ChapterAction {
 	public void setCountVote(int countVote) {
 		this.countVote = countVote;
 	}
+
+	public boolean isPostExist() {
+		return postExist;
+	}
+
+	public void setPostExist(boolean postExist) {
+		this.postExist = postExist;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getCountPage() {
+		return countPage;
+	}
+
+	public void setCountPage(int countPage) {
+		this.countPage = countPage;
+	}
+	
 
 }

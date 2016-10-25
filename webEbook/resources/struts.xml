@@ -34,8 +34,7 @@
 		<action name="detailPost" class="Action.Struts2.PostAction"
 			method="detailPost">
 			<result name="success">/detail.jsp</result>
-			<result name="noId">/noData.jsp</result>
-			<result name="noData">/noData.jsp</result>
+			<result name="noData">/detail.jsp</result>
 		</action>
 
 		<action name="sendCreatePost" class="Action.Struts2.PostAction"

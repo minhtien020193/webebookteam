@@ -55,19 +55,19 @@ $(document).ready(function() {
 		$('.product-content-box .content-box p').css('color', '#fff');
 	});
 	// Disable full page
-	$('body').bind('cut copy paste', function(e) {
-		e.preventDefault();
-		alert('Copying is not allowed');
-	});
-	$("body").on("contextmenu", function(e) {
-		return false;
-		alert('Copying is not allowed');
-	});
-	
-	//display message list post
+	 $('body').bind('cut copy paste', function(e) {
+	 e.preventDefault();
+	 alert('Copying is not allowed');
+	 });
+	 $("body").on("contextmenu", function(e) {
+	 return false;
+	 alert('Copying is not allowed');
+	 });
+
+	// display message list post
 	var changed = $('#isChanged').val();
 	var updated = $('#isUpdated').val();
-	if (changed === 'true'){
+	if (changed === 'true') {
 		$.jGrowl("Bạn đã tạo bài viết mới thành công.", {
 			sticky : !1,
 			position : "center",
@@ -75,8 +75,8 @@ $(document).ready(function() {
 		});
 		flag = false;
 	}
-	
-	if (updated === 'true'){
+
+	if (updated === 'true') {
 		$.jGrowl("Bài viết đã được chỉnh sửa thành công.", {
 			sticky : !1,
 			position : "center",
@@ -84,8 +84,11 @@ $(document).ready(function() {
 		});
 		flag = false;
 	}
-	
-	
+
+	// link active paging
+	$('.active-' + $('#pageValue').val()).css('background', '#484065');
+	$('.active-' + $('#pageValue').val()).css('color', '#fff');
+
 });
 
 function validateFromPost() {

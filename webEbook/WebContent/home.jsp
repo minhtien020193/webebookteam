@@ -132,6 +132,7 @@
 
 	<div class="wrap" id="content">
 		<div class="container">
+		<input type="hidden" id="pageValue" value="<s:property value="page" />"/> 
 			<!-- 			<ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#home">Truyen
 						Hay</a></li>
@@ -180,7 +181,29 @@
 					</s:iterator>
 				</div>
 			</div>
-
+			<!-- paging -->
+			<s:if test="countPage >  1">
+				<div id="paging">
+					<ul class="pagination">
+						<%-- <li class="page-item"><a class="page-link" href="#"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								<span class="sr-only">Previous</span>
+						</a></li> --%>
+						<s:iterator begin="1" end="countPage" status="stat">
+							<li class="page-item">
+								<a class="page-link active-<s:property value="#stat.count" />" href="?page=<s:property value="#stat.count" />">
+									<s:property value="#stat.count" />
+								</a>
+							</li>
+						</s:iterator>
+						<%-- <li class="page-item"><a class="page-link" href="#"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+								class="sr-only">Next</span>
+						</a></li> --%>
+					</ul>
+				</div>
+			</s:if>
+			<!-- end paging -->
 		</div>
 	</div>
 	<!-- <div class="wrap">
@@ -220,6 +243,5 @@
 		}
 		x[slideIndex - 1].style.display = "block";
 	}
-
 	
 </script>
