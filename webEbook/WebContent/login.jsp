@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+<link href="web/bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
 <link href="web/css/style.css" rel="stylesheet" type="text/css"
 	media="all" />

@@ -11,7 +11,8 @@
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.gif" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="web/images/favicon.gif" />
 <!-- text editer -->
 <link rel="stylesheet" media="screen"
 	href="cweb/textediter/ss/documentation.css" />
@@ -23,13 +24,13 @@
 </head>
 <body class="ebook-product">
 	<header class="wrap-header affix-top">
-	<div class="container site-component">
-		<!-- row 1 -->
-		<%@ include file="include/header.jsp"%>
-
-		<!-- row 2 -->
-		<%@ include file="include/menu.jsp"%>
-	</div>
+		<div class="container site-component" >
+			<!-- row 1 -->
+			<%@ include file="../../include/header.jsp"%>
+	
+			<!-- row 2 -->
+			<%@ include file="../../include/menu.jsp"%>
+		</div>
 	</header>
 
 	<div class="breadcrumb-wrap">
@@ -39,7 +40,8 @@
 					<ol class="breadcrumb">
 						<li><a href="./">Trang chủ</a></li>
 						<li><a
-							href="./sendUpdatePost?postId=<s:property value="postDTO.postId" />">Chỉnh sửa bài viết</a></li>
+							href="./sendUpdatePost?postId=<s:property value="postDTO.postId" />">Chỉnh
+								sửa bài viết</a></li>
 						<li>Thêm chương mới</li>
 					</ol>
 				</div>
@@ -142,7 +144,7 @@
 
 
 	<!-- footer -->
-	<%@ include file="include/footer.jsp"%>
+	<%@ include file="../../include/footer.jsp"%>
 	<script>
 		$(document).ready(function() {
 			$(".classy-editor").ClassyEdit();

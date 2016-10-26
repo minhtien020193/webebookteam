@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+<link href="web/bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
 <link href="web/css/style.css" rel="stylesheet" type="text/css"
 	media="all" />
@@ -39,17 +39,16 @@
 		});
 	});
 </script>
-
 <title>Ebook</title>
 </head>
 <body class="ebook-home">
 	<header class="wrap-header affix-top">
 	<div class="container site-component">
 		<!-- row 1 -->
-		<%@ include file="include/header.jsp"%>
+		<%@ include file="../../include/header.jsp"%>
 
 		<!-- row 2 -->
-		<%@ include file="include/menu.jsp"%>
+		<%@ include file="../../include/menu.jsp"%>
 	</div>
 	</header>
 	<!-- silder -->
@@ -132,7 +131,8 @@
 
 	<div class="wrap" id="content">
 		<div class="container">
-		<input type="hidden" id="pageValue" value="<s:property value="page" />"/> 
+			<input type="hidden" id="pageValue"
+				value="<s:property value="page" />" />
 			<!-- 			<ul class="nav nav-tabs">
 				<li class="active"><a data-toggle="tab" href="#home">Truyen
 						Hay</a></li>
@@ -190,11 +190,11 @@
 								<span class="sr-only">Previous</span>
 						</a></li> --%>
 						<s:iterator begin="1" end="countPage" status="stat">
-							<li class="page-item">
-								<a class="page-link active-<s:property value="#stat.count" />" href="?page=<s:property value="#stat.count" />">
-									<s:property value="#stat.count" />
-								</a>
-							</li>
+							<li class="page-item"><a
+								class="page-link active-<s:property value="#stat.count" />"
+								href="?page=<s:property value="#stat.count" />"> <s:property
+										value="#stat.count" />
+							</a></li>
 						</s:iterator>
 						<%-- <li class="page-item"><a class="page-link" href="#"
 							aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
@@ -219,7 +219,7 @@
 	</div> -->
 
 	<!-- footer -->
-	<%@ include file="include/footer.jsp"%>
+	<%@ include file="../../include/footer.jsp"%>
 </body>
 <script>
 	var slideIndex = 1;
@@ -243,5 +243,6 @@
 		}
 		x[slideIndex - 1].style.display = "block";
 	}
+
 	
 </script>

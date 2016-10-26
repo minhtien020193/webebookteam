@@ -4,25 +4,26 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+<link href="web/bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
 <link href="web/css/style.css" rel="stylesheet" type="text/css"
 	media="all" />
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.gif" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="web/images/favicon.gif" />
 
-<title>Danh sách Ebook</title>
+<title>Danh sách truyện</title>
 </head>
 <body class="ebook-product">
 	<header class="wrap-header affix-top">
 	<div class="container site-component">
 		<!-- row 1 -->
-		<%@ include file="include/header.jsp"%>
+		<%@ include file="../../include/header.jsp"%>
 
 		<!-- row 2 -->
-		<%@ include file="include/menu.jsp"%>
+		<%@ include file="../../include/menu.jsp"%>
 	</div>
 	</header>
 
@@ -40,8 +41,9 @@
 	</div>
 	<div class="wrap">
 		<div class="container" style="min-height: 400px;">
-			<input type="hidden" id="isChanged" value="<s:property value="changed"/>" />
-			<input type="hidden" id="isUpdated" value="<s:property value="updated"/>" />
+			<input type="hidden" id="isChanged"
+				value="<s:property value="changed"/>" /> <input type="hidden"
+				id="isUpdated" value="<s:property value="updated"/>" />
 			<s:if test="noData">
 				<div class="noEbook">
 					Bạn chưa có ebook hoặc truyện nào.<br /> <a href="sendCreatePost">Hãy
@@ -71,9 +73,12 @@
 						<div class="col-sm-3">
 							<a href="detailPost?postId=<s:property value="postId" />"><s:property
 									value="postName" /></a>
+							<s:if test="!postStatus">
+								<span class="hold-post">(đang chờ duyệt)</span>
+							</s:if>
 						</div>
 						<div class="col-sm-3">
-							<s:property value="description" escapeHtml="false"/>
+							<s:property value="description" escapeHtml="false" />
 						</div>
 						<div class="col-sm-2">
 							<s:property value="createDate" />
@@ -81,6 +86,13 @@
 						<div class="col-sm-1">
 							<a href="sendUpdatePost?postId=<s:property value="postId" />">Chỉnh
 								sửa</a>
+							<%-- <s:if test="postStatus">
+								<a href="sendUpdatePost?postId=<s:property value="postId" />">Chỉnh
+									sửa</a>
+							</s:if>
+							<s:else>
+								<p>Đang chờ</p>
+							</s:else> --%>
 						</div>
 						<div class="col-sm-1">
 							<a href="#"
@@ -98,7 +110,7 @@
 							<div class="modal-body">Bạn có chắc xoá bài viết này không?</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Huỷ xoá </button>
+									data-dismiss="modal">Huỷ xoá</button>
 								<a class="btn btn-danger btn-ok">Xoá</a>
 							</div>
 						</div>
@@ -110,7 +122,7 @@
 
 
 	<!-- footer -->
-	<%@ include file="include/footer.jsp"%>
+	<%@ include file="../../include/footer.jsp"%>
 	<script>
 		$('#confirm-delete').on(
 				'show.bs.modal',

@@ -5,7 +5,7 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+<link href="web/bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
 <link href="web/css/style.css" rel="stylesheet" type="text/css"
 	media="all" />
@@ -14,16 +14,16 @@
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
 <link rel="shortcut icon" type="image/x-icon"
 	href="web/images/favicon.gif" />
-<title>Không có quyền</title>
+<title>Không tìm thấy dữ liệu</title>
 </head>
 <body class="ebook-product">
 	<header class="wrap-header affix-top">
 	<div class="container site-component">
 		<!-- row 1 -->
-		<%@ include file="include/header.jsp"%>
+		<%@ include file="../../include/header.jsp"%>
 
 		<!-- row 2 -->
-		<%@ include file="include/menu.jsp"%>
+		<%@ include file="../../include/menu.jsp"%>
 	</div>
 	</header>
 
@@ -33,7 +33,7 @@
 				<div class="col-md-12">
 					<ol class="breadcrumb">
 						<li><a href="./">Trang chủ</a></li>
-						<li>Không có quyền</li>
+						<li>Không tìm thấy dữ liệu </li>
 					</ol>
 				</div>
 			</div>
@@ -42,7 +42,7 @@
 	<div class="wrap">
 		<div class="container" style="min-height: 400px;">
 			<div class="noEbook">
-				Bạn không có quyền truy cập chức năng này<br /> <a href="home">Hãy
+				Không tìm thấy dữ liệu.<br /> <a href="home">Hãy
 					quay về trang chủ</a>
 			</div>
 		</div>
@@ -50,6 +50,6 @@
 
 
 	<!-- footer -->
-	<%@ include file="include/footer.jsp"%>
+	<%@ include file="../../include/footer.jsp"%>
 </body>
 </html>

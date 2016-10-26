@@ -192,7 +192,6 @@ public class PostAction extends ActionSupport {
 			if (userId == postDTO.getUserId()) {
 				noFeedback = true;
 			}
-
 			// check post vote
 			postVoted = voteDAO.checkVotePost(userId, postId);
 		}

@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="web/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+<link href="web/bootstrap/css/bootstrap.css" rel="stylesheet"
 	type="text/css" media="all" />
 <link href="web/css/style.css" rel="stylesheet" type="text/css"
 	media="all" />
@@ -20,9 +20,9 @@
 	<header class="wrap-header affix-top">
 	<div class="container site-component">
 		<!-- row 1 -->
-		<%@ include file="include/header.jsp"%>
+		<%@ include file="../../include/header.jsp"%>
 		<!-- row 2 -->
-		<%@ include file="include/menu.jsp"%>
+		<%@ include file="../../include/menu.jsp"%>
 	</div>
 	</header>
 
@@ -96,6 +96,6 @@
 
 
 	<!-- footer -->
-	<%@ include file="include/footer.jsp"%>
+	<%@ include file="../../include/footer.jsp"%>
 </body>
 </html>

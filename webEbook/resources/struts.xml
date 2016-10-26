@@ -22,24 +22,24 @@
 		</action>
 
 		<action name="home" class="Action.Struts2.PostAction" method="execute">
-			<result name="success">/home.jsp</result>
+			<result name="success">/WEB-INF/view/home.jsp</result>
 		</action>
 
 		<action name="profile" class="Action.Struts2.UserAction"
 			method="getProfile">
-			<result name="success">/profile.jsp</result>
-			<result name="noData">/noData.jsp</result>
+			<result name="success">/WEB-INF/view/profile.jsp</result>
+			<result name="noData">/WEB-INF/view/noData.jsp</result>
 		</action>
 
 		<action name="detailPost" class="Action.Struts2.PostAction"
 			method="detailPost">
-			<result name="success">/detail.jsp</result>
-			<result name="noData">/detail.jsp</result>
+			<result name="success">/WEB-INF/view/detail.jsp</result>
+			<result name="noData">/WEB-INF/view/detail.jsp</result>
 		</action>
 
 		<action name="sendCreatePost" class="Action.Struts2.PostAction"
 			method="sendCreatePost">
-			<result name="success">/createPost.jsp</result>
+			<result name="success">/WEB-INF/view/createPost.jsp</result>
 			<result name="noPermission">/error.jsp</result>
 		</action>
 
@@ -60,7 +60,7 @@
 
 		<action name="sendUpdatePost" class="Action.Struts2.PostAction"
 			method="sendUpdatePost">
-			<result name="success">/updatePost.jsp</result>
+			<result name="success">/WEB-INF/view/updatePost.jsp</result>
 			<result name="noPermission">/error.jsp</result>
 		</action>
 
@@ -89,78 +89,78 @@
 
 		<action name="listPost" class="Action.Struts2.PostAction"
 			method="listPost">
-			<result name="success">/listPost.jsp</result>
+			<result name="success">/WEB-INF/view/listPost.jsp</result>
 			<result name="noPermission">/error.jsp</result>
 		</action>
 
 		<action name="postCommentPost" class="Action.Struts2.CommentAction"
 			method="postCommentPost">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
-			<result name="noId">/noData.jsp</result>
+			<result name="noId">/WEB-INF/view/noData.jsp</result>
 			<result name="noPermission">/error.jsp</result>
-			<result name="noData">/noData.jsp</result>
+			<result name="noData">/WEB-INF/view/noData.jsp</result>
 		</action>
 
 		<action name="postCommentChapter" class="Action.Struts2.CommentAction"
 			method="postCommentChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
-			<result name="noId">/noData.jsp</result>
-			<result name="noData">/noData.jsp</result>
+			<result name="noId">/WEB-INF/view//noData.jsp</result>
+			<result name="noData">/WEB-INF/view/noData.jsp</result>
 			<result name="noPermission">/error.jsp</result>
 		</action>
 
 		<action name="feedbackCommentPost" class="Action.Struts2.CommentAction"
 			method="feedbackCommentPost">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
-			<result name="noPostId">/noData.jsp</result>
+			<result name="noPostId">/WEB-INF/view/noData.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 
 		<action name="cancelFeedbackCommentPost" class="Action.Struts2.CommentAction"
 			method="cancelFeedbackCommentPost">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
-			<result name="noPostId">/noData.jsp</result>
+			<result name="noPostId">/WEB-INF/view/noData.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 
 		<action name="feedbackCommentChapter" class="Action.Struts2.CommentAction"
 			method="feedbackCommentChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
-			<result name="noChapterId">/noData.jsp</result>
+			<result name="noChapterId">/WEB-INF/view/noData.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 
 		<action name="cancelFeedbackCommentChapter" class="Action.Struts2.CommentAction"
 			method="cancelFeedbackCommentChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
-			<result name="noChapterId">/noData.jsp</result>
+			<result name="noChapterId">/WEB-INF/view/noData.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 
 		<action name="chapterDetail" class="Action.Struts2.ChapterAction"
 			method="detailChapter">
-			<result name="success">/detailChapter.jsp</result>
-			<result name="noData">/noData.jsp</result>
+			<result name="success">/WEB-INF/view/detailChapter.jsp</result>
+			<result name="noData">/WEB-INF/view/noData.jsp</result>
 		</action>
 
 		<action name="sendAddChapter" class="Action.Struts2.ChapterAction"
 			method="sendAddChapter">
-			<result name="success">/addChapter.jsp</result>
+			<result name="success">/WEB-INF/view/addChapter.jsp</result>
 			<result name="noPermission">/error.jsp</result>
-			<result name="noPostId">/noData.jsp</result>
+			<result name="noPostId">/WEB-INF/view/noData.jsp</result>
 		</action>
 
 		<action name="sendUpdateChapter" class="Action.Struts2.ChapterAction"
 			method="sendUpdateChapter">
-			<result name="success">/updateChapter.jsp</result>
+			<result name="success">/WEB-INF/view/updateChapter.jsp</result>
 			<result name="noPermission">/error.jsp</result>
-			<result name="noPostId">/noData.jsp</result>
+			<result name="noPostId">/WEB-INF/view/noData.jsp</result>
 		</action>
 
 		<action name="addChapter" class="Action.Struts2.ChapterAction"
 			method="addChapter">
 			<result name="success" type="redirectAction">${#session['lastAction']}</result>
-			<result name="noPostChapter">/noData.jsp</result>
+			<result name="noPostChapter">/WEB-INF/view//noData.jsp</result>
 			<result name="noPermission">/error.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
@@ -175,9 +175,9 @@
 		<!-- accept request post -->
 		<action name="sendAcceptPost" class="Action.Struts2.PostAction"
 			method="sendAcceptPost">
-			<result name="success">/listPostPedding.jsp</result>
+			<result name="success">/WEB-INF/view/listPostPedding.jsp</result>
 			<result name="noPermission">/error.jsp</result>
-			<result name="notAdmin">/noData.jsp</result>
+			<result name="notAdmin">/WEB-INF/view/noData.jsp</result>
 		</action>
 
 		<action name="acceptPost" class="Action.Struts2.PostAction"
@@ -191,19 +191,19 @@
 		<!-- list saler -->
 		<action name="listSaler" class="Action.Struts2.UserAction"
 			method="listSaler">
-			<result name="success">/listSaler.jsp</result>
+			<result name="success">/WEB-INF/view/listSaler.jsp</result>
 			<result name="noPermission">/error.jsp</result>
-			<result name="noData">/noData.jsp</result>
+			<result name="noData">/WEB-INF/view/noData.jsp</result>
 			<result name="notAdmin">/error.jsp</result>
 		</action>
 
 		<!-- list upgrad role -->
 		<action name="listUpgrande" class="Action.Struts2.UserAction"
 			method="listUpgrande">
-			<result name="success">/listUpgradeRole.jsp</result>
+			<result name="success">/WEB-INF/view/listUpgradeRole.jsp</result>
 			<result name="noPermission">/error.jsp</result>
-			<result name="noData">/noData.jsp</result>
-			<result name="notAdmin">/noData.jsp</result>
+			<result name="noData">/WEB-INF/view/noData.jsp</result>
+			<result name="notAdmin">/WEB-INF/view/noData.jsp</result>
 		</action>
 
 		<action name="updateRoleUser" class="Action.Struts2.UserAction"
@@ -214,8 +214,8 @@
 
 		<action name="searchEbook" class="Action.Struts2.PostAction"
 			method="searchEbook">
-			<result name="success">/searchResult.jsp</result>
-			<result name="noData">/searchResult.jsp</result>
+			<result name="success">/WEB-INF/view/searchResult.jsp</result>
+			<result name="noData">/WEB-INF/view/searchResult.jsp</result>
 		</action>
 
 		<action name="voteAction" class="Action.Struts2.PostAction"

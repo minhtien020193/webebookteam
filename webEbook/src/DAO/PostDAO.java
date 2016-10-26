@@ -143,6 +143,7 @@ public class PostDAO {
 				PostDTO post = new PostDTO();
 				post.setPostId(rs.getInt("postId"));
 				post.setUserId(rs.getInt("userId"));
+				post.setPostStatus(rs.getBoolean("postStatus"));
 				post.setCategoryId(rs.getInt("categoryId"));
 				post.setPostName(rs.getString("postName"));
 				post.setContents(rs.getString("contents"));
@@ -222,13 +223,14 @@ public class PostDAO {
 			con = DBConnect.createConnection(); // establishing connection
 			logger.log(Level.SEVERE, "Connect...:", con);
 
-			String query = "SELECT * FROM eb_posts WHERE userId ='" + userId + "' AND postStatus = 1 AND del_flg = 0";
+			String query = "SELECT * FROM eb_posts WHERE userId ='" + userId + "' AND del_flg = 0";
 			stmt = (Statement) con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				PostDTO post = new PostDTO();
 				post.setPostId(rs.getInt("postId"));
 				post.setUserId(rs.getInt("userId"));
+				post.setPostStatus(rs.getBoolean("postStatus"));
 				post.setCategoryId(rs.getInt("categoryId"));
 				post.setPostName(rs.getString("postName"));
 				post.setContents(rs.getString("contents"));
