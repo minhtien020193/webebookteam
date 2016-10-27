@@ -4,7 +4,7 @@ http://www.freshdesignweb.com/fashion-responsive-slider-tutorial.html
 /* Slider
 /*-----------------------------------------------------------------------------------*/
 .slider_container{margin:auto; clear:both; background:url(images/shadow_top.png) no-repeat top center;}
-.flex-caption{ position: absolute; right:11px; bottom:20px;}
+.flex-caption{ position: absolute; right:0px; bottom:20px;}
 .caption_title_line{ width:450px; height:75px; padding:5px 15px 10px 15px;background:url(images/slider_caption_bg.png) repeat;color: #303030;}
 .flex-caption h2{ color:#303030;font-size:20px; padding:5px 0 5px 0; margin:0px;font-family: 'Ovo', serif;}
 
@@ -18,7 +18,7 @@ http://www.freshdesignweb.com/fashion-responsive-slider-tutorial.html
 *********************************/ 
 .flexslider {width: 100%; margin: 0; background:url(images/shadow_bottom.png) no-repeat center bottom;}
 .flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
-.flexslider .slides img {width: 99%; display: block; margin-top: 10px;}
+.flexslider .slides img {width: 100%; display: block; margin-top: 10px;}
 .flex-pauseplay span {text-transform: capitalize;}
 .slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
 html[xmlns] .slides {display: block;} 
@@ -30,7 +30,7 @@ html[xmlns] .slides {display: block;}
 .flex-container {zoom: 1; position: relative;}
 
 /* Direction Nav */
-.flex-direction-nav li a {width:45px; height:42px; margin:0; display: block; position: absolute; right:11px; cursor: pointer; text-indent: -9999px;}
+.flex-direction-nav li a {width:45px; height:42px; margin:0; display: block; position: absolute; right:0px; cursor: pointer; text-indent: -9999px;}
 .flex-direction-nav li a.next {background:url(./images/next.png) no-repeat center; bottom:184px;}
 .flex-direction-nav li a.prev {background:url(./images/prev.png) no-repeat center;bottom:141px;}
 .flex-direction-nav li a.next:hover {background:url(./images/next_a.png) no-repeat center;}

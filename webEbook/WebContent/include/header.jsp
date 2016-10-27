@@ -1,8 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <script type="text/javascript" src="web/js/jquery.jgrowl.js"></script>
+<script type="text/javascript" src="web/js/modernizr.min.js"></script>
+<script type="text/javascript" src="web/js/jquery.slicknav.js"></script>
 <link href="web/css/jquery.jgrowl.css" rel="stylesheet" type="text/css"
 	media="all" />
-<div class="row">
+<div class="row" id="pc-version">
 	<div class="col-md-3">
 		<p class="header-logo">
 			<a href="home" title="Ebook"><img src="web/images/logo.jpg"

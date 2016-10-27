@@ -50,6 +50,7 @@
 		<!-- row 2 -->
 		<%@ include file="../../include/menu.jsp"%>
 	</div>
+
 	</header>
 	<!-- silder -->
 	<div class="wrap">
@@ -102,7 +103,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4">
+				<div class="col-lg-4" id="top-post">
 					<div class="button-slider">
 						<div class="col-sm-8">
 							<h2 class="title-silder">Top</h2>
@@ -159,17 +160,17 @@
 								</a>
 								<div class="cblock">
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-6 margin15">
 											<i class="glyphicon glyphicon-calendar margin-10"
 												aria-hidden="true"></i><span><s:property
 													value="createDate" /></span>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-6 margin15">
 											<i class="glyphicon glyphicon-file margin-10"
 												aria-hidden="true"></i> <span class="fred"><s:property
 													value="countChapter" /></span> <span>Chương</span>
 										</div>
-										<div class="col-md-12">
+										<div class="col-md-12 margin15">
 											<i class="glyphicon glyphicon-user margin-10"
 												aria-hidden="true"></i><span class="user"><s:property
 													value="authorName" /></span>

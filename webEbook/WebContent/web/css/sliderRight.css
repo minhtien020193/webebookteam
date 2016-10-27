@@ -2095,7 +2095,7 @@ to {
 
 .rightSlider {
 	margin-top: 10px;
-	margin-left: -9%;
+	margin-left: -7%;
 }
 
 .button-slider {
@@ -2104,9 +2104,9 @@ to {
 	left: 0;
 	position: absolute;
 	top: 10px;
-	width: 100%;
+	width: 99%;
 	z-index: 20;
-	margin-left: -4%;
+	margin-left: -3%;
 	float: right;
 	opacity: 0.8;
 	background: rgba(33, 1, 1, 0.49);;

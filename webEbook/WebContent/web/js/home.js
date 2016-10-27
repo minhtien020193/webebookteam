@@ -32,6 +32,8 @@ $(document).ready(
 			$('#myCarousel').on('slid.bs.carousel', function() {
 				// alert("slid");
 			});
+
+			$('#menu').slicknav();
 		});
 
 $(document).ready(function() {
@@ -55,14 +57,14 @@ $(document).ready(function() {
 		$('.product-content-box .content-box p').css('color', '#fff');
 	});
 	// Disable full page
-	 $('body').bind('cut copy paste', function(e) {
-	 e.preventDefault();
-	 alert('Copying is not allowed');
-	 });
-	 $("body").on("contextmenu", function(e) {
-	 return false;
-	 alert('Copying is not allowed');
-	 });
+	$('body').bind('cut copy paste', function(e) {
+		e.preventDefault();
+		alert('Copying is not allowed');
+	});
+	$("body").on("contextmenu", function(e) {
+		return false;
+		alert('Copying is not allowed');
+	});
 
 	// display message list post
 	var changed = $('#isChanged').val();
