@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<div class="wrap">
-		<div class="container" style="min-height: 400px;">
+		<div class="container" style="min-height: 400px;" id="listPost">
 			<input type="hidden" id="isChanged"
 				value="<s:property value="changed"/>" /> <input type="hidden"
 				id="isUpdated" value="<s:property value="updated"/>" />
@@ -52,55 +52,92 @@
 
 			</s:if>
 			<s:else>
-				<div class="row list-ebook">
-					<div class="col-sm-1">Stt</div>
-					<div class="col-sm-1">Ảnh</div>
-					<div class="col-sm-3">Ebook/ Truyện</div>
-					<div class="col-sm-3">Mô tả</div>
-					<div class="col-sm-2">Ngày đăng</div>
-					<div class="col-sm-2"></div>
+				
+				<div id="pc-version">
 
-				</div>
-				<s:iterator status="stat" value="listPost">
 					<div class="row list-ebook">
-						<div class="col-sm-1">
-							<s:property value="#stat.count" />
-						</div>
-						<div class="col-sm-1">
-							<img alt="<s:property value="postName" />"
-								src="<s:property value="image"/>" class="list-ebook-image" />
-						</div>
-						<div class="col-sm-3">
-							<a href="detailPost?postId=<s:property value="postId" />"><s:property
-									value="postName" /></a>
-							<s:if test="!postStatus">
-								<span class="hold-post">(đang chờ duyệt)</span>
-							</s:if>
-						</div>
-						<div class="col-sm-3">
-							<s:property value="description" escapeHtml="false" />
-						</div>
-						<div class="col-sm-2">
-							<s:property value="createDate" />
-						</div>
-						<div class="col-sm-1">
-							<a href="sendUpdatePost?postId=<s:property value="postId" />">Chỉnh
-								sửa</a>
-							<%-- <s:if test="postStatus">
+						<div class="col-sm-1">Stt</div>
+						<div class="col-sm-1">Ảnh</div>
+						<div class="col-sm-3">Ebook/ Truyện</div>
+						<div class="col-sm-3">Mô tả</div>
+						<div class="col-sm-2">Ngày đăng</div>
+						<div class="col-sm-2"></div>
+					</div>
+					<s:iterator status="stat" value="listPost">
+						<div class="row list-ebook">
+							<div class="col-sm-1">
+								<s:property value="#stat.count" />
+							</div>
+							<div class="col-sm-1">
+								<img alt="<s:property value="postName" />"
+									src="<s:property value="image"/>" class="list-ebook-image" />
+							</div>
+							<div class="col-sm-3">
+								<a href="detailPost?postId=<s:property value="postId" />"><s:property
+										value="postName" /></a>
+								<s:if test="!postStatus">
+									<span class="hold-post">(đang chờ duyệt)</span>
+								</s:if>
+							</div>
+							<div class="col-sm-3">
+								<s:property value="description" escapeHtml="false" />
+							</div>
+							<div class="col-sm-2">
+								<s:property value="createDate" />
+							</div>
+							<div class="col-sm-1">
+								<a href="sendUpdatePost?postId=<s:property value="postId" />">Chỉnh
+									sửa</a>
+								<%-- <s:if test="postStatus">
 								<a href="sendUpdatePost?postId=<s:property value="postId" />">Chỉnh
 									sửa</a>
 							</s:if>
 							<s:else>
 								<p>Đang chờ</p>
 							</s:else> --%>
+							</div>
+							<div class="col-sm-1">
+								<a href="#"
+									data-href="deletePost?postId=<s:property value="postId"/>"
+									data-toggle="modal" data-target="#confirm-delete">Xoá</a>
+							</div>
 						</div>
-						<div class="col-sm-1">
-							<a href="#"
-								data-href="deletePost?postId=<s:property value="postId"/>"
-								data-toggle="modal" data-target="#confirm-delete">Xoá</a>
-						</div>
+					</s:iterator>
+				</div>
+				<div id="sm-version">
+					<div class="row list-ebook">
+						<div class="col-sm-2">Ảnh</div>
+						<div class="col-sm-5">Ebook/ Truyện</div>
+						<div class="col-sm-3">Ngày đăng</div>
+						<div class="col-sm-2"></div>
 					</div>
-				</s:iterator>
+					<s:iterator status="stat" value="listPost">
+						<div class="row list-ebook">
+							<div class="col-sm-2">
+								<img alt="<s:property value="postName" />"
+									src="<s:property value="image"/>" class="list-ebook-image" />
+							</div>
+							<div class="col-sm-5">
+								<a href="detailPost?postId=<s:property value="postId" />"><s:property
+										value="postName" /></a>
+								<s:if test="!postStatus">
+									<span class="hold-post">(đang chờ duyệt)</span>
+								</s:if>
+							</div>
+							<div class="col-sm-3">
+								<s:property value="createDate" />
+							</div>
+							<div class="col-sm-1">
+								<a href="sendUpdatePost?postId=<s:property value="postId" />"><span class="glyphicon glyphicon-pencil"></span></a>
+							</div>
+							<div class="col-sm-1">
+								<a href="#"
+									data-href="deletePost?postId=<s:property value="postId"/>"
+									data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash delete-post"></span></a>
+							</div>
+						</div>
+					</s:iterator>
+				</div>
 
 				<div class="modal fade" id="confirm-delete" tabindex="-1"
 					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

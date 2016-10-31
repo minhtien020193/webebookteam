@@ -39,8 +39,8 @@
 		</div>
 	</div>
 	<div class="wrap">
-		<div class="container">
-			<div class="col-sm-6">
+		<div class="container" id="content-post">
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 				<div class="login-title">
 					<h4 class="title">Đăng nhập hệ thống</h4>
 					<div class="comments-area">
@@ -54,16 +54,16 @@
 									required placeholder="Mật khẩu" name="password">
 							</p>
 							<p>
-								<input type="submit" value="Login" class="btn btn-primary">
+								<input type="submit" value="Đăng nhập" class="btn btn-primary">
 							</p>
-							<p id="login-form-remember">
+							<!-- <p id="login-form-remember">
 								<label><a href="#">Forget Your Password ? </a></label>
-							</p>
+							</p> -->
 						</form>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6">
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 				<div class="login-title">
 					<h4 class="title">Thành viên mới</h4>
 					<h5 class="sub_title">Đăng kí tài khoản mới</h5>

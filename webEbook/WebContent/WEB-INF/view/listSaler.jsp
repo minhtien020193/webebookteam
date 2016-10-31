@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="wrap">
-		<div class="container" style="min-height: 400px;">
+		<div class="container" style="min-height: 400px;" id="content-post">
 			<s:if test="noData">
 				<div class="noEbook">
 					Hệ thống chưa tồn tại người đăng bài.<br /> <a href="listUpgrande">Hãy

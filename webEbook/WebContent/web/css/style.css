@@ -1080,6 +1080,9 @@ li.add-chapter a {
 	#pc-version {
 		display: none;
 	}
+	.pc-version-class {
+		display: none;
+	}
 	#sm-version, .slicknav_menu {
 		display: block;
 	}
@@ -1136,8 +1139,17 @@ li.add-chapter a {
 		height: 500px !important;
 	}
 	#footer .row {
+		font-size: 30px;
 		margin-left: 0px;
 		margin-right: 0px;
+		margin-left: 0px;
+	}
+	#footer .row  h3 {
+		font-size: 35px;
+	}
+	#footer .row .copyrights p {
+		font-size: 30px;
+		line-height: 1.3;
 	}
 	#footer h3, p, ul li {
 		text-align: center;
@@ -1175,5 +1187,107 @@ li.add-chapter a {
 	}
 	.product-item .cblock .col-md-12 .user {
 		width: 100%
+	}
+
+	/* DEtail */
+	.breadcrumb-wrap .container .row ol.breadcrumb li {
+		font-size: 30px
+	}
+	.ebook-product .wrap .item-box h1.item-name {
+		font-size: 45px;
+	}
+	.ebook-product .wrap .item-box .item-row1 .item-price .item-brand {
+		font-size: 35px;
+		line-height: 1.3;
+	}
+	.ebook-product .margin-comment {
+		font-size: 35px;
+		line-height: 1.3;
+	}
+	.ebook-product .wrap .product-table-title, ul li {
+		font-size: 35px;
+	}
+	.ebook-product .container .box-product-lifestyle p {
+		text-align: left;
+	}
+	.ebook-product .container .box-product-lifestyle ul li {
+		text-align: left;
+		margin: 20px;
+	}
+	.post-cat .pic {
+		height: 130px;
+	}
+	.post-cat .pic img {
+		height: 130px;
+		width: 140px;
+	}
+	.post-cat .info {
+		margin-left: 45px;
+	}
+	.product-review-content .item .name, .product-review-content .item .days
+		{
+		font-size: 33px;
+		line-height: 1.3;
+	}
+	.product-review-content .description span.review_detail {
+		font-size: 33px;
+		line-height: 1.3;
+	}
+	.product-content-box .change-style .col-sm-8 h3 {
+		font-size: 40px;
+	}
+	.product-content-box .content-box {
+		margin: 0px;
+	}
+	.product-content-box .content-box p {
+		font-size: 30px;
+		margin: 5px;
+	}
+	.margin-comment a#vote, a#unVote {
+		font-size: 35px;
+		margin-top: 5px;
+	}
+	.margin-comment .form-control {
+		font-size: 30px;
+		padding: 20px 10px;
+		color: #333;
+		height: auto;
+	}
+	.margin-comment .btn-add-question {
+		font-size: 30px;
+		margin-top: 10px;
+	}
+	#createPost {
+		font-size: 33px;
+		line-height: 1.5;
+	}
+	#listPost, #accept-post, #content-post {
+		font-size: 30px;
+		line-height: 1.3;
+		margin-bottom: 20px;
+	}
+	#listPost span {
+		font-size: 25px;
+	}
+	.delete-post {
+		color: red;
+	}
+	#content-post .comments-area input[type="text"] {
+		font-size: 30px;
+		margin: 10px;
+	}
+	#content-post .comments-area input[type="password"] {
+		font-size: 30px;
+		margin: 10px;
+	}
+	#content-post .comments-area input[type="submit"] {
+		font-size: 30px;
+		padding: 10px 30px;
+	}
+	#login-form-remember a {
+		font-size: 30px;
+	}
+	#content-post .button1 input[type=submit]{
+		font-size: 30px;
 	}
 }

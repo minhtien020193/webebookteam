@@ -53,8 +53,8 @@
 
 		<div class="wrap">
 			<div class="container box-detail">
-				<div class="col-md-5">
-					<div class="image-box">
+				<div class="col-md-5 " id="pc-version">
+					<div class="image-box ">
 						<img src="<s:property value="postDTO.image" />"
 							class="image-detail" />
 					</div>
@@ -100,7 +100,7 @@
 									Số lượt bình chọn: <span><s:property value="countVote" /></span>
 								</div>
 								<s:if test="#session.LOGINED != NULL">
-									<div>
+									<div class="margin-comment">
 
 										<s:if test="postVoted">
 									Đã bình chọn:
@@ -135,7 +135,7 @@
 		<!-- chapter -->
 		<div class="wrap">
 			<div class="container ">
-				<div class="col-sm-8">
+				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
 					<div class="chapter-area col-sm-12">
 						<h3 class="product-table-title">Các chương hiện có:</h3>
 						<div class="row box-product-lifestyle">
@@ -164,7 +164,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4 post-cat">
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 post-cat">
 					<h3 class="product-table-title">
 						Top 5 truyện
 						<s:property value="categoryName" />
@@ -217,7 +217,7 @@
 													class="form-control" value=""
 													placeholder="Hãy cho chúng tôi biết cảm nghĩ của bạn!">
 											</div>
-											<div class="col-md-1">
+											<div class="col-md-1 col-lg-1 col-sm-12 col-xs-12 ">
 												<button type="submit"
 													class="btn btn-primary btn-add-question">Gửi nhận
 													xét</button>

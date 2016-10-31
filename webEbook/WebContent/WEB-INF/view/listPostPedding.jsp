@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="wrap">
-		<div class="container" style="min-height: 400px;">
+		<div class="container" style="min-height: 400px;" id="accept-post">
 			<s:if test="noData">
 				<div class="noEbook">Không có bài viết nào !.</div>
 

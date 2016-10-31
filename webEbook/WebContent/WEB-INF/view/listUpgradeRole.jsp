@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<div class="wrap">
-		<div class="container" style="min-height: 400px;">
+		<div class="container" style="min-height: 400px;" id="content-post">
 			<s:if test="noData">
 				<div class="noEbook">Không có người dùng cần nâng cấp quyền!.</div>
 			</s:if>
