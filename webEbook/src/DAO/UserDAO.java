@@ -81,8 +81,8 @@ public class UserDAO {
 
 			// the mysql insert statement
 			String query = "insert into eb_users (userName, password, firstName, midName, "
-					+ "lastName, address, email, phone, roleId, del_Flg, createDate) "
-					+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "lastName, address, email, phone, roleId, del_Flg, del_Code, createDate) "
+					+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			pstmt = (PreparedStatement) con.prepareStatement(query);
 			pstmt.setString(1, user.getUserName());
@@ -96,8 +96,9 @@ public class UserDAO {
 			pstmt.setString(8, user.getPhone());
 
 			pstmt.setInt(9, user.getRoleId());
-			pstmt.setBoolean(10, false);
-			pstmt.setDate(11, createDate);
+			pstmt.setBoolean(10, user.isDel_Flg());
+			pstmt.setString(11, user.getDel_Code());
+			pstmt.setDate(12, createDate);
 
 			int index = pstmt.executeUpdate();
 			if (index == 1) {
@@ -130,7 +131,7 @@ public class UserDAO {
 		logger.info("Logging begins...");
 		try {
 			con = DBConnect.createConnection(); // establishing connection
-			pstmt = (PreparedStatement) con.prepareStatement("select * from thtb_users WHERE username=?");
+			pstmt = (PreparedStatement) con.prepareStatement("select * from eb_users WHERE username=?");
 			pstmt.setString(1, username);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -507,5 +508,77 @@ public class UserDAO {
 		}
 		logger.info("Done...");
 		return false;
+	}
+
+	public String getDelCode(String username) {
+		String result = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			pstmt = (PreparedStatement) con.prepareStatement("select * from eb_users WHERE userName = ?");
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getString("del_Code");
+				return result;
+			}
+		} catch (SQLException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+
+			} catch (SQLException se) {
+			} // do nothing
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			} // end finally try
+		}
+		logger.info("Done...");
+		return result;
+	}
+
+	public void updateDelFlg(int userId) {
+		java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			pstmt = (PreparedStatement) con
+					.prepareStatement("UPDATE eb_users SET del_Flg = ?, del_Code = ?, updateDate = ? WHERE userId = ?");
+			pstmt.setBoolean(1, false);
+			pstmt.setString(2, null);
+			pstmt.setDate(3, currentDate);
+			pstmt.setInt(4, userId);
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
 	}
 }

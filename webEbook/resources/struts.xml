@@ -17,7 +17,7 @@
 
 		<action name="registerAction" class="Action.Struts2.UserAction"
 			method="register">
-			<result name="success" type="redirectAction">home</result>
+			<result name="success">/WEB-INF/view/checkCode.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 
@@ -239,6 +239,13 @@
 		<action name="ajaxAction" class="Action.Struts2.TestAjaxAction">
 			<result name="success" type="json"></result>
 		</action>
-
+		
+		<!-- Toan start this -->
+		<action name="checkCodeAction" class="Action.Struts2.UserAction"
+			method="checkCode">
+			<result name="success" type="redirectAction">home</result>
+			<result name="fail">/WEB-INF/view/error.jsp</result>
+		</action>
+		<!-- Toan end this -->
 	</package>
 </struts>

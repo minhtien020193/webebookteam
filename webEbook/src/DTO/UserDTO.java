@@ -21,6 +21,7 @@ public class UserDTO {
 	private String phone;
 	private int roleId;
 	private boolean del_Flg;
+	private String del_Code;
 	private Date createDate;
 	private Date updateDate;
 	private Date deleteDate;
@@ -78,9 +79,10 @@ public class UserDTO {
 	 * @param email
 	 * @param phone
 	 * @param roleId
+	 * @param del_Flag
 	 */
 	public UserDTO(String userName, String password, String firstName, String midName, String lastName,
-			String address, String email, String phone, int roleId) {
+			String address, String email, String phone, int roleId, boolean del_Flag, String del_Code) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -91,6 +93,8 @@ public class UserDTO {
 		this.email = email;
 		this.phone = phone;
 		this.roleId = roleId;
+		this.del_Flg = del_Flag;
+		this.del_Code = del_Code;
 
 	}
 
@@ -288,6 +292,20 @@ public class UserDTO {
 	 */
 	public void setDeleteDate(Date deleteDate) {
 		this.deleteDate = deleteDate;
+	}
+	
+	/**
+	 * @return the del_Code
+	 */
+	public String getDel_Code() {
+		return del_Code;
+	}
+	
+	/**
+	 * @param del_Code the del_Code to set
+	 */
+	public void setDel_Code(String del_Code) {
+		this.del_Code = del_Code;
 	}
 	
 }

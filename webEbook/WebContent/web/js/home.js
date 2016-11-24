@@ -136,3 +136,74 @@ function validateFromPost() {
 
 	return flag;
 }
+
+// Toan start this
+function validateRegister() {
+	// flag to check valid form
+	var flag = true;
+
+	// regular expression for valid email
+	var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+	// get value of textbox in form
+	var username = $.trim($('#username').val());
+	var password = $.trim($('#password').val());
+	var re_password = $.trim($('#re_password').val());
+	var email = $.trim($('#email').val());
+	var phone = $.trim($('#phone').val());
+	var firstName = $.trim($('#firstName').val());
+	var midName = $.trim($('#midName').val());
+	var lastName = $.trim($('#lastName').val());
+	var address = $.trim($('#address').val());
+
+	// check not null text box
+	if (username === '' || password === '' || re_password === ''
+			|| email === '') {
+		$.jGrowl("Bắt buộc nhập tên đăng nhập, mật khẩu và địa chỉ email.", {
+			sticky : !1,
+			position : "top-right",
+			theme : "bg-red"
+		});
+		flag = false;
+	} else {
+		// check username
+		if (username.length < 6) {
+			$.jGrowl("Tên đăng nhập phải lớn hơn 6 kí tự.", {
+				sticky : !1,
+				position : "top-right",
+				theme : "bg-red"
+			});
+			flag = false;
+		}
+
+		// check password
+		if (password.length < 6 || re_password.length < 6) {
+			$.jGrowl("Mật khẩu phải lớn hơn 6 kí tự.", {
+				sticky : !1,
+				position : "top-right",
+				theme : "bg-red"
+			});
+			flag = false;
+		} else if (password != re_password) {
+			$.jGrowl("Mật khẩu không khớp.", {
+				sticky : !1,
+				position : "top-right",
+				theme : "bg-red"
+			});
+			flag = false;
+		}
+
+		// check email valid
+		if (reg.test(email) == false) {
+			$.jGrowl("Email không đúng định dạng.", {
+				sticky : !1,
+				position : "top-right",
+				theme : "bg-red"
+			});
+			flag = false;
+		}
+	}
+
+	return flag;
+};
+// Toan end this

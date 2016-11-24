@@ -6,7 +6,14 @@ import DAO.UserDAO;
 import DTO.RequestRoleUpdate;
 import DTO.RoleDTO;
 import DTO.UserDTO;
+import MailUtilities.MailUtilities;
+
 import java.util.Map;
+import java.util.Random;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -25,6 +32,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 	private String address;
 	private String email;
 	private String phone;
+	private String code;
 	final String ADMIN = "admin";
 	final String SALER = "saler";
 	final String MEMBER = "member";
@@ -87,11 +95,16 @@ public class UserAction extends ActionSupport implements SessionAware {
 		return SUCCESS;
 	}
 
-	public String register() {
-		
-		UserDTO userDto = new UserDTO(username, password, firstName, midName, lastName, address, email, phone, 3); // TODO
+	public String register(){
+		Random r = new Random(System.currentTimeMillis());
+		String del_code = Integer.toString(((1 + r.nextInt(2)) * 10000 + r.nextInt(10000)));
+
+		UserDTO userDto = new UserDTO(username, password, firstName, midName, lastName, address, email, phone, 3, true,
+				del_code); // TODO
 		UserDAO userDao = new UserDAO();
+		MailUtilities mail = new MailUtilities();
 		if (userDao.registerAccount(userDto)) {
+			mail.sendEmailCheckCode(del_code, email);
 			return SUCCESS;
 		}
 		return FAIL;
@@ -139,10 +152,22 @@ public class UserAction extends ActionSupport implements SessionAware {
 		int userId = usr.getUserId();
 		UserDAO userDAO = new UserDAO();
 		userDTO = userDAO.getUserbyId(userId);
-		if(userDTO == null){
+		if (userDTO == null) {
 			return "noData";
 		}
 		return "success";
+	}
+
+	// Toan start this
+	public String checkCode() {
+		UserDAO userDao = new UserDAO();
+		String del_Code = userDao.getDelCode(username);
+		if (del_Code.equals(code)) {
+			int userId = userDao.getUserId(username);
+			userDao.updateDelFlg(userId);
+			return SUCCESS;
+		}
+		return FAIL;
 	}
 
 	// getter setter
@@ -245,6 +270,14 @@ public class UserAction extends ActionSupport implements SessionAware {
 
 	public void setUserDTO(UserDTO userDTO) {
 		this.userDTO = userDTO;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }

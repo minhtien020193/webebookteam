@@ -11,7 +11,8 @@
 <script type="text/javascript" src="web/js/jquery.min.js"></script>
 <script type="text/javascript" src="web/js/home.js"></script>
 <script type="text/javascript" src="web/bootstrap/js/bootstrap.min.js"></script>
-<link rel="shortcut icon" type="image/x-icon" href="web/images/favicon.gif" />
+<link rel="shortcut icon" type="image/x-icon"
+	href="web/images/favicon.gif" />
 
 <title>Đăng kí thành viên</title>
 </head>
@@ -41,39 +42,49 @@
 	<div class="wrap">
 		<div class="container register_account">
 			<h4 class="title">Đăng kí thành viên</h4>
-			<form action="registerAction" method="POST">
+			<form action="registerAction" method="POST"
+				onsubmit="return validateRegister();">
 				<div class="col-sm-6">
 					<div class="row">
-						<input type="text" name="username" placeholder="Tên đăng nhập"/>
+						<input type="text" placeholder="Tên đăng nhập" name="username"
+							id="username" />
 					</div>
 					<div class="row">
-						<input type="password" placeholder="Mật Khẩu" name="password"/>
+						<input type="password" placeholder="Mật Khẩu" name="password"
+							id="password" />
 					</div>
 					<div class="row">
-						<input type="password" placeholder="Nhập lại mật Khẩu" name="re_password"/>
+						<input type="password" placeholder="Nhập lại mật Khẩu"
+							name="re_password" id="re_password" />
 					</div>
 					<div class="row">
-						<input type="email" placeholder="email@gmail.com" name="email"/>
+						<input type="text" placeholder="email@gmail.com" name="email"
+							id="email" />
 					</div>
 					<div class="row">
-						<input type="text" placeholder="Số điện thoại" name="phone"/>
+						<input type="text" placeholder="Số điện thoại" name="phone"
+							id="phone" />
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="row">
-						<input type="text" placeholder="Họ" name="firstName"/>
+						<input type="text" placeholder="Họ" name="firstName"
+							id="firstName" />
 					</div>
 					<div class="row">
-						<input type="text" placeholder="Tên đệm" name="midName"/>
+						<input type="text" placeholder="Tên đệm" name="midName"
+							id="midName" />
 					</div>
 					<div class="row">
-						<input type="text" placeholder="Tên" name="lastName"/>
+						<input type="text" placeholder="Tên" name="lastName" id="lastName" />
 					</div>
 					<div class="row">
-						<input type="text" placeholder="Địa chỉ" name="address"/>
+						<input type="text" placeholder="Địa chỉ" name="address"
+							id="address" />
 					</div>
 					<div class="row">
-						<input type="submit" value="Đăng kí" class="btn btn-primary btn-register"/>
+						<input type="submit" value="Đăng kí"
+							class="btn btn-primary btn-register" />
 					</div>
 				</div>
 			</form>
