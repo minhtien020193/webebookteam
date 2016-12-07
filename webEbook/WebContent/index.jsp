@@ -1,3 +1,3 @@
 <%
-	response.sendRedirect("/ebook/home.action");
+	response.sendRedirect("/home.action");
 %>
