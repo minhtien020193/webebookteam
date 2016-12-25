@@ -43,7 +43,8 @@
 		<div class="container" id="content-post">
 			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 				<div class="login-title">
-					<h4 class="title">Thông tin nhập code</h4>
+					<h4 class="title">Thông tin nhập code: </h4>
+					<p>Kiểm tra email để có được code</p>
 					<div class="comments-area">
 						<form action="checkCodeAction" method="POST">
 							<p>

@@ -17,7 +17,7 @@
 
 		<action name="registerAction" class="Action.Struts2.UserAction"
 			method="register">
-			<result name="success">/WEB-INF/view/checkCode.jsp</result>
+			<result name="success">/checkCode.jsp</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 

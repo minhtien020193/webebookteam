@@ -43,7 +43,6 @@ public class UserAction extends ActionSupport implements SessionAware {
 	UserDTO userDTO;
 
 	public String execute() throws Exception {
-		System.out.println(" cuc cuc " + username + password);
 		return SUCCESS;
 	}
 
@@ -100,8 +99,14 @@ public class UserAction extends ActionSupport implements SessionAware {
 		String del_code = Integer.toString(((1 + r.nextInt(2)) * 10000 + r.nextInt(10000)));
 
 		UserDTO userDto = new UserDTO(username, password, firstName, midName, lastName, address, email, phone, 3, true,
-				del_code); // TODO
+				del_code); 
 		UserDAO userDao = new UserDAO();
+		boolean check  = userDao.checkUserName(username, email);
+		if(check){
+			System.out.println("aa exist");
+			return FAIL;
+		}
+		
 		MailUtilities mail = new MailUtilities();
 		if (userDao.registerAccount(userDto)) {
 			mail.sendEmailCheckCode(del_code, email);

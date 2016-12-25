@@ -581,4 +581,49 @@ public class UserDAO {
 		}
 		logger.info("Done...");
 	}
+
+	public boolean checkUserName(String username, String email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		logger.info("Logging begins...");
+		try {
+			con = DBConnect.createConnection(); // establishing connection
+			logger.log(Level.SEVERE, "Connect...:", con);
+
+			String query = "Select * from eb_users Where userName = ? OR email =?";
+			pstmt = (PreparedStatement) con.prepareStatement(query);
+			pstmt.setString(1, username);
+			pstmt.setString(2, email);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				System.out.println("exist");
+				return true;
+			} else {
+				System.out.println("isnt exist");
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			// finally block used to close resources
+			try {
+				if (pstmt != null)
+					pstmt.close();
+			} catch (SQLException ex) {
+				logger.log(Level.SEVERE, ex.getMessage(), ex);
+			}
+			try {
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+				logger.log(Level.SEVERE, se.getMessage(), se);
+			} // end finally try
+		}
+		logger.info("Done...");
+		return false;
+	}
 }
