@@ -98,7 +98,7 @@ public class UserAction extends ActionSupport implements SessionAware {
 		Random r = new Random(System.currentTimeMillis());
 		String del_code = Integer.toString(((1 + r.nextInt(2)) * 10000 + r.nextInt(10000)));
 
-		UserDTO userDto = new UserDTO(username, password, firstName, midName, lastName, address, email, phone, 3, true,
+		UserDTO userDto = new UserDTO(username, password, firstName, midName, lastName, address, email, phone, 3, false,
 				del_code); 
 		UserDAO userDao = new UserDAO();
 		boolean check  = userDao.checkUserName(username, email);
@@ -107,9 +107,10 @@ public class UserAction extends ActionSupport implements SessionAware {
 			return FAIL;
 		}
 		
-		MailUtilities mail = new MailUtilities();
+//		MailUtilities mail = new MailUtilities();
 		if (userDao.registerAccount(userDto)) {
-			mail.sendEmailCheckCode(del_code, email);
+			login();
+//			mail.sendEmailCheckCode(del_code, email);
 			return SUCCESS;
 		}
 		return FAIL;

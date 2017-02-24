@@ -32,12 +32,12 @@
 					<li><a href="listUpgrande"><span
 							class="glyphicon glyphicon-check"></span> DS nâng cấp</a></li>
 				</s:if>
-				<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>
+				<!-- <li><a href="#"><span class="glyphicon glyphicon-envelope"></span>
 						Contact</a>
 					<ul>
 						<li><a href="#">Contact Us</a></li>
 						<li><a href="#">Directions</a></li>
-					</ul></li>
+					</ul></li> -->
 			</ul>
 			<div class="clearfix"></div>
 		</nav>
@@ -69,12 +69,12 @@
 				<li><a href="listUpgrande"><span
 						class="glyphicon glyphicon-check"></span> DS nâng cấp</a></li>
 			</s:if>
-			<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>
+			<!-- <li><a href="#"><span class="glyphicon glyphicon-envelope"></span>
 					Contact</a>
 				<ul>
 					<li><a href="#">Contact Us</a></li>
 					<li><a href="#">Directions</a></li>
-				</ul></li>
+				</ul></li> -->
 			<s:if test="#session.LOGINED == NULL">
 				<li><a href="login.jsp"><span
 						class="glyphicon glyphicon-list-alt"></span> Đăng nhập</a></li>

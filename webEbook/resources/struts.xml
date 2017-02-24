@@ -17,7 +17,7 @@
 
 		<action name="registerAction" class="Action.Struts2.UserAction"
 			method="register">
-			<result name="success">/checkCode.jsp</result>
+			<result name="success" type="redirectAction">home</result>
 			<result name="fail">/error.jsp</result>
 		</action>
 
